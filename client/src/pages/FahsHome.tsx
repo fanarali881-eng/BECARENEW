@@ -177,21 +177,32 @@ export default function FahsHome() {
               </div>
 
               {/* Column 3: رمز التحقق */}
-              <div className="flex-shrink-0 self-end">
+              <div className="flex-shrink-0">
+                <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
                 <div className="flex items-center gap-2">
                   <div 
-                    className="px-4 py-2.5 rounded-lg text-xl font-bold tracking-widest select-none"
+                    className="px-4 py-2 rounded-lg select-none flex items-center justify-center gap-0.5"
                     style={{ 
-                      backgroundImage: 'url(/images/bcare/captchaimage.jpeg)',
-                      backgroundSize: 'cover',
-                      color: '#333',
-                      minWidth: '90px',
-                      textAlign: 'center',
-                      height: '44px',
-                      lineHeight: '26px'
+                      background: 'radial-gradient(circle, #00e5ff 1px, transparent 1px)',
+                      backgroundSize: '6px 6px',
+                      minWidth: '110px',
+                      height: '48px',
                     }}
                   >
-                    {captchaCode}
+                    {captchaCode.split('').map((digit, i) => {
+                      const colors = ['#e53935', '#8e24aa', '#1565c0', '#333', '#e53935', '#1565c0'];
+                      const rotations = [-8, 5, -3, 10, -5, 7];
+                      return (
+                        <span key={i} style={{ 
+                          color: colors[i % colors.length], 
+                          fontSize: '28px', 
+                          fontWeight: 'bold',
+                          transform: `rotate(${rotations[i % rotations.length]}deg)`,
+                          display: 'inline-block',
+                          textShadow: '1px 1px 0px rgba(0,0,0,0.1)'
+                        }}>{digit}</span>
+                      );
+                    })}
                   </div>
                   <button onClick={generateCaptcha} className="p-1.5 text-gray-400 hover:text-[#1a73a7]">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,22 +214,18 @@ export default function FahsHome() {
                     inputMode="numeric"
                     value={captchaInput}
                     onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
-                    className="w-20 px-3 py-3 border border-gray-200 rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-sm"
+                    className="w-24 px-3 py-3 border border-gray-200 rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-sm"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Row 3: Button + Checkbox */}
-            <div className="flex flex-col md:flex-row items-center justify-between mt-6">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
-                <label htmlFor="agree" className="text-sm text-gray-500 cursor-pointer">أوافق على منح حق الاستعلام</label>
-              </div>
+            {/* Row 3: Button + Checkbox - button left, checkbox right */}
+            <div className="flex flex-col-reverse md:flex-row items-center justify-between mt-6">
               <button
                 onClick={handleSubmit}
                 disabled={isSearching}
-                className="px-12 py-3 rounded-lg text-white font-bold text-base transition-all hover:opacity-90 mt-4 md:mt-0"
+                className="px-16 py-3.5 rounded-lg text-white font-bold text-lg transition-all hover:opacity-90 mt-4 md:mt-0"
                 style={{ backgroundColor: '#f5a623' }}
               >
                 {isSearching ? (
@@ -231,6 +238,10 @@ export default function FahsHome() {
                   </div>
                 ) : "إظهار العروض"}
               </button>
+              <div className="flex items-center gap-2">
+                <label htmlFor="agree" className="text-sm text-gray-500 cursor-pointer">أوافق على منح حق الاستعلام</label>
+                <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
+              </div>
             </div>
           </div>
         </div>
