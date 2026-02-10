@@ -107,7 +107,7 @@ export default function FahsHome() {
           </div>
 
           {/* Separator line */}
-          <div style={{ height: '24px', backgroundColor: '#e0e0e0' }}></div>
+          <div style={{ height: '30px', backgroundColor: '#e0e0e0' }}></div>
 
           {/* Form - Compact horizontal layout like bcare.com.sa */}
           <div className="bg-white px-4 md:px-8 lg:px-12 py-8">
