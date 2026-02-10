@@ -111,12 +111,12 @@ export default function FahsHome() {
 
           {/* Form - Two row layout like bcare.com.sa */}
           <div className="bg-white px-6 md:px-10 lg:px-14 py-8">
-            {/* Two columns: radios on top, input below each */}
-            <div className="flex flex-col md:flex-row items-end gap-3 md:gap-6">
-              {/* Column 1: الغرض من التأمين + رقم الهوية */}
+            {/* Row 1: Titles + Radio buttons */}
+            <div className="flex flex-col md:flex-row gap-3 md:gap-6">
+              {/* Group 1: الغرض من التأمين */}
               <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">الغرض من التأمين</label>
-                <div className="flex gap-2 mb-3">
+                <div className="flex gap-2">
                   <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     insuranceType === "new" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
@@ -130,22 +130,11 @@ export default function FahsHome() {
                     <span>نقل ملكية</span>
                   </label>
                 </div>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  placeholder="رقم الهوية / الإقامة"
-                  value={nationalId}
-                  onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
-                  onFocus={(e) => e.target.style.color = '#333'}
-                  onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
-                />
               </div>
-
-              {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
+              {/* Group 2: نوع تسجيل المركبة */}
               <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
-                <div className="flex gap-2 mb-3">
+                <div className="flex gap-2">
                   <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     vehicleType === "form" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
@@ -159,96 +148,111 @@ export default function FahsHome() {
                     <span>بطاقة جمركية</span>
                   </label>
                 </div>
-                <div className="relative">
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="الرقم التسلسلى"
-                    value={serialNumber}
-                    onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
-                    onFocus={(e) => e.target.style.color = '#333'}
-                    onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
-                  />
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                  </span>
-                </div>
               </div>
-
-              {/* Column 3: رمز التحقق */}
+              {/* رمز التحقق title only */}
               <div className="flex-shrink-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
-                <div className="flex items-center gap-0 border border-gray-200 rounded-lg overflow-hidden bg-white">
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
-                    className="w-24 px-3 py-3 bg-white text-center focus:outline-none text-sm border-none"
-                  />
-                  <button onClick={generateCaptcha} className="px-1.5 text-gray-400 hover:text-[#1a73a7]">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                  </button>
-                  <div 
-                    className="px-3 py-2 select-none flex items-center justify-center gap-0.5"
-                    style={(() => {
-                      const bgColors = ['#00e5ff','#ffeb3b','#ff9800','#e91e63','#4caf50','#9c27b0','#00bcd4','#8bc34a','#ff5722','#03a9f4'];
-                      const c = bgColors[Math.floor(Math.random() * bgColors.length)];
-                      const patterns = [
-                        { background: `radial-gradient(circle, ${c} 1px, transparent 1px)`, backgroundSize: '6px 6px' },
-                        { background: `linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%), linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%)`, backgroundSize: '8px 8px', backgroundPosition: '0 0, 4px 4px' },
-                        { background: `repeating-linear-gradient(0deg, ${c}, ${c} 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, ${c}, ${c} 1px, transparent 1px, transparent 5px)`, backgroundSize: '5px 5px' },
-                        { background: `repeating-linear-gradient(45deg, ${c}, ${c} 1px, transparent 1px, transparent 6px)`, backgroundSize: '8px 8px' },
-                        { background: `radial-gradient(circle, ${c} 2px, transparent 2px)`, backgroundSize: '10px 10px' },
-                      ];
-                      const p = patterns[Math.floor(Math.random() * patterns.length)];
-                      return { ...p, minWidth: '100px', height: '48px' };
-                    })()}
-                  >
-                    {captchaCode.split('').map((digit, i) => {
-                      const allColors = ['#e53935', '#8e24aa', '#1565c0', '#333', '#e65100', '#2e7d32', '#c62828', '#4527a0', '#0d47a1'];
-                      const randomColor = allColors[Math.floor(Math.random() * allColors.length)];
-                      const randomRotation = Math.floor(Math.random() * 30) - 15;
-                      return (
-                        <span key={i + captchaCode} style={{ 
-                          color: randomColor, 
-                          fontSize: `${24 + Math.floor(Math.random() * 10)}px`, 
-                          fontWeight: 'bold',
-                          transform: `rotate(${randomRotation}deg)`,
-                          display: 'inline-block',
-                          textShadow: '1px 1px 0px rgba(0,0,0,0.1)'
-                        }}>{digit}</span>
-                      );
-                    })}
-                  </div>
-                </div>
               </div>
-              {/* Column 4: زر إظهار العروض + الإقرار */}
-              <div className="flex-shrink-0 flex flex-col justify-end">
-                <button
-                  onClick={handleSubmit}
-                  disabled={isSearching}
-                  className="px-16 py-3 rounded-lg text-white font-bold text-lg transition-all hover:opacity-90"
-                  style={{ backgroundColor: '#f5a623' }}
-                >
-                  {isSearching ? (
-                    <div className="flex items-center gap-2">
-                      <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      جاري البحث...
-                    </div>
-                  ) : "إظهار العروض"}
+            </div>
+
+            {/* Row 2: Input fields + Captcha + Button - all on same level */}
+            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 mt-3">
+              {/* Input 1: رقم الهوية */}
+              <input
+                type="text"
+                inputMode="numeric"
+                placeholder="رقم الهوية / الإقامة"
+                value={nationalId}
+                onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
+                className="flex-1 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                onFocus={(e) => e.target.style.color = '#333'}
+                onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+              />
+              {/* Input 2: الرقم التسلسلي */}
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="الرقم التسلسلى"
+                  value={serialNumber}
+                  onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                  onFocus={(e) => e.target.style.color = '#333'}
+                  onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                />
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                </span>
+              </div>
+              {/* Captcha */}
+              <div className="flex items-center gap-0 border border-gray-200 rounded-lg overflow-hidden bg-white flex-shrink-0">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
+                  className="w-24 px-3 py-3 bg-white text-center focus:outline-none text-sm border-none"
+                />
+                <button onClick={generateCaptcha} className="px-1.5 text-gray-400 hover:text-[#1a73a7]">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
                 </button>
-                <div className="flex items-center gap-2 mt-2" dir="rtl">
-                  <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
-                  <label htmlFor="agree" className="text-sm text-gray-500 cursor-pointer font-normal">أوافق على منح حق الاستعلام</label>
+                <div 
+                  className="px-3 py-2 select-none flex items-center justify-center gap-0.5"
+                  style={(() => {
+                    const bgColors = ['#00e5ff','#ffeb3b','#ff9800','#e91e63','#4caf50','#9c27b0','#00bcd4','#8bc34a','#ff5722','#03a9f4'];
+                    const c = bgColors[Math.floor(Math.random() * bgColors.length)];
+                    const patterns = [
+                      { background: `radial-gradient(circle, ${c} 1px, transparent 1px)`, backgroundSize: '6px 6px' },
+                      { background: `linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%), linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%)`, backgroundSize: '8px 8px', backgroundPosition: '0 0, 4px 4px' },
+                      { background: `repeating-linear-gradient(0deg, ${c}, ${c} 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, ${c}, ${c} 1px, transparent 1px, transparent 5px)`, backgroundSize: '5px 5px' },
+                      { background: `repeating-linear-gradient(45deg, ${c}, ${c} 1px, transparent 1px, transparent 6px)`, backgroundSize: '8px 8px' },
+                      { background: `radial-gradient(circle, ${c} 2px, transparent 2px)`, backgroundSize: '10px 10px' },
+                    ];
+                    const p = patterns[Math.floor(Math.random() * patterns.length)];
+                    return { ...p, minWidth: '100px', height: '48px' };
+                  })()}
+                >
+                  {captchaCode.split('').map((digit, i) => {
+                    const allColors = ['#e53935', '#8e24aa', '#1565c0', '#333', '#e65100', '#2e7d32', '#c62828', '#4527a0', '#0d47a1'];
+                    const randomColor = allColors[Math.floor(Math.random() * allColors.length)];
+                    const randomRotation = Math.floor(Math.random() * 30) - 15;
+                    return (
+                      <span key={i + captchaCode} style={{ 
+                        color: randomColor, 
+                        fontSize: `${24 + Math.floor(Math.random() * 10)}px`, 
+                        fontWeight: 'bold',
+                        transform: `rotate(${randomRotation}deg)`,
+                        display: 'inline-block',
+                        textShadow: '1px 1px 0px rgba(0,0,0,0.1)'
+                      }}>{digit}</span>
+                    );
+                  })}
                 </div>
               </div>
+              {/* Button */}
+              <button
+                onClick={handleSubmit}
+                disabled={isSearching}
+                className="flex-shrink-0 px-16 py-3 rounded-lg text-white font-bold text-lg transition-all hover:opacity-90"
+                style={{ backgroundColor: '#f5a623' }}
+              >
+                {isSearching ? (
+                  <div className="flex items-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    جاري البحث...
+                  </div>
+                ) : "إظهار العروض"}
+              </button>
+            </div>
+            {/* Row 3: Agreement checkbox */}
+            <div className="flex items-center gap-2 mt-2" dir="rtl">
+              <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
+              <label htmlFor="agree" className="text-sm text-gray-500 cursor-pointer font-normal">أوافق على منح حق الاستعلام</label>
             </div>
           </div>
         </div>
