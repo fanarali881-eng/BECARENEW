@@ -232,7 +232,7 @@ export default function FahsHome() {
                 </div>
               </div>
               {/* Button + Agreement */}
-              <div className="flex-shrink-0 flex flex-col items-stretch">
+              <div className="flex-shrink-0 flex flex-col items-stretch self-center">
               <button
                 onClick={handleSubmit}
                 disabled={isSearching}
