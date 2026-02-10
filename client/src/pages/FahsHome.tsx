@@ -111,12 +111,12 @@ export default function FahsHome() {
 
           {/* Form - Two row layout like bcare.com.sa */}
           <div className="bg-white px-6 md:px-10 lg:px-14 py-8">
-            {/* Row 1: Titles + Radio buttons */}
-            <div className="flex flex-col md:flex-row gap-3 md:gap-6">
-              {/* Group 1: الغرض من التأمين */}
+            {/* Columns layout: radios on top, input below each */}
+            <div className="flex flex-col md:flex-row items-end gap-3 md:gap-6">
+              {/* Column 1: الغرض من التأمين + رقم الهوية */}
               <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">الغرض من التأمين</label>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mb-3">
                   <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     insuranceType === "new" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
@@ -130,11 +130,21 @@ export default function FahsHome() {
                     <span>نقل ملكية</span>
                   </label>
                 </div>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="رقم الهوية / الإقامة"
+                  value={nationalId}
+                  onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                  onFocus={(e) => e.target.style.color = '#333'}
+                  onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                />
               </div>
-              {/* Group 2: نوع تسجيل المركبة */}
+              {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
               <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mb-3">
                   <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     vehicleType === "form" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
@@ -148,42 +158,25 @@ export default function FahsHome() {
                     <span>بطاقة جمركية</span>
                   </label>
                 </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="الرقم التسلسلى"
+                    value={serialNumber}
+                    onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                    onFocus={(e) => e.target.style.color = '#333'}
+                    onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                  />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                  </span>
+                </div>
               </div>
-
-            </div>
-
-            {/* Row 2: Input fields + Captcha + Button - all on same level */}
-            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 mt-3">
-              {/* Input 1: رقم الهوية */}
-              <input
-                type="text"
-                inputMode="numeric"
-                placeholder="رقم الهوية / الإقامة"
-                value={nationalId}
-                onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
-                className="flex-1 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
-                onFocus={(e) => e.target.style.color = '#333'}
-                onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
-              />
-              {/* Input 2: الرقم التسلسلي */}
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  placeholder="الرقم التسلسلى"
-                  value={serialNumber}
-                  onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
-                  onFocus={(e) => e.target.style.color = '#333'}
-                  onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
-                />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                </span>
-              </div>
-              {/* Captcha with title */}
-              <div className="flex-shrink-0 relative">
-                <label className="absolute right-0 text-sm text-gray-600 font-bold whitespace-nowrap" style={{ top: '-20px' }}>رمز التحقق</label>
+              {/* Column 3: رمز التحقق */}
+              <div className="flex-shrink-0">
+                <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
                 <div className="flex items-center gap-0 border border-gray-200 rounded-lg overflow-hidden bg-white">
                 <input
                   type="text"
