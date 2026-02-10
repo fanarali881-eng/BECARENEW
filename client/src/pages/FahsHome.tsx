@@ -231,8 +231,7 @@ export default function FahsHome() {
                 </div>
                 </div>
               </div>
-              {/* Button + Agreement */}
-              <div className="flex-shrink-0 flex flex-col items-stretch self-center">
+              {/* Button */}
               <button
                 onClick={handleSubmit}
                 disabled={isSearching}
@@ -249,10 +248,13 @@ export default function FahsHome() {
                   </div>
                 ) : "إظهار العروض"}
               </button>
-              <div className="flex items-center gap-2 mt-2" dir="rtl">
+            </div>
+
+            {/* Row 3: Agreement checkbox - aligned to the left (under button) */}
+            <div className="flex justify-start mt-2" dir="rtl">
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
                 <label htmlFor="agree" className="text-sm text-gray-500 cursor-pointer font-normal">أوافق على منح حق الاستعلام</label>
-              </div>
               </div>
             </div>
           </div>
