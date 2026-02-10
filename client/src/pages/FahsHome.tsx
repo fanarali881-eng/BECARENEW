@@ -79,7 +79,7 @@ export default function FahsHome() {
       </section>
 
       {/* Insurance Type Tabs + Form Card */}
-      <div className="w-full -mt-28 relative z-20 px-4 md:px-16 lg:px-28">
+      <div className="w-full -mt-16 relative z-20 px-4 md:px-16 lg:px-28">
         <div className="bg-white shadow-lg overflow-hidden" style={{ borderRadius: '15px' }}>
           {/* Tabs */}
           <div className="flex justify-start bg-white px-4 md:px-8 pt-2" style={{ position: 'relative' }}>
@@ -93,7 +93,7 @@ export default function FahsHome() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`pt-6 pb-6 px-6 md:px-8 flex flex-col items-center gap-2 text-xs md:text-sm font-bold transition-colors ${
+                className={`py-6 px-6 md:px-8 flex flex-col items-center gap-2 text-xs md:text-sm font-bold transition-colors ${
                   activeTab === tab.id
                     ? "text-[#1a73a7]"
                     : "text-gray-400 hover:text-gray-600"
