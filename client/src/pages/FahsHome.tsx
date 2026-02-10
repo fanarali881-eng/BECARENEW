@@ -98,7 +98,7 @@ export default function FahsHome() {
                     ? "text-[#1a73a7]"
                     : "text-gray-400 hover:text-gray-600"
                 }`}
-                style={activeTab === tab.id ? { borderBottom: '3px solid #1a73a7', paddingBottom: '12px' } : {}}
+                style={activeTab === tab.id ? { borderBottom: '3px solid #1a73a7', paddingBottom: '20px' } : {}}
               >
                 <span className={activeTab === tab.id ? "text-[#1a73a7]" : "text-gray-400"}>{tab.icon}</span>
                 <span>{tab.label}</span>
