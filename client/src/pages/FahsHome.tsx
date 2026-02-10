@@ -67,9 +67,7 @@ export default function FahsHome() {
         {/* Background decorative SVGs - larger and more visible */}
         <img src="/images/bcare/LeftBackground.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1]" style={{ height: '140%', opacity: 0.2 }} />
         <img src="/images/bcare/RightBackground.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1]" style={{ height: '140%', opacity: 0.2 }} />
-        {/* Blue versions for the white background area below hero */}
-        <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1]" style={{ height: '140%', opacity: 0.25 }} />
-        <img src="/images/bcare/RightBackground-blue.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1]" style={{ height: '140%', opacity: 0.25 }} />
+
         
         <div className="container mx-auto px-4 lg:px-8 pt-12 pb-32 relative z-10 text-center">
           <h1 className="text-2xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-4" style={{ lineHeight: '1.4' }}>
@@ -84,7 +82,7 @@ export default function FahsHome() {
       {/* Insurance Type Tabs + Form Card */}
       <div className="w-full -mt-52 relative z-20 px-4 md:px-16 lg:px-28">
         {/* Blue decorative SVGs on left side of white card */}
-        <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="absolute left-0 top-1/3 pointer-events-none" style={{ height: '80%', opacity: 0.15, zIndex: 0 }} />
+        <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="absolute pointer-events-none" style={{ height: '120%', opacity: 0.12, zIndex: 0, left: '2%', top: '10%' }} />
         <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'visible' }}>
           {/* Tabs */}
           <div className="flex justify-start bg-white px-4 md:px-8 pt-2" style={{ position: 'relative', borderRadius: '15px 15px 0 0' }}>
