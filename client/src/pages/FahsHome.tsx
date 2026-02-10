@@ -242,9 +242,14 @@ export default function FahsHome() {
                     </div>
                   ) : "إظهار العروض"}
                 </button>
-                <div className="absolute right-0 flex items-center gap-2 mt-2 whitespace-nowrap" dir="rtl">
+                <div className="absolute right-0 flex items-center gap-2 mt-2 whitespace-nowrap group" dir="rtl">
                   <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
-                  <label htmlFor="agree" className="text-sm cursor-pointer" style={{ color: '#1a5276', fontWeight: 400 }}>أوافق على منح حق الاستعلام</label>
+                  <label htmlFor="agree" className="text-sm cursor-pointer relative" style={{ color: '#1a5276', fontWeight: 400 }}>
+                    أوافق على منح حق الاستعلام
+                    <div className="hidden group-hover:block absolute bottom-full right-0 mb-2 w-72 bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ color: '#1a5276', fontWeight: 400, whiteSpace: 'normal' }}>
+                      أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>
