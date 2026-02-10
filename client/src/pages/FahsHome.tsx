@@ -111,52 +111,63 @@ export default function FahsHome() {
 
           {/* Form - Two row layout like bcare.com.sa */}
           <div className="bg-white px-6 md:px-10 lg:px-14 py-8">
-            {/* Two columns: each has radio group on top and input field below */}
+            {/* Row 1: Radio buttons */}
             <div className="flex flex-col md:flex-row items-start gap-6 md:gap-12 mb-6">
-              {/* Column 1: الغرض من التأمين + رقم الهوية */}
-              <div className="flex-1 min-w-0">
+              {/* الغرض من التأمين */}
+              <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">الغرض من التأمين</label>
-                <div className="flex gap-2 mb-4">
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer py-1.5 text-sm font-bold transition-all border ${
+                <div className="flex gap-2">
+                  <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     insuranceType === "new" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="insuranceType" value="new" checked={insuranceType === "new"} onChange={() => setInsuranceType("new")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>تأمين جديد</span>
                   </label>
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer py-1.5 text-sm font-bold transition-all border ${
+                  <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     insuranceType === "transfer" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="insuranceType" value="transfer" checked={insuranceType === "transfer"} onChange={() => setInsuranceType("transfer")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>نقل ملكية</span>
                   </label>
                 </div>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  placeholder="رقم الهوية / الإقامة"
-                  value={nationalId}
-                  onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold placeholder:font-bold placeholder:text-gray-300"
-                />
               </div>
 
-              {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
-              <div className="flex-1 min-w-0">
+              {/* نوع تسجيل المركبة */}
+              <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
-                <div className="flex gap-2 mb-4">
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer py-1.5 text-sm font-bold transition-all border ${
+                <div className="flex gap-2">
+                  <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     vehicleType === "form" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="vehicleType" value="form" checked={vehicleType === "form"} onChange={() => setVehicleType("form")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>استمارة</span>
                   </label>
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer py-1.5 text-sm font-bold transition-all border ${
+                  <label className={`flex items-center gap-2 cursor-pointer pl-12 pr-3 py-1.5 text-sm font-bold transition-all border ${
                     vehicleType === "customs" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="vehicleType" value="customs" checked={vehicleType === "customs"} onChange={() => setVehicleType("customs")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>بطاقة جمركية</span>
                   </label>
                 </div>
+              </div>
+            </div>
+
+            {/* Row 2: Input fields - smaller width matching radio groups */}
+            <div className="flex flex-col md:flex-row items-end gap-4 mb-4">
+              {/* رقم الهوية / الإقامة */}
+              <div style={{ width: '280px' }}>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="رقم الهوية / الإقامة"
+                  value={nationalId}
+                  onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold placeholder:font-bold placeholder:text-gray-200"
+                />
+              </div>
+
+              {/* الرقم التسلسلي */}
+              <div style={{ width: '280px' }}>
                 <div className="relative">
                   <input
                     type="text"
@@ -164,17 +175,17 @@ export default function FahsHome() {
                     placeholder="الرقم التسلسلى"
                     value={serialNumber}
                     onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold placeholder:font-bold placeholder:text-gray-300"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold placeholder:font-bold placeholder:text-gray-200"
                   />
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                   </span>
                 </div>
               </div>
-            </div>
 
-            {/* Row 2: Captcha */}
-            <div className="flex items-center gap-2 mb-4">
+              {/* رمز التحقق */}
+              <div className="flex-shrink-0">
+                <div className="flex items-center gap-2">
               <div 
                 className="px-4 py-2.5 rounded-lg text-xl font-bold tracking-widest select-none"
                 style={{ 
