@@ -80,187 +80,157 @@ export default function FahsHome() {
 
       {/* Insurance Type Tabs + Form Card */}
       <div className="container mx-auto px-4 lg:px-8 -mt-28 relative z-20">
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-4xl mx-auto">
+        <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-5xl mx-auto">
           {/* Tabs */}
-          <div className="flex border-b border-gray-200 bg-gray-50">
+          <div className="flex border-b border-gray-200 bg-white">
             {[
-              { id: "vehicles", label: "مركبات", icon: "🚗" },
-              { id: "medical", label: "طبي", icon: "🏥" },
-              { id: "malpractice", label: "اخطاء طبية", icon: "⚕️" },
-              { id: "travel", label: "سفر", icon: "✈️" },
-              { id: "domestic", label: "العمالة المنزلية", icon: "🏠" },
+              { id: "vehicles", label: "مركبات", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>) },
+              { id: "medical", label: "طبي", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-8-2h4v2h-4V4zm1 10h-2v2h-2v-2H7v-2h2v-2h2v2h2v2z"/></svg>) },
+              { id: "malpractice", label: "اخطاء طبية", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 13H8v-3h2.5V7.5h3V10H16v3h-2.5v2.5h-3V13zM12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/></svg>) },
+              { id: "travel", label: "سفر", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>) },
+              { id: "domestic", label: "العمالة المنزلية", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>) },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-3 md:py-4 flex flex-col items-center gap-1 text-xs md:text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 flex flex-col items-center gap-1 text-xs md:text-sm font-bold transition-colors ${
                   activeTab === tab.id
-                    ? "text-[#1a73a7] border-b-3 border-[#1a73a7]"
-                    : "text-gray-500 hover:text-gray-700"
+                    ? "text-[#1a73a7]"
+                    : "text-gray-400 hover:text-gray-600"
                 }`}
                 style={activeTab === tab.id ? { borderBottom: '3px solid #1a73a7' } : {}}
               >
-                <span className="text-lg md:text-xl">{tab.icon}</span>
+                <span className={activeTab === tab.id ? "text-[#1a73a7]" : "text-gray-400"}>{tab.icon}</span>
                 <span>{tab.label}</span>
               </button>
             ))}
           </div>
 
-          {/* Form */}
-          <div className="p-4 md:p-6 lg:p-8">
-            {/* Row 1: Insurance Purpose */}
-            <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-6">
-              <div className="flex-1">
-                <label className="block text-sm text-gray-600 mb-2 font-medium">الغرض من التأمين</label>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="insuranceType"
-                      value="new"
-                      checked={insuranceType === "new"}
-                      onChange={() => setInsuranceType("new")}
-                      className="w-4 h-4"
-                      style={{ accentColor: '#f5a623' }}
-                    />
-                    <span className="text-sm text-gray-700">تأمين جديد</span>
+          {/* Separator line */}
+          <div className="h-1" style={{ backgroundColor: '#1a73a7' }}></div>
+
+          {/* Form - Compact horizontal layout like bcare.com.sa */}
+          <div className="bg-[#f0f2f5] px-4 md:px-6 py-4">
+            {/* Row 1: All fields in one line */}
+            <div className="flex flex-col md:flex-row items-end gap-3 mb-3">
+              {/* الغرض من التأمين */}
+              <div className="flex-shrink-0">
+                <label className="block text-xs text-gray-500 mb-1.5 text-right font-medium">الغرض من التأمين</label>
+                <div className="flex gap-1 bg-white rounded-full border border-gray-200 p-0.5">
+                  <label className={`flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    insuranceType === "new" ? "bg-[#e8f4fd] text-[#1a73a7]" : "text-gray-500"
+                  }`}>
+                    <input type="radio" name="insuranceType" value="new" checked={insuranceType === "new"} onChange={() => setInsuranceType("new")} className="w-3.5 h-3.5" style={{ accentColor: '#f5a623' }} />
+                    <span>تأمين جديد</span>
                   </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="insuranceType"
-                      value="transfer"
-                      checked={insuranceType === "transfer"}
-                      onChange={() => setInsuranceType("transfer")}
-                      className="w-4 h-4"
-                      style={{ accentColor: '#f5a623' }}
-                    />
-                    <span className="text-sm text-gray-700">نقل ملكية</span>
+                  <label className={`flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    insuranceType === "transfer" ? "bg-[#e8f4fd] text-[#1a73a7]" : "text-gray-500"
+                  }`}>
+                    <input type="radio" name="insuranceType" value="transfer" checked={insuranceType === "transfer"} onChange={() => setInsuranceType("transfer")} className="w-3.5 h-3.5" style={{ accentColor: '#f5a623' }} />
+                    <span>نقل ملكية</span>
                   </label>
                 </div>
               </div>
-            </div>
 
-            {/* Row 2: ID + Vehicle Type + Serial */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
-              <div className="flex-1">
-                <label className="block text-sm text-gray-600 mb-2 font-medium">رقم الهوية / الإقامة</label>
+              {/* نوع تسجيل المركبة */}
+              <div className="flex-shrink-0">
+                <label className="block text-xs text-gray-500 mb-1.5 text-right font-medium">نوع تسجيل المركبة</label>
+                <div className="flex gap-1 bg-white rounded-full border border-gray-200 p-0.5">
+                  <label className={`flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    vehicleType === "form" ? "bg-[#e8f4fd] text-[#1a73a7]" : "text-gray-500"
+                  }`}>
+                    <input type="radio" name="vehicleType" value="form" checked={vehicleType === "form"} onChange={() => setVehicleType("form")} className="w-3.5 h-3.5" style={{ accentColor: '#f5a623' }} />
+                    <span>استمارة</span>
+                  </label>
+                  <label className={`flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    vehicleType === "customs" ? "bg-[#e8f4fd] text-[#1a73a7]" : "text-gray-500"
+                  }`}>
+                    <input type="radio" name="vehicleType" value="customs" checked={vehicleType === "customs"} onChange={() => setVehicleType("customs")} className="w-3.5 h-3.5" style={{ accentColor: '#f5a623' }} />
+                    <span>بطاقة جمركية</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* رقم الهوية / الإقامة */}
+              <div className="flex-1 min-w-0">
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   placeholder="رقم الهوية / الإقامة"
                   value={nationalId}
-                  onChange={(e) => setNationalId(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-right focus:outline-none focus:border-[#1a73a7] text-sm"
+                  onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
+                  className="w-full px-3 py-2 border border-gray-200 rounded bg-white text-right focus:outline-none focus:border-[#1a73a7] text-sm"
                 />
               </div>
-              <div className="flex-1">
-                <label className="block text-sm text-gray-600 mb-2 font-medium">نوع تسجيل المركبة</label>
-                <div className="flex gap-4 py-3">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="vehicleType"
-                      value="form"
-                      checked={vehicleType === "form"}
-                      onChange={() => setVehicleType("form")}
-                      className="w-4 h-4"
-                      style={{ accentColor: '#f5a623' }}
-                    />
-                    <span className="text-sm text-gray-700">استمارة</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="vehicleType"
-                      value="customs"
-                      checked={vehicleType === "customs"}
-                      onChange={() => setVehicleType("customs")}
-                      className="w-4 h-4"
-                      style={{ accentColor: '#f5a623' }}
-                    />
-                    <span className="text-sm text-gray-700">بطاقة جمركية</span>
-                  </label>
-                </div>
-              </div>
-              <div className="flex-1">
-                <label className="block text-sm text-gray-600 mb-2 font-medium">الرقم التسلسلي</label>
+
+              {/* الرقم التسلسلي */}
+              <div className="flex-1 min-w-0">
                 <input
-                  type="number"
-                  placeholder="الرقم التسلسلي"
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="الرقم التسلسلى"
                   value={serialNumber}
-                  onChange={(e) => setSerialNumber(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-right focus:outline-none focus:border-[#1a73a7] text-sm"
+                  onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
+                  className="w-full px-3 py-2 border border-gray-200 rounded bg-white text-right focus:outline-none focus:border-[#1a73a7] text-sm"
                 />
               </div>
-            </div>
 
-            {/* Row 3: Captcha */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6 items-end">
-              <div className="w-full md:w-64">
-                <label className="block text-sm text-gray-600 mb-2 font-medium">رمز التحقق</label>
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="number"
-                    value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value)}
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-right focus:outline-none focus:border-[#1a73a7] text-sm"
-                  />
-                  <div className="flex items-center gap-1">
-                    <div 
-                      className="px-4 py-3 rounded-lg text-lg font-bold tracking-widest select-none"
-                      style={{ 
-                        backgroundImage: 'url(/images/bcare/captchaimage.jpeg)',
-                        backgroundSize: 'cover',
-                        color: '#333',
-                        minWidth: '80px',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {captchaCode}
-                    </div>
-                    <button 
-                      onClick={generateCaptcha}
-                      className="p-2 text-gray-500 hover:text-[#1a73a7]"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                    </button>
+              {/* رمز التحقق */}
+              <div className="flex-shrink-0">
+                <label className="block text-xs text-gray-500 mb-1.5 text-right font-medium">رمز التحقق</label>
+                <div className="flex items-center gap-1">
+                  <div 
+                    className="px-3 py-1.5 rounded text-lg font-bold tracking-widest select-none"
+                    style={{ 
+                      backgroundImage: 'url(/images/bcare/captchaimage.jpeg)',
+                      backgroundSize: 'cover',
+                      color: '#333',
+                      minWidth: '70px',
+                      textAlign: 'center',
+                      height: '36px',
+                      lineHeight: '22px'
+                    }}
+                  >
+                    {captchaCode}
                   </div>
+                  <button onClick={generateCaptcha} className="p-1 text-gray-400 hover:text-[#1a73a7]">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </button>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={captchaInput}
+                    onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
+                    className="w-16 px-2 py-2 border border-gray-200 rounded bg-white text-center focus:outline-none focus:border-[#1a73a7] text-sm"
+                  />
                 </div>
               </div>
+
+              {/* إظهار العروض */}
+              <button
+                onClick={handleSubmit}
+                disabled={isSearching}
+                className="flex-shrink-0 px-6 py-2 rounded-lg text-white font-bold text-sm transition-all hover:opacity-90"
+                style={{ backgroundColor: '#f5a623', height: '36px' }}
+              >
+                {isSearching ? (
+                  <div className="flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    جاري البحث...
+                  </div>
+                ) : "إظهار العروض"}
+              </button>
             </div>
 
-            {/* Submit Button */}
-            <button
-              onClick={handleSubmit}
-              disabled={isSearching}
-              className="w-full md:w-auto px-12 py-3 rounded-lg text-white font-bold text-base transition-all"
-              style={{ backgroundColor: accentOrange }}
-            >
-              {isSearching ? (
-                <div className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  جاري البحث...
-                </div>
-              ) : "إظهار العروض"}
-            </button>
-
-            {/* Checkbox */}
-            <div className="mt-4 flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="agree"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="w-4 h-4"
-              />
-              <label htmlFor="agree" className="text-sm text-gray-600 cursor-pointer">
-                أوافق على منح حق الاستعلام
-              </label>
+            {/* Row 2: Checkbox */}
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-3.5 h-3.5" />
+              <label htmlFor="agree" className="text-xs text-gray-500 cursor-pointer">أوافق على منح حق الاستعلام</label>
             </div>
           </div>
         </div>
