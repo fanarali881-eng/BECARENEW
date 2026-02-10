@@ -82,7 +82,7 @@ export default function FahsHome() {
       <div className="w-full -mt-20 relative z-20 px-4 md:px-16 lg:px-28">
         <div className="bg-white shadow-lg overflow-hidden" style={{ borderRadius: '15px' }}>
           {/* Tabs */}
-          <div className="flex justify-start bg-white px-4 md:px-8">
+          <div className="flex justify-start bg-white px-4 md:px-8 pt-6">
             {[
               { id: "vehicles", label: "مركبات", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>) },
               { id: "medical", label: "طبي", icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-8-2h4v2h-4V4zm1 10h-2v2h-2v-2H7v-2h2v-2h2v2h2v2z"/></svg>) },
@@ -93,7 +93,7 @@ export default function FahsHome() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-6 md:px-8 flex flex-col items-center gap-1 text-xs md:text-sm font-bold transition-colors ${
+                className={`py-6 px-6 md:px-8 flex flex-col items-center gap-2 text-xs md:text-sm font-bold transition-colors ${
                   activeTab === tab.id
                     ? "text-[#1a73a7]"
                     : "text-gray-400 hover:text-gray-600"
@@ -107,10 +107,10 @@ export default function FahsHome() {
           </div>
 
           {/* Separator line */}
-          <div style={{ height: '12px', backgroundColor: '#e0e0e0' }}></div>
+          <div style={{ height: '24px', backgroundColor: '#e0e0e0' }}></div>
 
           {/* Form - Compact horizontal layout like bcare.com.sa */}
-          <div className="bg-white px-4 md:px-8 lg:px-12 py-4">
+          <div className="bg-white px-4 md:px-8 lg:px-12 py-8">
             {/* Row 1: All fields in one line */}
             <div className="flex flex-col md:flex-row items-end gap-3 mb-3">
               {/* الغرض من التأمين */}
