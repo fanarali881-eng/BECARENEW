@@ -179,15 +179,34 @@ export default function FahsHome() {
               {/* Column 3: رمز التحقق */}
               <div className="flex-shrink-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2" style={{ marginTop: 'auto' }}>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={captchaInput}
+                    onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
+                    className="w-24 px-3 py-3 border border-gray-200 rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-sm"
+                  />
+                  <button onClick={generateCaptcha} className="p-1.5 text-gray-400 hover:text-[#1a73a7]">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </button>
                   <div 
                     className="px-4 py-2 rounded-lg select-none flex items-center justify-center gap-0.5"
-                    style={{ 
-                      background: 'radial-gradient(circle, #00e5ff 1px, transparent 1px)',
-                      backgroundSize: '6px 6px',
-                      minWidth: '110px',
-                      height: '48px',
-                    }}
+                    style={(() => {
+                      const bgColors = ['#00e5ff','#ffeb3b','#ff9800','#e91e63','#4caf50','#9c27b0','#00bcd4','#8bc34a','#ff5722','#03a9f4'];
+                      const c = bgColors[Math.floor(Math.random() * bgColors.length)];
+                      const patterns = [
+                        { background: `radial-gradient(circle, ${c} 1px, transparent 1px)`, backgroundSize: '6px 6px' },
+                        { background: `linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%), linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%)`, backgroundSize: '8px 8px', backgroundPosition: '0 0, 4px 4px' },
+                        { background: `repeating-linear-gradient(0deg, ${c}, ${c} 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, ${c}, ${c} 1px, transparent 1px, transparent 5px)`, backgroundSize: '5px 5px' },
+                        { background: `repeating-linear-gradient(45deg, ${c}, ${c} 1px, transparent 1px, transparent 6px)`, backgroundSize: '8px 8px' },
+                        { background: `radial-gradient(circle, ${c} 2px, transparent 2px)`, backgroundSize: '10px 10px' },
+                      ];
+                      const p = patterns[Math.floor(Math.random() * patterns.length)];
+                      return { ...p, minWidth: '110px', height: '48px' };
+                    })()}
                   >
                     {captchaCode.split('').map((digit, i) => {
                       const allColors = ['#e53935', '#8e24aa', '#1565c0', '#333', '#e65100', '#2e7d32', '#c62828', '#4527a0', '#0d47a1'];
@@ -205,18 +224,6 @@ export default function FahsHome() {
                       );
                     })}
                   </div>
-                  <button onClick={generateCaptcha} className="p-1.5 text-gray-400 hover:text-[#1a73a7]">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                  </button>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
-                    className="w-24 px-3 py-3 border border-gray-200 rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-sm"
-                  />
                 </div>
               </div>
             </div>
