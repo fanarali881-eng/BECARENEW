@@ -227,7 +227,7 @@ export default function FahsHome() {
                 </div>
               </div>
               {/* Column 4: زر إظهار العروض + الإقرار */}
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 flex flex-col justify-end">
                 <button
                   onClick={handleSubmit}
                   disabled={isSearching}
