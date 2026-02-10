@@ -112,7 +112,7 @@ export default function FahsHome() {
           {/* Form - Two row layout like bcare.com.sa */}
           <div className="bg-white px-6 md:px-10 lg:px-14 py-8">
             {/* Row 1: Radio buttons */}
-            <div className="flex flex-col md:flex-row-reverse items-start gap-6 md:gap-12 mb-6">
+            <div className="flex flex-col md:flex-row items-start gap-6 md:gap-12 mb-6">
               {/* الغرض من التأمين */}
               <div>
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">الغرض من التأمين</label>
