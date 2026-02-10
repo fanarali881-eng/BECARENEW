@@ -250,11 +250,11 @@ export default function FahsHome() {
               </button>
             </div>
 
-            {/* Row 3: Agreement checkbox - aligned to the left (under button) */}
-            <div className="flex justify-start mt-2" dir="rtl">
+            {/* Row 3: Agreement checkbox - under the button (left side in RTL) */}
+            <div className="flex justify-end mt-2" dir="rtl">
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
-                <label htmlFor="agree" className="text-sm cursor-pointer font-normal" style={{ color: '#1a5276' }}>أوافق على منح حق الاستعلام</label>
+                <label htmlFor="agree" className="text-sm cursor-pointer" style={{ color: '#1a5276', fontWeight: 400 }}>أوافق على منح حق الاستعلام</label>
               </div>
             </div>
           </div>
