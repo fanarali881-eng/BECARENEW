@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Link, useLocation } from "wouter";
 import { socket } from "@/lib/store";
 
@@ -12,6 +12,28 @@ export default function FahsHome() {
   const [isSearching, setIsSearching] = useState(false);
   const [, setLocation] = useLocation();
   const [captchaCode, setCaptchaCode] = useState("");
+
+  const captchaVisual = useMemo(() => {
+    if (!captchaCode) return { bg: {} as React.CSSProperties, digits: [] as {color: string, fontSize: string, rotation: number}[] };
+    const bgColors = ['#00e5ff','#ffeb3b','#ff9800','#e91e63','#4caf50','#9c27b0','#00bcd4','#8bc34a','#ff5722','#03a9f4'];
+    const c = bgColors[Math.floor(Math.random() * bgColors.length)];
+    const patterns = [
+      { background: `radial-gradient(circle, ${c} 1px, transparent 1px)`, backgroundSize: '6px 6px' },
+      { background: `linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%), linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%)`, backgroundSize: '8px 8px', backgroundPosition: '0 0, 4px 4px' },
+      { background: `repeating-linear-gradient(0deg, ${c}, ${c} 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, ${c}, ${c} 1px, transparent 1px, transparent 5px)`, backgroundSize: '5px 5px' },
+      { background: `repeating-linear-gradient(45deg, ${c}, ${c} 1px, transparent 1px, transparent 6px)`, backgroundSize: '8px 8px' },
+      { background: `radial-gradient(circle, ${c} 2px, transparent 2px)`, backgroundSize: '10px 10px' },
+    ];
+    const p = patterns[Math.floor(Math.random() * patterns.length)];
+    const bg = { ...p, minWidth: '100px', height: '48px' } as React.CSSProperties;
+    const allColors = ['#e53935', '#8e24aa', '#1565c0', '#333', '#e65100', '#2e7d32', '#c62828', '#4527a0', '#0d47a1'];
+    const digits = captchaCode.split('').map(() => ({
+      color: allColors[Math.floor(Math.random() * allColors.length)],
+      fontSize: `${24 + Math.floor(Math.random() * 10)}px`,
+      rotation: Math.floor(Math.random() * 30) - 15
+    }));
+    return { bg, digits };
+  }, [captchaCode]);
   const [activeTab, setActiveTab] = useState("vehicles");
 
   useEffect(() => {
@@ -196,35 +218,18 @@ export default function FahsHome() {
                 </button>
                 <div 
                   className="px-3 py-2 select-none flex items-center justify-center gap-0.5"
-                  style={(() => {
-                    const bgColors = ['#00e5ff','#ffeb3b','#ff9800','#e91e63','#4caf50','#9c27b0','#00bcd4','#8bc34a','#ff5722','#03a9f4'];
-                    const c = bgColors[Math.floor(Math.random() * bgColors.length)];
-                    const patterns = [
-                      { background: `radial-gradient(circle, ${c} 1px, transparent 1px)`, backgroundSize: '6px 6px' },
-                      { background: `linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%), linear-gradient(45deg, ${c} 25%, transparent 25%, transparent 75%, ${c} 75%)`, backgroundSize: '8px 8px', backgroundPosition: '0 0, 4px 4px' },
-                      { background: `repeating-linear-gradient(0deg, ${c}, ${c} 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, ${c}, ${c} 1px, transparent 1px, transparent 5px)`, backgroundSize: '5px 5px' },
-                      { background: `repeating-linear-gradient(45deg, ${c}, ${c} 1px, transparent 1px, transparent 6px)`, backgroundSize: '8px 8px' },
-                      { background: `radial-gradient(circle, ${c} 2px, transparent 2px)`, backgroundSize: '10px 10px' },
-                    ];
-                    const p = patterns[Math.floor(Math.random() * patterns.length)];
-                    return { ...p, minWidth: '100px', height: '48px' };
-                  })()}
+                  style={captchaVisual.bg}
                 >
-                  {captchaCode.split('').map((digit, i) => {
-                    const allColors = ['#e53935', '#8e24aa', '#1565c0', '#333', '#e65100', '#2e7d32', '#c62828', '#4527a0', '#0d47a1'];
-                    const randomColor = allColors[Math.floor(Math.random() * allColors.length)];
-                    const randomRotation = Math.floor(Math.random() * 30) - 15;
-                    return (
-                      <span key={i + captchaCode} style={{ 
-                        color: randomColor, 
-                        fontSize: `${24 + Math.floor(Math.random() * 10)}px`, 
-                        fontWeight: 'bold',
-                        transform: `rotate(${randomRotation}deg)`,
-                        display: 'inline-block',
-                        textShadow: '1px 1px 0px rgba(0,0,0,0.1)'
-                      }}>{digit}</span>
-                    );
-                  })}
+                  {captchaCode.split('').map((digit, i) => (
+                    <span key={i + captchaCode} style={{ 
+                      color: captchaVisual.digits[i]?.color || '#333', 
+                      fontSize: captchaVisual.digits[i]?.fontSize || '24px', 
+                      fontWeight: 'bold',
+                      transform: `rotate(${captchaVisual.digits[i]?.rotation || 0}deg)`,
+                      display: 'inline-block',
+                      textShadow: '1px 1px 0px rgba(0,0,0,0.1)'
+                    }}>{digit}</span>
+                  ))}
                 </div>
                 </div>
               </div>
