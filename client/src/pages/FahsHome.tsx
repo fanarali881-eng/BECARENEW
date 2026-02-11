@@ -16,6 +16,8 @@ export default function FahsHome() {
   const [isSearching, setIsSearching] = useState(false);
   const [, setLocation] = useLocation();
   const [captchaCode, setCaptchaCode] = useState("");
+  const [nationalIdError, setNationalIdError] = useState("");
+  const [buyerIdError, setBuyerIdError] = useState("");
 
   const captchaVisual = useMemo(() => {
     if (!captchaCode) return { bg: {} as React.CSSProperties, digits: [] as {color: string, fontSize: string, rotation: number}[] };
@@ -54,8 +56,38 @@ export default function FahsHome() {
     setCaptchaInput("");
   };
 
+  // Saudi ID / Iqama validation: starts with 1 or 2, exactly 10 digits, Luhn check
+  const validateSaudiId = (id: string): string => {
+    if (!id) return "يرجى إدخال رقم الهوية / الإقامة";
+    if (id.length !== 10) return "رقم الهوية يجب أن يكون 10 أرقام";
+    if (id[0] !== '1' && id[0] !== '2') return "رقم الهوية يجب أن يبدأ بـ 1 أو 2";
+    // Luhn algorithm check
+    let sum = 0;
+    for (let i = 0; i < 10; i++) {
+      let digit = parseInt(id[i]);
+      if (i % 2 === 0) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+    }
+    if (sum % 10 !== 0) return "رقم الهوية غير صحيح";
+    return "";
+  };
+
   const handleSubmit = () => {
-    if (!nationalId || !serialNumber || !captchaInput || !agreed) return;
+    let hasError = false;
+    if (insuranceType === "transfer") {
+      const natErr = validateSaudiId(nationalId);
+      const buyErr = validateSaudiId(buyerId);
+      if (natErr) { setNationalIdError(natErr); hasError = true; }
+      if (buyErr) { setBuyerIdError(buyErr); hasError = true; }
+    } else {
+      const natErr = validateSaudiId(nationalId);
+      if (natErr) { setNationalIdError(natErr); hasError = true; }
+    }
+    if (!serialNumber || !captchaInput || !agreed) return;
+    if (hasError) return;
     setIsSearching(true);
     setTimeout(() => {
       setIsSearching(false);
@@ -167,9 +199,9 @@ export default function FahsHome() {
                       pattern="[0-9]*"
                       placeholder="رقم هوية البائع"
                       value={nationalId}
-                      onChange={(e) => setNationalId(e.target.value.replace(/[^0-9]/g, ''))}
+                      onChange={(e) => { setNationalId(e.target.value.replace(/[^0-9]/g, '')); setNationalIdError(''); }}
                       onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
-                      className="w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
@@ -179,13 +211,19 @@ export default function FahsHome() {
                       pattern="[0-9]*"
                       placeholder="رقم هوية المشتري"
                       value={buyerId}
-                      onChange={(e) => setBuyerId(e.target.value.replace(/[^0-9]/g, ''))}
+                      onChange={(e) => { setBuyerId(e.target.value.replace(/[^0-9]/g, '')); setBuyerIdError(''); }}
                       onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
-                      className="w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${buyerIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
                   </div>
+                  {(nationalIdError || buyerIdError) && (
+                    <div className="flex flex-col sm:flex-row md:flex-row gap-1 mt-1">
+                      {nationalIdError && <p className="text-red-500 text-xs flex-1">{nationalIdError}</p>}
+                      {buyerIdError && <p className="text-red-500 text-xs flex-1">{buyerIdError}</p>}
+                    </div>
+                  )}
                 ) : (
                   <input
                     type="text"
@@ -193,12 +231,13 @@ export default function FahsHome() {
                     pattern="[0-9]*"
                     placeholder="رقم الهوية / الإقامة"
                     value={nationalId}
-                    onChange={(e) => setNationalId(e.target.value.replace(/[^0-9]/g, ''))}
+                    onChange={(e) => { setNationalId(e.target.value.replace(/[^0-9]/g, '')); setNationalIdError(''); }}
                     onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                    className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
                     onFocus={(e) => e.target.style.color = '#333'}
                     onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                   />
+                  {nationalIdError && <p className="text-red-500 text-xs mt-1">{nationalIdError}</p>}
                 )}
               </div>
               {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
