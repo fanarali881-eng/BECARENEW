@@ -367,7 +367,7 @@ export default function FahsHome() {
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-14" style={{ color: primaryBlue }}>
             ليش بي كير خيارك الأول في التأمين؟
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-16 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-28 gap-y-16 max-w-5xl mx-auto">
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <img src="/images/bcare/saudi.svg" alt="منك وفيك" className="w-12 h-12" />
