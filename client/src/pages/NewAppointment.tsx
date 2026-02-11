@@ -42,8 +42,19 @@ export default function NewAppointment() {
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: currentYear - 1969 }, (_, i) => currentYear - i);
 
+  const formatNumber = (num: string) => {
+    if (!num) return '';
+    return parseInt(num).toLocaleString('en-US');
+  };
+
   const handleValueChange = (val: string) => {
     const numericVal = val.replace(/[^0-9]/g, '');
+    // Cap at 1,000,000
+    if (numericVal && parseInt(numericVal) > 1000000) {
+      setEstimatedValue('1000000');
+      setValueError('');
+      return;
+    }
     setEstimatedValue(numericVal);
     if (numericVal && formErrors.estimatedValue) {
       const newErrors = { ...formErrors };
@@ -52,13 +63,13 @@ export default function NewAppointment() {
     }
     if (numericVal) {
       const num = parseInt(numericVal);
-      if (num < 10000 || num > 1000000) {
+      if (num < 10000) {
         setValueError("القيمة يجب أن تكون بين 10,000 و 1,000,000 ريال");
       } else {
-        setValueError("");
+        setValueError('');
       }
     } else {
-      setValueError("");
+      setValueError('');
     }
   };
 
@@ -99,7 +110,7 @@ export default function NewAppointment() {
       'نوع التأمين': insuranceType,
       'تاريخ بدء التأمين': startDate,
       'الغرض من استخدام المركبة': usagePurpose,
-      'القيمة التقديرية للمركبة': estimatedValue + ' ريال',
+      'القيمة التقديرية للمركبة': formatNumber(estimatedValue) + ' ريال',
       'سنة صنع المركبة': manufactureYear,
       'ماركة ونوع السيارة': carModel,
       'مكان اصلاح المركبة': repairPlace,
@@ -205,7 +216,7 @@ export default function NewAppointment() {
                   type="text"
                   inputMode="numeric"
                   placeholder="أدخل القيمة بين 10,000 - 1,000,000 ريال"
-                  value={estimatedValue}
+                  value={formatNumber(estimatedValue)}
                   onChange={(e) => handleValueChange(e.target.value)}
                   onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base ${formErrors.estimatedValue || valueError ? 'border-red-500' : 'border-gray-200'}`}
