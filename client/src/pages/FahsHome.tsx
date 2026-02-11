@@ -19,6 +19,7 @@ export default function FahsHome() {
   const [nationalIdError, setNationalIdError] = useState("");
   const [buyerIdError, setBuyerIdError] = useState("");
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
+  const [agreementHighlight, setAgreementHighlight] = useState(false);
 
   const captchaVisual = useMemo(() => {
     if (!captchaCode) return { bg: {} as React.CSSProperties, digits: [] as {color: string, fontSize: string, rotation: number}[] };
@@ -364,11 +365,11 @@ export default function FahsHome() {
               <div className="w-full md:w-auto md:flex-shrink-0 md:self-end relative">
                 {(() => {
                   const isFormComplete = insuranceType === "transfer"
-                    ? (nationalId.length === 10 && !nationalIdError && buyerId.length === 10 && !buyerIdError && serialNumber && captchaInput && agreed)
-                    : (nationalId.length === 10 && !nationalIdError && serialNumber && captchaInput && agreed);
+                    ? (nationalId.length === 10 && !nationalIdError && buyerId.length === 10 && !buyerIdError && serialNumber && captchaInput)
+                    : (nationalId.length === 10 && !nationalIdError && serialNumber && captchaInput);
                   return (
                 <button
-                  onClick={handleSubmit}
+                  onClick={() => { if (!agreed) { setAgreementHighlight(false); setTimeout(() => setAgreementHighlight(true), 50); setTimeout(() => setAgreementHighlight(false), 1500); return; } handleSubmit(); }}
                   disabled={isSearching || !isFormComplete}
                   className={`w-full md:w-auto px-12 rounded-lg text-white font-bold text-base transition-all ${isFormComplete && !isSearching ? 'hover:opacity-90 cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}
                   style={{ backgroundColor: '#f5a623', height: '48px' }}
@@ -386,8 +387,8 @@ export default function FahsHome() {
                   );
                 })()}
                 {/* Desktop: absolute positioned with hover tooltip (original) */}
-                <div className="hidden md:flex absolute right-0 items-center gap-2 mt-2 whitespace-nowrap group" dir="rtl">
-                  <input type="checkbox" id="agree-desktop" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
+                <div className={`hidden md:flex absolute right-0 items-center gap-2 mt-2 whitespace-nowrap group rounded-lg px-2 py-1 transition-all duration-300 ${agreementHighlight ? 'bg-red-50' : ''}`} dir="rtl">
+                  <input type="checkbox" id="agree-desktop" checked={agreed} onChange={(e) => { setAgreed(e.target.checked); setAgreementHighlight(false); }} className="w-4 h-4" />
                   <label htmlFor="agree-desktop" className="text-sm cursor-pointer relative" style={{ color: '#1a5276', fontWeight: 400 }}>
                     أوافق على منح حق الاستعلام
                     <div className="hidden group-hover:block absolute top-full right-0 mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', width: '380px' }}>
@@ -397,8 +398,8 @@ export default function FahsHome() {
                 </div>
                 {/* Mobile: normal flow with tap-to-show */}
                 <div className="md:hidden">
-                  <div className="flex items-center gap-2 mt-2" dir="rtl">
-                    <input type="checkbox" id="agree-mobile" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4 flex-shrink-0" />
+                  <div className={`flex items-center gap-2 mt-2 rounded-lg px-2 py-1 transition-all duration-300 ${agreementHighlight ? 'bg-red-50' : ''}`} dir="rtl">
+                    <input type="checkbox" id="agree-mobile" checked={agreed} onChange={(e) => { setAgreed(e.target.checked); setAgreementHighlight(false); }} className="w-4 h-4 flex-shrink-0" />
                     <label htmlFor="agree-mobile" className="text-xs sm:text-sm cursor-pointer" style={{ color: '#1a5276', fontWeight: 400 }}>
                       أوافق على منح حق الاستعلام
                     </label>
