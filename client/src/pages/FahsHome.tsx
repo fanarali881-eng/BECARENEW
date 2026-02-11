@@ -411,21 +411,20 @@ export default function FahsHome() {
       {/* Footer */}
       <footer className="text-white pt-8 md:pt-12 pb-6" style={{ backgroundColor: footerDark }}>
         <div className="container mx-auto px-4 lg:px-8">
-          {/* Top Section */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            {/* Logo + Phone */}
+          {/* Top Section - 5 columns */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+            {/* Column 1: Logo + Phone + App Stores stacked */}
             <div className="text-right">
-              <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-10 mb-4 brightness-0 invert" />
-              <p className="text-white/80 text-sm mb-3" dir="ltr">8001180044</p>
-              {/* App Stores */}
-              <div className="flex gap-2 mt-4">
-                <img src="/images/bcare/googlestore.svg" alt="Google Play" className="h-9" />
-                <img src="/images/bcare/applestore.svg" alt="App Store" className="h-9" />
-                <img src="/images/bcare/huaweistore.svg" alt="AppGallery" className="h-9" />
+              <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-10 mb-3 brightness-0 invert" />
+              <p className="text-white/80 text-sm mb-4" dir="ltr">8001180044</p>
+              <div className="flex flex-col gap-2 mt-2">
+                <img src="/images/bcare/googlestore.svg" alt="Google Play" className="h-9 w-fit" />
+                <img src="/images/bcare/applestore.svg" alt="App Store" className="h-9 w-fit" />
+                <img src="/images/bcare/huaweistore.svg" alt="AppGallery" className="h-9 w-fit" />
               </div>
             </div>
 
-            {/* عن بي كير */}
+            {/* Column 2: عن بي كير */}
             <div className="text-right">
               <h3 className="font-bold mb-4 text-base">عن بي كير</h3>
               <ul className="space-y-2 text-sm text-white/80">
@@ -436,7 +435,7 @@ export default function FahsHome() {
               </ul>
             </div>
 
-            {/* منتجاتنا */}
+            {/* Column 3: منتجاتنا */}
             <div className="text-right">
               <h3 className="font-bold mb-4 text-base">منتجاتنا</h3>
               <ul className="space-y-2 text-sm text-white/80">
@@ -448,15 +447,19 @@ export default function FahsHome() {
               </ul>
             </div>
 
-            {/* الدعم الفني + روابط مهمة */}
+            {/* Column 4: الدعم الفني */}
             <div className="text-right">
               <h3 className="font-bold mb-4 text-base">الدعم الفني</h3>
-              <ul className="space-y-2 text-sm text-white/80 mb-6">
+              <ul className="space-y-2 text-sm text-white/80">
                 <li><a href="#" className="hover:text-white hover:underline">المدونة</a></li>
                 <li><a href="#" className="hover:text-white hover:underline">إلغاء وثيقتك</a></li>
                 <li><a href="#" className="hover:text-white hover:underline">رفع تذكرة</a></li>
                 <li><a href="#" className="hover:text-white hover:underline">اطبع وثيقتك</a></li>
               </ul>
+            </div>
+
+            {/* Column 5: روابط مهمة */}
+            <div className="text-right">
               <h3 className="font-bold mb-4 text-base">روابط مهمة</h3>
               <ul className="space-y-2 text-sm text-white/80">
                 <li><a href="#" className="hover:text-white hover:underline">هيئة التأمين</a></li>
