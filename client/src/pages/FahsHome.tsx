@@ -38,10 +38,10 @@ export default function FahsHome() {
   };
 
   // Colors from bcare.com.sa
-  const primaryBlue = "#1a73a7";
+  const primaryBlue = "#146494";
   const darkBlue = "#0d4770";
   const accentOrange = "#f5a623";
-  const footerDark = "#1a3a4a";
+  const footerDark = "#146494";
   const tealAccent = "#00b4d8";
 
   return (
