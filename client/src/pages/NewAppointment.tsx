@@ -14,7 +14,10 @@ export default function NewAppointment() {
 
   // Form state
   const [insuranceType, setInsuranceType] = useState("");
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(() => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  });
   const [usagePurpose, setUsagePurpose] = useState("");
   const [estimatedValue, setEstimatedValue] = useState("");
   const [valueError, setValueError] = useState("");
