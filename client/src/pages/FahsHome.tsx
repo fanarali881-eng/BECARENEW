@@ -74,7 +74,7 @@ export default function FahsHome() {
     <div className="min-h-screen bg-white overflow-x-hidden" dir="rtl" style={{ fontFamily: "'Tajawal', sans-serif" }}>
       
       {/* Header */}
-      <header className="bg-white py-3 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+      <header className="bg-white py-3 md:py-4 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
         <div className="flex items-center gap-3">
           <Link to="/" className="cursor-pointer">
             <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-8 md:h-10" />
@@ -89,16 +89,16 @@ export default function FahsHome() {
       </header>
 
       {/* Hero Section - Blue background */}
-      <section className="relative" style={{ backgroundColor: primaryBlue, minHeight: '320px', overflow: 'visible' }}>
-        {/* Background decorative SVGs - smaller on mobile */}
+      <section className="relative" style={{ backgroundColor: primaryBlue, minHeight: window.innerWidth < 768 ? '320px' : '460px', overflow: 'visible' }}>
+        {/* Background decorative SVGs */}
         <img src="/images/bcare/LeftBackground.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1]" style={{ height: window.innerWidth < 768 ? '60%' : '140%', opacity: window.innerWidth < 768 ? 0.08 : 0.12 }} />
         <img src="/images/bcare/RightBackground.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1]" style={{ height: window.innerWidth < 768 ? '60%' : '140%', opacity: window.innerWidth < 768 ? 0.08 : 0.12 }} />
         
         <div className="container mx-auto px-4 lg:px-8 pt-8 md:pt-12 pb-32 relative z-10 text-center">
-          <h1 className="text-xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-3 md:mb-4 px-2" style={{ lineHeight: '1.5' }}>
+          <h1 className="text-xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-3 md:mb-4 px-2 md:px-0" style={{ lineHeight: window.innerWidth < 768 ? '1.5' : '1.4' }}>
             المنصة الأذكى لمقارنة عروض تأمين السيارات في السعودية
           </h1>
-          <p className="text-white/80 text-xs md:text-base max-w-4xl mx-auto font-bold px-2 leading-relaxed">
+          <p className="text-white/80 text-xs md:text-base max-w-4xl mx-auto font-bold px-2 md:px-0 leading-relaxed md:whitespace-nowrap">
             المنصة الأذكى لمقارنة عروض أكثر من 20 شركة تأمين. احصل على أرخص تأمين سيارات مع إصدار فوري وربط مباشر بنجم.
           </p>
         </div>
@@ -109,8 +109,8 @@ export default function FahsHome() {
       {/* Insurance Type Tabs + Form Card */}
       <div className="w-full -mt-44 md:-mt-52 relative z-20 px-3 md:px-16 lg:px-28">
         <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'visible' }}>
-          {/* Tabs - scrollable on mobile */}
-          <div className="flex justify-start bg-white overflow-x-auto scrollbar-hide px-2 md:px-8 pt-2" style={{ position: 'relative', borderRadius: '15px 15px 0 0', WebkitOverflowScrolling: 'touch' }}>
+          {/* Tabs */}
+          <div className="flex justify-start bg-white overflow-x-auto md:overflow-visible scrollbar-hide px-2 md:px-8 pt-2" style={{ position: 'relative', borderRadius: '15px 15px 0 0', WebkitOverflowScrolling: 'touch' }}>
             {[
               { id: "vehicles", label: "مركبات", icon: (<img src="/images/bcare/tab-car.svg" className="w-6 h-6 md:w-7 md:h-7" alt="مركبات" style={{ filter: 'inherit' }} />) },
               { id: "medical", label: "طبي", icon: (<img src="/images/bcare/tab-heart-pulse.svg" className="w-6 h-6 md:w-7 md:h-7" alt="طبي" style={{ filter: 'inherit' }} />) },
@@ -139,21 +139,20 @@ export default function FahsHome() {
           {/* Separator line */}
           <div style={{ height: '30px', backgroundColor: '#e0e0e0' }}></div>
 
-          {/* Form - Stacks vertically on mobile */}
+          {/* Form */}
           <div className="bg-white px-4 md:px-10 lg:px-14 pt-4 pb-8 md:pb-16">
-            {/* Mobile: stack vertically, Desktop: horizontal row */}
             <div className="flex flex-col md:flex-row items-stretch md:items-end gap-4 md:gap-6">
               {/* Column 1: الغرض من التأمين + رقم الهوية */}
               <div className="w-full md:flex-1 md:min-w-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">الغرض من التأمين</label>
                 <div className="flex gap-2 mb-3">
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 md:py-1.5 text-sm font-bold transition-all border ${
                     insuranceType === "new" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="insuranceType" value="new" checked={insuranceType === "new"} onChange={() => setInsuranceType("new")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>تأمين جديد</span>
                   </label>
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 md:py-1.5 text-sm font-bold transition-all border ${
                     insuranceType === "transfer" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="insuranceType" value="transfer" checked={insuranceType === "transfer"} onChange={() => setInsuranceType("transfer")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
@@ -161,14 +160,14 @@ export default function FahsHome() {
                   </label>
                 </div>
                 {insuranceType === "transfer" ? (
-                  <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex flex-col sm:flex-row md:flex-row gap-2">
                     <input
                       type="text"
                       inputMode="numeric"
                       placeholder="رقم هوية البائع"
                       value={nationalId}
                       onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
-                      className="w-full sm:flex-1 sm:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className="w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
@@ -178,7 +177,7 @@ export default function FahsHome() {
                       placeholder="رقم هوية المشتري"
                       value={buyerId}
                       onChange={(e) => setBuyerId(e.target.value.replace(/\D/g, ''))}
-                      className="w-full sm:flex-1 sm:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className="w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
@@ -200,13 +199,13 @@ export default function FahsHome() {
               <div className="w-full md:flex-1 md:min-w-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
                 <div className="flex gap-2 mb-3">
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 md:py-1.5 text-sm font-bold transition-all border ${
                     vehicleType === "form" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="vehicleType" value="form" checked={vehicleType === "form"} onChange={() => setVehicleType("form")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>استمارة</span>
                   </label>
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 md:py-1.5 text-sm font-bold transition-all border ${
                     vehicleType === "customs" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="vehicleType" value="customs" checked={vehicleType === "customs"} onChange={() => setVehicleType("customs")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
@@ -214,8 +213,8 @@ export default function FahsHome() {
                   </label>
                 </div>
                 {vehicleType === "customs" ? (
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <div className="w-full sm:flex-1 relative">
+                  <div className="flex flex-col sm:flex-row md:flex-row gap-2">
+                    <div className="w-full sm:flex-1 md:flex-1 relative">
                       <select
                         value={manufactureYear}
                         onChange={(e) => setManufactureYear(e.target.value)}
@@ -230,7 +229,7 @@ export default function FahsHome() {
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
                       </span>
                     </div>
-                    <div className="w-full sm:flex-1 relative">
+                    <div className="w-full sm:flex-1 md:flex-1 relative">
                       <input
                         type="text"
                         inputMode="numeric"
@@ -264,7 +263,7 @@ export default function FahsHome() {
                   </div>
                 )}
               </div>
-              {/* Column 3: رمز التحقق - full width on mobile */}
+              {/* Column 3: رمز التحقق */}
               <div className="w-full md:w-auto md:flex-shrink-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
                 <div className="flex items-center gap-0 border border-gray-200 rounded-lg overflow-hidden bg-white">
@@ -297,8 +296,8 @@ export default function FahsHome() {
                 </div>
                 </div>
               </div>
-              {/* Button + Agreement - full width on mobile */}
-              <div className="w-full md:w-auto md:flex-shrink-0 md:self-end">
+              {/* Button + Agreement */}
+              <div className="w-full md:w-auto md:flex-shrink-0 md:self-end relative">
                 <button
                   onClick={handleSubmit}
                   disabled={isSearching}
@@ -315,18 +314,24 @@ export default function FahsHome() {
                     </div>
                   ) : "إظهار العروض"}
                 </button>
-                <div className="flex items-center gap-2 mt-2" dir="rtl">
-                  <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4 flex-shrink-0" />
-                  <label htmlFor="agree" className="text-xs sm:text-sm cursor-pointer relative group" style={{ color: '#1a5276', fontWeight: 400 }}>
+                {/* Desktop: absolute positioned with hover tooltip (original) */}
+                <div className="hidden md:flex absolute right-0 items-center gap-2 mt-2 whitespace-nowrap group" dir="rtl">
+                  <input type="checkbox" id="agree-desktop" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
+                  <label htmlFor="agree-desktop" className="text-sm cursor-pointer relative" style={{ color: '#1a5276', fontWeight: 400 }}>
                     أوافق على منح حق الاستعلام
-                    {/* Desktop: hover tooltip */}
-                    <div className="hidden md:group-hover:block absolute top-full right-0 mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', width: '300px', maxWidth: '80vw' }}>
+                    <div className="hidden group-hover:block absolute top-full right-0 mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', width: '380px' }}>
                       أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
                     </div>
                   </label>
                 </div>
-                {/* Mobile only: show when checked */}
+                {/* Mobile: normal flow with tap-to-show */}
                 <div className="md:hidden">
+                  <div className="flex items-center gap-2 mt-2" dir="rtl">
+                    <input type="checkbox" id="agree-mobile" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4 flex-shrink-0" />
+                    <label htmlFor="agree-mobile" className="text-xs sm:text-sm cursor-pointer" style={{ color: '#1a5276', fontWeight: 400 }}>
+                      أوافق على منح حق الاستعلام
+                    </label>
+                  </div>
                   {agreed && (
                     <div className="mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', maxWidth: '100%' }}>
                       أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
@@ -339,7 +344,7 @@ export default function FahsHome() {
         </div>
       </div>
 
-      {/* Decorative SVGs on white background below the card - smaller on mobile */}
+      {/* Decorative SVGs on white background below the card */}
       <div className="relative" style={{ height: '0px', overflow: 'visible' }}>
         <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="pointer-events-none" style={{ height: window.innerWidth < 768 ? '300px' : '700px', opacity: window.innerWidth < 768 ? 0.06 : 0.12, position: 'absolute', left: '1%', top: window.innerWidth < 768 ? '-200px' : '-500px', zIndex: 1 }} />
       </div>
@@ -348,7 +353,6 @@ export default function FahsHome() {
       <section className="mt-16 md:mt-32 py-4 md:py-6 pb-6 md:pb-10 relative z-10">
         <div className="px-3 md:px-16 lg:px-28">
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 relative z-10" style={{ overflow: 'hidden' }}>
-            {/* Mobile: stack vertically, Desktop: horizontal */}
             <div className="flex flex-col md:flex-row items-center px-3 md:px-5 py-4 md:py-6 gap-4 md:gap-0" style={{ overflow: 'hidden' }}>
               {/* Authorization info */}
               <div className="flex-shrink-0 flex items-center gap-3 md:gap-4 md:pl-6">
@@ -375,6 +379,9 @@ export default function FahsHome() {
           </h2>
           
           {/* Top Row - 4 cards */}
+          <div className="grid grid-cols-2 md:grid-cols-1 md:hidden lg:hidden gap-3 mb-3 max-w-6xl mx-auto">
+            {/* Mobile: 2 cols grid */}
+          </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-3 md:mb-4 max-w-6xl mx-auto">
             <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
               <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
@@ -490,18 +497,18 @@ export default function FahsHome() {
       {/* Footer */}
       <footer className="text-white pt-8 md:pt-12 pb-6" style={{ backgroundColor: footerDark }}>
         <div className="container mx-auto px-4 lg:px-8">
-          {/* Top Section */}
-          <div className="flex flex-col gap-6 mb-8">
-            {/* Logo + Phone + Stores + Payment */}
-            <div className="flex flex-col sm:flex-row-reverse gap-6 sm:items-start sm:justify-between">
-              {/* BCare Logo + Phone + Payment - RIGHT on desktop */}
+          {/* Top Section - ORIGINAL desktop layout restored */}
+          <div className="flex flex-col md:flex-row gap-6 mb-8">
+            {/* Right side: Logo + Phone + Stores + Payment */}
+            <div className="flex flex-col md:flex-row gap-6 md:items-start">
+              {/* BCare Logo + Phone */}
               <div className="text-right flex-shrink-0">
                 <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-10 mb-3 brightness-0 invert" />
                 <p className="text-white text-lg font-bold mb-3" dir="ltr">☎ 8001180044</p>
                 {/* Payment Methods */}
                 <img src="/images/bcare/PaymentMethods1.svg" alt="طرق الدفع" className="h-8 mt-3" />
               </div>
-              {/* App Stores - CENTER on desktop, row on mobile */}
+              {/* App Stores stacked on desktop, row on mobile */}
               <div className="flex flex-row md:flex-col gap-2 flex-shrink-0">
                 <img src="/images/bcare/googlestore.svg" alt="Google Play" className="h-9 md:h-10 w-fit" />
                 <img src="/images/bcare/applestore.svg" alt="App Store" className="h-9 md:h-10 w-fit" />
@@ -509,8 +516,8 @@ export default function FahsHome() {
               </div>
             </div>
 
-            {/* 4 Text Columns - 2 cols on mobile, 4 on desktop */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {/* 4 Text Columns */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 flex-1">
               {/* عن بي كير */}
               <div className="text-right">
                 <h3 className="font-bold mb-3 md:mb-4 text-sm md:text-base">عن بي كير</h3>
@@ -559,9 +566,9 @@ export default function FahsHome() {
           </div>
 
           {/* Bottom: white line, social icons left, copyright right */}
-          <div className="border-t border-white/30 pt-4 flex flex-col-reverse md:flex-row items-center justify-between gap-3">
+          <div className="border-t border-white/30 md:border-white pt-4 flex flex-col-reverse md:flex-row items-center justify-between gap-3 md:gap-0">
             {/* Copyright - Left */}
-            <p className="text-[10px] md:text-sm text-white/80 text-center md:text-right">
+            <p className="text-[10px] md:text-sm text-white/80 text-center md:text-right mb-0 md:mb-0">
               2026 © جميع الحقوق محفوظة، شركة عناية الوسيط لوساطة التأمين
             </p>
             {/* Social Icons - Right */}
@@ -589,7 +596,7 @@ export default function FahsHome() {
         </div>
       </footer>
 
-      {/* Floating Contact Button - single capsule that opens chat */}
+      {/* Floating Contact Button */}
       <div className="fixed bottom-20 left-4 z-50" dir="ltr">
         <button onClick={() => openAmerChat()} className="group flex items-center h-12 md:h-14 rounded-full shadow-lg overflow-hidden transition-all duration-500 ease-in-out" style={{ backgroundColor: '#f5a623', width: '3rem' }}
           onMouseEnter={(e) => { if (window.innerWidth >= 768) { (e.currentTarget as HTMLElement).style.width = '10rem'; } }}
