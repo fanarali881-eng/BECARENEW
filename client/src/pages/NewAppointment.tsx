@@ -13,12 +13,12 @@ export default function NewAppointment() {
   }, []);
 
   // Form state
-  const [insuranceType, setInsuranceType] = useState("");
+  const [insuranceType, setInsuranceType] = useState("ضد الغير");
   const [startDate, setStartDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split('T')[0];
   });
-  const [usagePurpose, setUsagePurpose] = useState("");
+  const [usagePurpose, setUsagePurpose] = useState("شخصي");
   const [estimatedValue, setEstimatedValue] = useState("");
   const [valueError, setValueError] = useState("");
   const [manufactureYear, setManufactureYear] = useState("");
