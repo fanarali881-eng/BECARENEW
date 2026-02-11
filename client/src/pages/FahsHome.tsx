@@ -86,11 +86,11 @@ export default function FahsHome() {
           {/* Tabs */}
           <div className="flex justify-start bg-white px-4 md:px-8 pt-2" style={{ position: 'relative', borderRadius: '15px 15px 0 0' }}>
             {[
-              { id: "vehicles", label: "مركبات", icon: (<svg className="w-8 h-8" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="8" y="22" width="32" height="14" rx="3" /><path d="M12 22V16a2 2 0 012-2h20a2 2 0 012 2v6" /><path d="M8 30h32" /><circle cx="15" cy="36" r="3" fill="currentColor" /><circle cx="33" cy="36" r="3" fill="currentColor" /><path d="M18 36h12" /><rect x="14" y="17" width="8" height="5" rx="1" /><rect x="26" y="17" width="8" height="5" rx="1" /><path d="M20 10h8" /><circle cx="20" cy="26" r="1.5" fill="currentColor" stroke="none" /><circle cx="28" cy="26" r="1.5" fill="currentColor" stroke="none" /></svg>) },
-              { id: "medical", label: "طبي", icon: (<svg className="w-8 h-8" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 8c-5 0-9 4-9 9v2c0 2 1 3 3 3h1" /><circle cx="28" cy="30" r="10" /><path d="M28 25v10M23 30h10" /><path d="M15 22c0 3-2 5-5 7" /><circle cx="10" cy="31" r="2" fill="currentColor" /></svg>) },
-              { id: "malpractice", label: "اخطاء طبية", icon: (<svg className="w-8 h-8" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M24 4L6 14v12c0 10 8 17 18 19 10-2 18-9 18-19V14L24 4z" /><path d="M20 18c-4 0-6 2-6 6v1c0 1.5.8 2 2 2h.5" /><path d="M16.5 27c0 2-1.5 3.5-3.5 5" /><circle cx="13" cy="33" r="1.5" fill="currentColor" /><circle cx="28" cy="28" r="7" /><path d="M28 24v8M24 28h8" /></svg>) },
-              { id: "travel", label: "سفر", icon: (<svg className="w-8 h-8" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M24 4L14 18v4l10-6 10 6v-4L24 4z" /><path d="M20 16l4-3 4 3" /><path d="M14 22l-8 4v3l8-2v10l-3 2v3l7-2 7 2v-3l-3-2V27l8 2v-3l-8-4" /></svg>) },
-              { id: "domestic", label: "العمالة المنزلية", icon: (<svg className="w-8 h-8" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 24l18-16 18 16" /><path d="M10 22v16a2 2 0 002 2h24a2 2 0 002-2V22" /><rect x="18" y="28" width="12" height="12" rx="1" /><path d="M24 28v12" /><path d="M18 34h12" /></svg>) },
+              { id: "vehicles", label: "مركبات", icon: (<img src="/images/bcare/tab-car.svg" className="w-7 h-7" alt="مركبات" style={{ filter: 'inherit' }} />) },
+              { id: "medical", label: "طبي", icon: (<img src="/images/bcare/tab-stethoscope.svg" className="w-7 h-7" alt="طبي" style={{ filter: 'inherit' }} />) },
+              { id: "malpractice", label: "اخطاء طبية", icon: (<img src="/images/bcare/tab-hospital-user.svg" className="w-7 h-7" alt="اخطاء طبية" style={{ filter: 'inherit' }} />) },
+              { id: "travel", label: "سفر", icon: (<img src="/images/bcare/tab-plane.svg" className="w-7 h-7" alt="سفر" style={{ filter: 'inherit' }} />) },
+              { id: "domestic", label: "العمالة المنزلية", icon: (<img src="/images/bcare/tab-house-user.svg" className="w-7 h-7" alt="العمالة المنزلية" style={{ filter: 'inherit' }} />) },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -102,7 +102,7 @@ export default function FahsHome() {
                 }`}
                 style={activeTab === tab.id ? { borderBottom: '3px solid #1a73a7' } : {}}
               >
-                <span className={activeTab === tab.id ? "text-[#1a73a7]" : "text-gray-400"}>{tab.icon}</span>
+                <span style={{ filter: activeTab === tab.id ? 'invert(35%) sepia(50%) saturate(600%) hue-rotate(170deg) brightness(85%)' : 'invert(70%) sepia(0%) saturate(0%) brightness(85%)' }}>{tab.icon}</span>
                 <span>{tab.label}</span>
               </button>
             ))}
