@@ -72,7 +72,7 @@ export default function FahsHome() {
           <h1 className="text-2xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-4" style={{ lineHeight: '1.4' }}>
             المنصة الأذكى لمقارنة عروض تأمين السيارات في السعودية
           </h1>
-          <p className="text-white/80 text-sm md:text-base max-w-2xl mx-auto">
+          <p className="text-white/80 text-sm md:text-base max-w-4xl mx-auto font-bold whitespace-nowrap">
             المنصة الأذكى لمقارنة عروض أكثر من 20 شركة تأمين. احصل على أرخص تأمين سيارات مع إصدار فوري وربط مباشر بنجم.
           </p>
         </div>
