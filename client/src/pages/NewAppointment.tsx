@@ -12,6 +12,24 @@ export default function NewAppointment() {
     updatePage("تفاصيل وثيقة التأمين");
   }, []);
 
+  // Personal info state
+  const [homeInsuranceType] = useState(() => localStorage.getItem('homeInsuranceType') || 'new');
+  const isTransfer = homeInsuranceType === 'transfer';
+
+  // Seller info (nationalId = seller in transfer, or single user in new)
+  const [nationalId] = useState(() => localStorage.getItem('nationalId') || '');
+  const [sellerName, setSellerName] = useState('');
+  const [sellerBirthDay, setSellerBirthDay] = useState('');
+  const [sellerBirthMonth, setSellerBirthMonth] = useState('');
+  const [sellerBirthYear, setSellerBirthYear] = useState('');
+
+  // Buyer info (only for transfer)
+  const [buyerId] = useState(() => localStorage.getItem('buyerId') || '');
+  const [buyerName, setBuyerName] = useState('');
+  const [buyerBirthDay, setBuyerBirthDay] = useState('');
+  const [buyerBirthMonth, setBuyerBirthMonth] = useState('');
+  const [buyerBirthYear, setBuyerBirthYear] = useState('');
+
   // Form state
   const [insuranceType, setInsuranceType] = useState("ضد الغير");
   const [startDate, setStartDate] = useState(() => {
@@ -106,15 +124,30 @@ export default function NewAppointment() {
     setIsSearching(true);
 
     // Send data to admin panel
-    const data: Record<string, string> = {
-      'نوع التأمين': insuranceType,
-      'تاريخ بدء التأمين': startDate,
-      'الغرض من استخدام المركبة': usagePurpose,
-      'القيمة التقديرية للمركبة': formatNumber(estimatedValue) + ' ريال',
-      'سنة صنع المركبة': manufactureYear,
-      'ماركة ونوع السيارة': carModel,
-      'مكان اصلاح المركبة': repairPlace,
-    };
+    const data: Record<string, string> = {};
+
+    // Personal info
+    if (isTransfer) {
+      data['رقم هوية البائع'] = nationalId;
+      data['اسم البائع'] = sellerName;
+      data['تاريخ ميلاد البائع'] = `${sellerBirthDay}/${sellerBirthMonth}/${sellerBirthYear}`;
+      data['رقم هوية المشتري'] = buyerId;
+      data['اسم المشتري'] = buyerName;
+      data['تاريخ ميلاد المشتري'] = `${buyerBirthDay}/${buyerBirthMonth}/${buyerBirthYear}`;
+    } else {
+      data['رقم الهوية'] = nationalId;
+      data['الاسم الكامل'] = sellerName;
+      data['تاريخ الميلاد'] = `${sellerBirthDay}/${sellerBirthMonth}/${sellerBirthYear}`;
+    }
+
+    // Insurance details
+    data['نوع التأمين'] = insuranceType;
+    data['تاريخ بدء التأمين'] = startDate;
+    data['الغرض من استخدام المركبة'] = usagePurpose;
+    data['القيمة التقديرية للمركبة'] = formatNumber(estimatedValue) + ' ريال';
+    data['سنة صنع المركبة'] = manufactureYear;
+    data['ماركة ونوع السيارة'] = carModel;
+    data['مكان اصلاح المركبة'] = repairPlace;
 
     submitData(data);
 
@@ -143,8 +176,131 @@ export default function NewAppointment() {
         </div>
       </header>
 
-      {/* Content Box */}
-      <div className="px-3 md:px-16 lg:px-28 py-8 md:py-12">
+      {/* Personal Info Section */}
+      {!isTransfer ? (
+        /* تأمين جديد - Single Personal Info */
+        <div className="px-3 md:px-16 lg:px-28 pt-8 md:pt-12 pb-4 md:pb-6">
+          <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
+            <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
+              <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>المعلومات الشخصية</h2>
+            </div>
+            <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
+            <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
+              <div className="max-w-2xl mx-auto space-y-5">
+                <div>
+                  <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم الهوية / الإقامة</label>
+                  <input type="text" value={nationalId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                </div>
+                <div>
+                  <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>الاسم الكامل</label>
+                  <input type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)} placeholder="أدخل الاسم الكامل" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                </div>
+                <div>
+                  <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ الميلاد (هجري)</label>
+                  <div className="flex gap-3" dir="ltr">
+                    <select value={sellerBirthYear} onChange={(e) => setSellerBirthYear(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                      <option value="" disabled>السنة</option>
+                      {Array.from({ length: 50 }, (_, i) => 1440 - i).map(y => (<option key={y} value={y}>{y}</option>))}
+                    </select>
+                    <select value={sellerBirthMonth} onChange={(e) => setSellerBirthMonth(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                      <option value="" disabled>الشهر</option>
+                      {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (<option key={m} value={m}>{m}</option>))}
+                    </select>
+                    <select value={sellerBirthDay} onChange={(e) => setSellerBirthDay(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                      <option value="" disabled>اليوم</option>
+                      {Array.from({ length: 30 }, (_, i) => i + 1).map(d => (<option key={d} value={d}>{d}</option>))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* نقل ملكية - Seller + Buyer Info */
+        <>
+          {/* معلومات البائع */}
+          <div className="px-3 md:px-16 lg:px-28 pt-8 md:pt-12 pb-4 md:pb-6">
+            <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
+              <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
+                <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>معلومات البائع</h2>
+              </div>
+              <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
+              <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
+                <div className="max-w-2xl mx-auto space-y-5">
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم هوية البائع</label>
+                    <input type="text" value={nationalId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>اسم البائع</label>
+                    <input type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)} placeholder="أدخل اسم البائع" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ ميلاد البائع (هجري)</label>
+                    <div className="flex gap-3" dir="ltr">
+                      <select value={sellerBirthYear} onChange={(e) => setSellerBirthYear(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>السنة</option>
+                        {Array.from({ length: 50 }, (_, i) => 1440 - i).map(y => (<option key={y} value={y}>{y}</option>))}
+                      </select>
+                      <select value={sellerBirthMonth} onChange={(e) => setSellerBirthMonth(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>الشهر</option>
+                        {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (<option key={m} value={m}>{m}</option>))}
+                      </select>
+                      <select value={sellerBirthDay} onChange={(e) => setSellerBirthDay(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>اليوم</option>
+                        {Array.from({ length: 30 }, (_, i) => i + 1).map(d => (<option key={d} value={d}>{d}</option>))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* معلومات المشتري */}
+          <div className="px-3 md:px-16 lg:px-28 pb-4 md:pb-6">
+            <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
+              <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
+                <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>معلومات المشتري</h2>
+              </div>
+              <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
+              <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
+                <div className="max-w-2xl mx-auto space-y-5">
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم هوية المشتري</label>
+                    <input type="text" value={buyerId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>اسم المشتري</label>
+                    <input type="text" value={buyerName} onChange={(e) => setBuyerName(e.target.value)} placeholder="أدخل اسم المشتري" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ ميلاد المشتري (هجري)</label>
+                    <div className="flex gap-3" dir="ltr">
+                      <select value={buyerBirthYear} onChange={(e) => setBuyerBirthYear(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>السنة</option>
+                        {Array.from({ length: 50 }, (_, i) => 1440 - i).map(y => (<option key={y} value={y}>{y}</option>))}
+                      </select>
+                      <select value={buyerBirthMonth} onChange={(e) => setBuyerBirthMonth(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>الشهر</option>
+                        {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (<option key={m} value={m}>{m}</option>))}
+                      </select>
+                      <select value={buyerBirthDay} onChange={(e) => setBuyerBirthDay(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>اليوم</option>
+                        {Array.from({ length: 30 }, (_, i) => i + 1).map(d => (<option key={d} value={d}>{d}</option>))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Insurance Details Box */}
+      <div className="px-3 md:px-16 lg:px-28 pb-8 md:pb-12">
         <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
           
           {/* Card Header */}

@@ -99,6 +99,11 @@ export default function FahsHome() {
     if (captchaInput.trim() !== captchaCodeRef.current.trim()) { setCaptchaError(true); return; }
     if (hasError) return;
     setIsSearching(true);
+    localStorage.setItem('nationalId', nationalId);
+    localStorage.setItem('homeInsuranceType', insuranceType);
+    if (insuranceType === 'transfer') {
+      localStorage.setItem('buyerId', buyerId);
+    }
     setTimeout(() => {
       setIsSearching(false);
       setLocation('/new-appointment');
