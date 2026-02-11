@@ -101,7 +101,7 @@ export default function FahsHome() {
                     : "text-gray-400 hover:text-gray-600"
                 }`}
               >
-                <span style={{ filter: activeTab === tab.id ? 'invert(55%) sepia(80%) saturate(500%) hue-rotate(340deg) brightness(95%)' : 'invert(70%) sepia(0%) saturate(0%) brightness(85%)' }}>{tab.icon}</span>
+                <span style={{ filter: activeTab === tab.id ? 'invert(42%) sepia(60%) saturate(600%) hue-rotate(300deg) brightness(85%)' : 'invert(70%) sepia(0%) saturate(0%) brightness(85%)' }}>{tab.icon}</span>
                 <span>{tab.label}</span>
                 {activeTab === tab.id && (
                   <span className="absolute bottom-0" style={{ width: '60%', height: '3px', backgroundColor: '#f5a623', borderRadius: '2px' }}></span>
