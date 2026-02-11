@@ -299,7 +299,7 @@ export default function NewAppointment() {
                 className="w-full py-4 text-lg font-bold rounded-lg transition-all flex items-center justify-center gap-2"
                 style={{
                   backgroundColor: '#f5a623',
-                  color: '#1a5276',
+                  color: '#ffffff',
                   opacity: isSearching ? 0.8 : 1,
                 }}
               >
