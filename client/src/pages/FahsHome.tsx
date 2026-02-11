@@ -206,8 +206,8 @@ export default function FahsHome() {
                         onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                         maxLength={10}
                         className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
-                        onFocus={(e) => e.target.style.color = '#333'}
-                        onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                        onFocus={(e) => e.target.style.color = '#1a5276'}
+                        onBlur={(e) => { e.target.style.color = e.target.value ? '#1a5276' : '#ccc' }}
                       />
                       <input
                         type="text"
@@ -219,8 +219,8 @@ export default function FahsHome() {
                         onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                         maxLength={10}
                         className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${buyerIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
-                        onFocus={(e) => e.target.style.color = '#333'}
-                        onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                        onFocus={(e) => e.target.style.color = '#1a5276'}
+                        onBlur={(e) => { e.target.style.color = e.target.value ? '#1a5276' : '#ccc' }}
                       />
                     </div>
                     {(nationalIdError || buyerIdError) && (
@@ -242,8 +242,8 @@ export default function FahsHome() {
                       onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                       maxLength={10}
                       className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
-                      onFocus={(e) => e.target.style.color = '#333'}
-                      onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                      onFocus={(e) => e.target.style.color = '#1a5276'}
+                      onBlur={(e) => { e.target.style.color = e.target.value ? '#1a5276' : '#ccc' }}
                     />
                     {nationalIdError && <p className="text-red-500 text-sm text-center py-2 rounded-lg mt-1" style={{ backgroundColor: '#fee2e2' }}>{nationalIdError}</p>}
                   </>
@@ -302,8 +302,8 @@ export default function FahsHome() {
                         value={customsNumber}
                         onChange={(e) => setCustomsNumber(e.target.value.replace(/\D/g, ''))}
                         className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
-                        onFocus={(e) => e.target.style.color = '#333'}
-                        onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                        onFocus={(e) => e.target.style.color = '#1a5276'}
+                        onBlur={(e) => { e.target.style.color = e.target.value ? '#1a5276' : '#ccc' }}
                       />
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -319,8 +319,8 @@ export default function FahsHome() {
                       value={serialNumber}
                       onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
-                      onFocus={(e) => e.target.style.color = '#333'}
-                      onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                      onFocus={(e) => e.target.style.color = '#1a5276'}
+                      onBlur={(e) => { e.target.style.color = e.target.value ? '#1a5276' : '#ccc' }}
                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 cursor-pointer">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -337,7 +337,8 @@ export default function FahsHome() {
                   inputMode="numeric"
                   value={captchaInput}
                   onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
-                  className="flex-1 md:w-24 px-3 py-3 bg-white text-center focus:outline-none text-sm border-none"
+                  className="flex-1 md:w-24 px-3 py-3 bg-white text-center focus:outline-none text-base font-bold border-none"
+                  style={{ color: captchaInput ? '#1a5276' : '#ccc' }}
                 />
                 <button onClick={generateCaptcha} className="px-1.5 text-gray-400 hover:text-[#1a73a7] flex-shrink-0">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
