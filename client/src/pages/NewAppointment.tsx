@@ -189,7 +189,11 @@ export default function NewAppointment() {
                   <option value="" disabled>إختر</option>
                   <option value="شخصي">شخصي</option>
                   <option value="تجاري">تجاري</option>
-                  <option value="نقل">نقل</option>
+                  <option value="نقل ركاب">نقل ركاب</option>
+                  <option value="تأجير">تأجير</option>
+                  <option value="نقل بضائع">نقل بضائع</option>
+                  <option value="مركبة شحن">مركبة شحن</option>
+                  <option value="نقل مشتقات نفطية">نقل مشتقات نفطية</option>
                 </select>
                 {formErrors.usagePurpose && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.usagePurpose}</p>}
               </div>
