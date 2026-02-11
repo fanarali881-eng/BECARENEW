@@ -164,9 +164,11 @@ export default function FahsHome() {
                     <input
                       type="text"
                       inputMode="numeric"
+                      pattern="[0-9]*"
                       placeholder="رقم هوية البائع"
                       value={nationalId}
-                      onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
+                      onChange={(e) => setNationalId(e.target.value.replace(/[^0-9]/g, ''))}
+                      onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                       className="w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
@@ -174,9 +176,11 @@ export default function FahsHome() {
                     <input
                       type="text"
                       inputMode="numeric"
+                      pattern="[0-9]*"
                       placeholder="رقم هوية المشتري"
                       value={buyerId}
-                      onChange={(e) => setBuyerId(e.target.value.replace(/\D/g, ''))}
+                      onChange={(e) => setBuyerId(e.target.value.replace(/[^0-9]/g, ''))}
+                      onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                       className="w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
@@ -186,9 +190,11 @@ export default function FahsHome() {
                   <input
                     type="text"
                     inputMode="numeric"
+                    pattern="[0-9]*"
                     placeholder="رقم الهوية / الإقامة"
                     value={nationalId}
-                    onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
+                    onChange={(e) => setNationalId(e.target.value.replace(/[^0-9]/g, ''))}
+                    onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                     onFocus={(e) => e.target.style.color = '#333'}
                     onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
