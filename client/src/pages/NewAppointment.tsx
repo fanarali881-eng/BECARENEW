@@ -252,22 +252,24 @@ export default function NewAppointment() {
               <div>
                 <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>مكان اصلاح المركبة</label>
                 <div className="space-y-2">
-                  <div
+                  <label
                     onClick={() => setRepairPlace("الوكالة")}
-                    className={`flex items-center justify-start px-4 py-3 border rounded-lg cursor-pointer transition-all ${
+                    className={`flex items-center gap-3 px-4 py-3 border rounded-lg cursor-pointer transition-all ${
                       repairPlace === "الوكالة" ? "border-[#146494] bg-blue-50/30" : "border-gray-200"
                     }`}
                   >
+                    <input type="radio" name="repairPlace" checked={repairPlace === "الوكالة"} readOnly className="w-5 h-5" style={{ accentColor: '#146494' }} />
                     <span className="text-base font-bold" style={{ color: '#1a5276' }}>الوكالة</span>
-                  </div>
-                  <div
+                  </label>
+                  <label
                     onClick={() => setRepairPlace("الورشة")}
-                    className={`flex items-center justify-start px-4 py-3 border rounded-lg cursor-pointer transition-all ${
+                    className={`flex items-center gap-3 px-4 py-3 border rounded-lg cursor-pointer transition-all ${
                       repairPlace === "الورشة" ? "border-[#146494] bg-blue-50/30" : "border-gray-200"
                     }`}
                   >
+                    <input type="radio" name="repairPlace" checked={repairPlace === "الورشة"} readOnly className="w-5 h-5" style={{ accentColor: '#146494' }} />
                     <span className="text-base font-bold" style={{ color: '#1a5276' }}>الورشة</span>
-                  </div>
+                  </label>
                 </div>
                 {formErrors.repairPlace && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.repairPlace}</p>}
               </div>
