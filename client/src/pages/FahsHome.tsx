@@ -350,10 +350,15 @@ export default function FahsHome() {
               </div>
               {/* Button + Agreement */}
               <div className="w-full md:w-auto md:flex-shrink-0 md:self-end relative">
+                {(() => {
+                  const isFormComplete = insuranceType === "transfer"
+                    ? (nationalId.length === 10 && !nationalIdError && buyerId.length === 10 && !buyerIdError && serialNumber && captchaInput && agreed)
+                    : (nationalId.length === 10 && !nationalIdError && serialNumber && captchaInput && agreed);
+                  return (
                 <button
                   onClick={handleSubmit}
-                  disabled={isSearching}
-                  className="w-full md:w-auto px-12 rounded-lg text-white font-bold text-base transition-all hover:opacity-90"
+                  disabled={isSearching || !isFormComplete}
+                  className={`w-full md:w-auto px-12 rounded-lg text-white font-bold text-base transition-all ${isFormComplete && !isSearching ? 'hover:opacity-90 cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}
                   style={{ backgroundColor: '#f5a623', height: '48px' }}
                 >
                   {isSearching ? (
@@ -366,6 +371,8 @@ export default function FahsHome() {
                     </div>
                   ) : "إظهار العروض"}
                 </button>
+                  );
+                })()}
                 {/* Desktop: absolute positioned with hover tooltip (original) */}
                 <div className="hidden md:flex absolute right-0 items-center gap-2 mt-2 whitespace-nowrap group" dir="rtl">
                   <input type="checkbox" id="agree-desktop" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
