@@ -101,7 +101,7 @@ export default function NewAppointment() {
       'الغرض من استخدام المركبة': usagePurpose,
       'القيمة التقديرية للمركبة': estimatedValue + ' ريال',
       'سنة صنع المركبة': manufactureYear,
-      'ماركة وموديل السيارة': carModel,
+      'ماركة ونوع السيارة': carModel,
       'مكان اصلاح المركبة': repairPlace,
     };
 
@@ -234,9 +234,9 @@ export default function NewAppointment() {
                 {formErrors.manufactureYear && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.manufactureYear}</p>}
               </div>
 
-              {/* ماركة وموديل السيارة */}
+              {/* ماركة ونوع السيارة */}
               <div>
-                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>ماركة وموديل السيارة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>ماركة ونوع السيارة</label>
                 <input
                   type="text"
                   placeholder="مثال: تويوتا كامري"
