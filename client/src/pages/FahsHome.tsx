@@ -78,6 +78,8 @@ export default function FahsHome() {
         </div>
       </section>
 
+      {/* White/gray area below hero */}
+      <div className="bg-gray-50">
       {/* Insurance Type Tabs + Form Card */}
       <div className="w-full -mt-52 relative z-20 px-4 md:px-16 lg:px-28">
         <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'visible' }}>
@@ -263,7 +265,7 @@ export default function FahsHome() {
       </div>
 
       {/* Partners Bar */}
-      <section className="mt-10 bg-gray-50 py-6 relative z-10">
+      <section className="mt-10 py-6 pb-10 relative z-10">
         <div className="px-4 md:px-16 lg:px-28">
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 relative z-10">
             <div className="flex items-center px-5 py-6">
@@ -300,6 +302,7 @@ export default function FahsHome() {
           </div>
         </div>
       </section>
+      </div>{/* end bg-gray-50 wrapper */}
 
       {/* Features Section - طريقك آمن مع بي كير */}
       <section className="py-10 md:py-16 bg-gray-50">
