@@ -176,58 +176,57 @@ export default function NewAppointment() {
         </div>
       </header>
 
-      {/* Personal Info Section */}
-      {!isTransfer ? (
-        /* تأمين جديد - Single Personal Info */
-        <div className="px-3 md:px-16 lg:px-28 pt-8 md:pt-12 pb-4 md:pb-6">
-          <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-            <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
-              <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>المعلومات الشخصية</h2>
-            </div>
-            <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
-            <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
-              <div className="max-w-2xl mx-auto space-y-5">
-                <div>
-                  <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم الهوية / الإقامة</label>
-                  <input type="text" value={nationalId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
-                </div>
-                <div>
-                  <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>الاسم الكامل</label>
-                  <input type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)} placeholder="أدخل الاسم الكامل" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
-                </div>
-                <div>
-                  <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ الميلاد (هجري)</label>
-                  <div className="flex gap-3" dir="ltr">
-                    <select value={sellerBirthYear} onChange={(e) => setSellerBirthYear(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
-                      <option value="" disabled>السنة</option>
-                      {Array.from({ length: 50 }, (_, i) => 1440 - i).map(y => (<option key={y} value={y}>{y}</option>))}
-                    </select>
-                    <select value={sellerBirthMonth} onChange={(e) => setSellerBirthMonth(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
-                      <option value="" disabled>الشهر</option>
-                      {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (<option key={m} value={m}>{m}</option>))}
-                    </select>
-                    <select value={sellerBirthDay} onChange={(e) => setSellerBirthDay(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
-                      <option value="" disabled>اليوم</option>
-                      {Array.from({ length: 30 }, (_, i) => i + 1).map(d => (<option key={d} value={d}>{d}</option>))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Single Card - تفاصيل وثيقة التأمين */}
+      <div className="px-3 md:px-16 lg:px-28 pt-8 md:pt-12 pb-8 md:pb-12">
+        <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
+          
+          {/* Card Header */}
+          <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>تفاصيل وثيقة التأمين</h2>
           </div>
-        </div>
-      ) : (
-        /* نقل ملكية - Seller + Buyer Info */
-        <>
-          {/* معلومات البائع */}
-          <div className="px-3 md:px-16 lg:px-28 pt-8 md:pt-12 pb-4 md:pb-6">
-            <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-              <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
-                <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>معلومات البائع</h2>
-              </div>
-              <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
-              <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
-                <div className="max-w-2xl mx-auto space-y-5">
+
+          {/* Separator */}
+          <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
+
+          {/* Form */}
+          <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
+            <div className="max-w-2xl mx-auto space-y-5">
+
+              {/* Personal Info Fields */}
+              {!isTransfer ? (
+                /* تأمين جديد - Single Personal Info */
+                <>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم الهوية / الإقامة</label>
+                    <input type="text" value={nationalId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>الاسم الكامل</label>
+                    <input type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)} placeholder="أدخل الاسم الكامل" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ الميلاد (هجري)</label>
+                    <div className="flex gap-3" dir="ltr">
+                      <select value={sellerBirthYear} onChange={(e) => setSellerBirthYear(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>السنة</option>
+                        {Array.from({ length: 50 }, (_, i) => 1440 - i).map(y => (<option key={y} value={y}>{y}</option>))}
+                      </select>
+                      <select value={sellerBirthMonth} onChange={(e) => setSellerBirthMonth(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>الشهر</option>
+                        {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (<option key={m} value={m}>{m}</option>))}
+                      </select>
+                      <select value={sellerBirthDay} onChange={(e) => setSellerBirthDay(e.target.value)} className="flex-1 px-3 py-3 border rounded-lg bg-white text-center focus:outline-none focus:border-[#1a73a7] text-base appearance-none border-gray-200" style={{ color: '#1a5276' }}>
+                        <option value="" disabled>اليوم</option>
+                        {Array.from({ length: 30 }, (_, i) => i + 1).map(d => (<option key={d} value={d}>{d}</option>))}
+                      </select>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                /* نقل ملكية - Seller + Buyer Info */
+                <>
+                  {/* معلومات البائع */}
+                  <h3 className="text-lg font-bold text-right" style={{ color: '#1a5276' }}>معلومات البائع</h3>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم هوية البائع</label>
                     <input type="text" value={nationalId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
@@ -253,20 +252,12 @@ export default function NewAppointment() {
                       </select>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* معلومات المشتري */}
-          <div className="px-3 md:px-16 lg:px-28 pb-4 md:pb-6">
-            <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-              <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
-                <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>معلومات المشتري</h2>
-              </div>
-              <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
-              <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
-                <div className="max-w-2xl mx-auto space-y-5">
+                  {/* Separator between seller and buyer */}
+                  <div style={{ height: '2px', backgroundColor: '#e0e0e0', margin: '10px 0' }}></div>
+
+                  {/* معلومات المشتري */}
+                  <h3 className="text-lg font-bold text-right" style={{ color: '#1a5276' }}>معلومات المشتري</h3>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>رقم هوية المشتري</label>
                     <input type="text" value={buyerId} readOnly className="w-full px-4 py-3 border rounded-lg bg-gray-50 text-right focus:outline-none text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
@@ -292,28 +283,11 @@ export default function NewAppointment() {
                       </select>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+                </>
+              )}
 
-      {/* Insurance Details Box */}
-      <div className="px-3 md:px-16 lg:px-28 pb-8 md:pb-12">
-        <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-          
-          {/* Card Header */}
-          <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
-            <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>تفاصيل وثيقة التأمين</h2>
-          </div>
-
-          {/* Separator */}
-          <div style={{ height: '3px', backgroundColor: '#e0e0e0' }}></div>
-
-          {/* Form */}
-          <div className="px-6 md:px-10 lg:px-14 pt-6 pb-8 md:pb-10">
-            <div className="max-w-2xl mx-auto space-y-5">
+              {/* Separator between personal info and insurance details */}
+              <div style={{ height: '2px', backgroundColor: '#e0e0e0', margin: '10px 0' }}></div>
 
               {/* نوع التأمين */}
               <div>
