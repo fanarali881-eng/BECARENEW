@@ -263,35 +263,39 @@ export default function FahsHome() {
       </div>
 
       {/* Partners Bar */}
-      <section className="mt-8 bg-gray-50 py-6">
-        <div className="mx-4 md:mx-8 bg-white rounded-lg shadow-sm border border-gray-100">
-          <div className="flex items-center px-5 py-4">
-            {/* Right side: Authorization info */}
-            <div className="flex-shrink-0 flex items-center gap-4 pl-6 border-l border-gray-200">
-              <span className="text-sm text-gray-600 font-bold whitespace-nowrap">مصرح من:</span>
-              <img src="/images/bcare/SaudiCentralImage.svg" alt="هيئة التأمين" className="h-12 md:h-14" />
-              <div className="h-12 w-px bg-gray-300"></div>
-              <img src="/images/bcare/23arbic.svg" alt="23 شركة تأمين" className="h-8 md:h-10" />
-            </div>
-            {/* Left side: Scrollable company logos */}
-            <div className="flex items-center flex-1 min-w-0">
-              <div className="flex items-center gap-6 md:gap-10 overflow-x-auto flex-1 py-2" style={{ scrollbarWidth: 'none' }}>
-                <img src="/images/bcare/Tawuniya.svg" alt="التعاونية" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/AlRajhi.svg" alt="الراجحي" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/MedGulf.svg" alt="ميدغلف" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/GGI.svg" alt="GIG" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/Allianz.svg" alt="أليانز" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/ACIG.svg" alt="ACIG" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/Amana.svg" alt="أمانة" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/ArabianShield.svg" alt="الدرع العربي" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/AXA.svg" alt="أكسا" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/UCA.svg" alt="UCA" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/Aljazira-Takaful.svg" alt="الجزيرة تكافل" className="h-8 md:h-10 flex-shrink-0" />
-                <img src="/images/bcare/Benfit.svg" alt="بنفت" className="h-8 md:h-10 flex-shrink-0" />
+      <section className="mt-10 bg-gray-50 py-6">
+        <div className="px-4 md:px-16 lg:px-28">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100">
+            <div className="flex items-center px-5 py-6">
+              {/* Right side: Authorization info */}
+              <div className="flex-shrink-0 flex items-center gap-4 pl-6 border-l border-gray-200">
+                <div className="flex flex-col items-center gap-1">
+                  <span className="text-xs text-gray-500 font-bold">مصرح من:</span>
+                  <img src="/images/bcare/SaudiCentralImage.svg" alt="هيئة التأمين" className="h-12 md:h-14" />
+                </div>
+                <div className="h-12 w-px bg-gray-300"></div>
+                <img src="/images/bcare/23arbic.svg" alt="23 شركة تأمين" className="h-8 md:h-10" />
               </div>
-              <button className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-50 shadow flex items-center justify-center text-[#146494] hover:bg-gray-100 mr-3">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-              </button>
+              {/* Left side: Scrollable company logos */}
+              <div className="flex items-center flex-1 min-w-0">
+                <div className="flex items-center gap-6 md:gap-10 overflow-x-auto flex-1 py-2" style={{ scrollbarWidth: 'none' }}>
+                  <img src="/images/bcare/Tawuniya.svg" alt="التعاونية" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/AlRajhi.svg" alt="الراجحي" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/MedGulf.svg" alt="ميدغلف" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/GGI.svg" alt="GIG" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/Allianz.svg" alt="أليانز" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/ACIG.svg" alt="ACIG" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/Amana.svg" alt="أمانة" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/ArabianShield.svg" alt="الدرع العربي" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/AXA.svg" alt="أكسا" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/UCA.svg" alt="UCA" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/Aljazira-Takaful.svg" alt="الجزيرة تكافل" className="h-8 md:h-10 flex-shrink-0" />
+                  <img src="/images/bcare/Benfit.svg" alt="بنفت" className="h-8 md:h-10 flex-shrink-0" />
+                </div>
+                <button className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-50 shadow flex items-center justify-center text-[#146494] hover:bg-gray-100 mr-3">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
