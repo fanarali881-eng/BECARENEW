@@ -249,7 +249,8 @@ export default function FahsHome() {
                     />
                     {nationalIdError && <p className="text-red-500 text-sm text-center py-2 rounded-lg mt-1" style={{ backgroundColor: '#fee2e2' }}>{nationalIdError}</p>}
                   </>
-                              </div>
+                )}
+              </div>
                 {/* Column 4:: نوع تسجيل المركبة + الرقم التسلسلي */}
               <div className="w-full md:flex-1 md:min-w-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
