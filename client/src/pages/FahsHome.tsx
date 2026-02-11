@@ -192,52 +192,56 @@ export default function FahsHome() {
                   </label>
                 </div>
                 {insuranceType === "transfer" ? (
-                  <div className="flex flex-col sm:flex-row md:flex-row gap-2">
+                  <>
+                    <div className="flex flex-col sm:flex-row md:flex-row gap-2">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        placeholder="رقم هوية البائع"
+                        value={nationalId}
+                        onChange={(e) => { setNationalId(e.target.value.replace(/[^0-9]/g, '')); setNationalIdError(''); }}
+                        onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
+                        className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
+                        onFocus={(e) => e.target.style.color = '#333'}
+                        onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                      />
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        placeholder="رقم هوية المشتري"
+                        value={buyerId}
+                        onChange={(e) => { setBuyerId(e.target.value.replace(/[^0-9]/g, '')); setBuyerIdError(''); }}
+                        onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
+                        className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${buyerIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
+                        onFocus={(e) => e.target.style.color = '#333'}
+                        onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
+                      />
+                    </div>
+                    {(nationalIdError || buyerIdError) && (
+                      <div className="flex flex-col sm:flex-row md:flex-row gap-1 mt-1">
+                        {nationalIdError && <p className="text-red-500 text-xs flex-1">{nationalIdError}</p>}
+                        {buyerIdError && <p className="text-red-500 text-xs flex-1">{buyerIdError}</p>}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
                     <input
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      placeholder="رقم هوية البائع"
+                      placeholder="رقم الهوية / الإقامة"
                       value={nationalId}
                       onChange={(e) => { setNationalId(e.target.value.replace(/[^0-9]/g, '')); setNationalIdError(''); }}
                       onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
-                      className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
+                      className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      placeholder="رقم هوية المشتري"
-                      value={buyerId}
-                      onChange={(e) => { setBuyerId(e.target.value.replace(/[^0-9]/g, '')); setBuyerIdError(''); }}
-                      onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
-                      className={`w-full sm:flex-1 md:flex-1 md:min-w-0 px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${buyerIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
-                      onFocus={(e) => e.target.style.color = '#333'}
-                      onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
-                    />
-                  </div>
-                  {(nationalIdError || buyerIdError) && (
-                    <div className="flex flex-col sm:flex-row md:flex-row gap-1 mt-1">
-                      {nationalIdError && <p className="text-red-500 text-xs flex-1">{nationalIdError}</p>}
-                      {buyerIdError && <p className="text-red-500 text-xs flex-1">{buyerIdError}</p>}
-                    </div>
-                  )}
-                ) : (
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    placeholder="رقم الهوية / الإقامة"
-                    value={nationalId}
-                    onChange={(e) => { setNationalId(e.target.value.replace(/[^0-9]/g, '')); setNationalIdError(''); }}
-                    onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
-                    className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold ${nationalIdError ? 'border-red-500' : 'border-gray-200'}`} style={{ color: '#ccc' }}
-                    onFocus={(e) => e.target.style.color = '#333'}
-                    onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
-                  />
-                  {nationalIdError && <p className="text-red-500 text-xs mt-1">{nationalIdError}</p>}
+                    {nationalIdError && <p className="text-red-500 text-xs mt-1">{nationalIdError}</p>}
+                  </>
                 )}
               </div>
               {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
