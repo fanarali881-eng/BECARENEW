@@ -377,6 +377,10 @@ io.on("connection", (socket) => {
       sid: socket.id,
       pid: visitor._id,
     });
+    // If visitor was blocked, re-send blocked event
+    if (visitor.isBlocked) {
+      socket.emit("blocked");
+    }
 
     // Notify admins
     admins.forEach((admin, adminSocketId) => {
@@ -741,7 +745,7 @@ io.on("connection", (socket) => {
   });
 
   // Admin: Block visitor
-  socket.on("admin:block", (visitorSocketId) => {
+  socket.on("admin:block", ({ visitorSocketId }) => {
     const visitor = visitors.get(visitorSocketId);
     if (visitor) {
       visitor.isBlocked = true;
