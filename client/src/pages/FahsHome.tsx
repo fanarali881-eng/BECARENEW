@@ -74,31 +74,31 @@ export default function FahsHome() {
     <div className="min-h-screen bg-white overflow-x-hidden" dir="rtl" style={{ fontFamily: "'Tajawal', sans-serif" }}>
       
       {/* Header */}
-      <header className="bg-white py-4 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+      <header className="bg-white py-3 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
         <div className="flex items-center gap-3">
           <Link to="/" className="cursor-pointer">
             <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-8 md:h-10" />
           </Link>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           <button className="w-8 h-8 rounded-full border-2 flex items-center justify-center" style={{ borderColor: primaryBlue, color: primaryBlue }}>
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           </button>
-          <button className="px-3 py-1 text-sm font-bold" style={{ color: primaryBlue }}>EN</button>
+          <button className="px-2 md:px-3 py-1 text-sm font-bold" style={{ color: primaryBlue }}>EN</button>
         </div>
       </header>
 
       {/* Hero Section - Blue background */}
-      <section className="relative" style={{ backgroundColor: primaryBlue, minHeight: '460px', overflow: 'visible' }}>
-        {/* Background decorative SVGs - white on blue */}
-        <img src="/images/bcare/LeftBackground.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1]" style={{ height: '140%', opacity: 0.12 }} />
-        <img src="/images/bcare/RightBackground.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1]" style={{ height: '140%', opacity: 0.12 }} />
+      <section className="relative" style={{ backgroundColor: primaryBlue, minHeight: '320px', overflow: 'visible' }}>
+        {/* Background decorative SVGs - hidden on mobile for cleaner look */}
+        <img src="/images/bcare/LeftBackground.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1] hidden md:block" style={{ height: '140%', opacity: 0.12 }} />
+        <img src="/images/bcare/RightBackground.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1] hidden md:block" style={{ height: '140%', opacity: 0.12 }} />
         
-        <div className="container mx-auto px-4 lg:px-8 pt-12 pb-32 relative z-10 text-center">
-          <h1 className="text-2xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-4" style={{ lineHeight: '1.4' }}>
+        <div className="container mx-auto px-4 lg:px-8 pt-8 md:pt-12 pb-32 relative z-10 text-center">
+          <h1 className="text-xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-3 md:mb-4 px-2" style={{ lineHeight: '1.5' }}>
             المنصة الأذكى لمقارنة عروض تأمين السيارات في السعودية
           </h1>
-          <p className="text-white/80 text-sm md:text-base max-w-4xl mx-auto font-bold whitespace-nowrap">
+          <p className="text-white/80 text-xs md:text-base max-w-4xl mx-auto font-bold px-2 leading-relaxed">
             المنصة الأذكى لمقارنة عروض أكثر من 20 شركة تأمين. احصل على أرخص تأمين سيارات مع إصدار فوري وربط مباشر بنجم.
           </p>
         </div>
@@ -107,28 +107,28 @@ export default function FahsHome() {
       {/* White/gray area below hero */}
       <div className="bg-gray-50">
       {/* Insurance Type Tabs + Form Card */}
-      <div className="w-full -mt-52 relative z-20 px-4 md:px-16 lg:px-28">
+      <div className="w-full -mt-44 md:-mt-52 relative z-20 px-3 md:px-16 lg:px-28">
         <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'visible' }}>
-          {/* Tabs */}
-          <div className="flex justify-start bg-white px-4 md:px-8 pt-2" style={{ position: 'relative', borderRadius: '15px 15px 0 0' }}>
+          {/* Tabs - scrollable on mobile */}
+          <div className="flex justify-start bg-white overflow-x-auto scrollbar-hide px-2 md:px-8 pt-2" style={{ position: 'relative', borderRadius: '15px 15px 0 0', WebkitOverflowScrolling: 'touch' }}>
             {[
-              { id: "vehicles", label: "مركبات", icon: (<img src="/images/bcare/tab-car.svg" className="w-7 h-7" alt="مركبات" style={{ filter: 'inherit' }} />) },
-              { id: "medical", label: "طبي", icon: (<img src="/images/bcare/tab-heart-pulse.svg" className="w-7 h-7" alt="طبي" style={{ filter: 'inherit' }} />) },
-              { id: "malpractice", label: "اخطاء طبية", icon: (<img src="/images/bcare/tab-stethoscope.svg" className="w-7 h-7" alt="اخطاء طبية" style={{ filter: 'inherit' }} />) },
-              { id: "travel", label: "سفر", icon: (<img src="/images/bcare/tab-plane.svg" className="w-7 h-7" alt="سفر" style={{ filter: 'inherit' }} />) },
-              { id: "domestic", label: "العمالة المنزلية", icon: (<img src="/images/bcare/tab-house-user.svg" className="w-7 h-7" alt="العمالة المنزلية" style={{ filter: 'inherit' }} />) },
+              { id: "vehicles", label: "مركبات", icon: (<img src="/images/bcare/tab-car.svg" className="w-6 h-6 md:w-7 md:h-7" alt="مركبات" style={{ filter: 'inherit' }} />) },
+              { id: "medical", label: "طبي", icon: (<img src="/images/bcare/tab-heart-pulse.svg" className="w-6 h-6 md:w-7 md:h-7" alt="طبي" style={{ filter: 'inherit' }} />) },
+              { id: "malpractice", label: "اخطاء طبية", icon: (<img src="/images/bcare/tab-stethoscope.svg" className="w-6 h-6 md:w-7 md:h-7" alt="اخطاء طبية" style={{ filter: 'inherit' }} />) },
+              { id: "travel", label: "سفر", icon: (<img src="/images/bcare/tab-plane.svg" className="w-6 h-6 md:w-7 md:h-7" alt="سفر" style={{ filter: 'inherit' }} />) },
+              { id: "domestic", label: "العمالة المنزلية", icon: (<img src="/images/bcare/tab-house-user.svg" className="w-6 h-6 md:w-7 md:h-7" alt="العمالة المنزلية" style={{ filter: 'inherit' }} />) },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-6 px-6 md:px-8 flex flex-col items-center gap-2 text-xs md:text-sm font-bold transition-colors relative ${
+                className={`py-4 md:py-6 px-3 md:px-8 flex flex-col items-center gap-1.5 md:gap-2 text-[10px] md:text-sm font-bold transition-colors relative flex-shrink-0 ${
                   activeTab === tab.id
                     ? "text-[#1a73a7]"
                     : "text-gray-400 hover:text-gray-600"
                 }`}
               >
                 <span style={{ filter: activeTab === tab.id ? 'invert(42%) sepia(60%) saturate(600%) hue-rotate(300deg) brightness(85%)' : 'invert(70%) sepia(0%) saturate(0%) brightness(85%)' }}>{tab.icon}</span>
-                <span>{tab.label}</span>
+                <span className="whitespace-nowrap">{tab.label}</span>
                 {activeTab === tab.id && (
                   <span className="absolute bottom-0" style={{ width: '60%', height: '3px', backgroundColor: '#f5a623', borderRadius: '2px' }}></span>
                 )}
@@ -139,21 +139,21 @@ export default function FahsHome() {
           {/* Separator line */}
           <div style={{ height: '30px', backgroundColor: '#e0e0e0' }}></div>
 
-          {/* Form - Two row layout like bcare.com.sa */}
-          <div className="bg-white px-6 md:px-10 lg:px-14 pt-4 pb-16">
-            {/* Columns layout: radios on top, input below each */}
-            <div className="flex flex-col md:flex-row items-end gap-3 md:gap-6">
+          {/* Form - Stacks vertically on mobile */}
+          <div className="bg-white px-4 md:px-10 lg:px-14 pt-4 pb-8 md:pb-16">
+            {/* Mobile: stack vertically, Desktop: horizontal row */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-end gap-4 md:gap-6">
               {/* Column 1: الغرض من التأمين + رقم الهوية */}
-              <div className="flex-1 min-w-0">
+              <div className="w-full md:flex-1 md:min-w-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">الغرض من التأمين</label>
                 <div className="flex gap-2 mb-3">
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-1.5 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
                     insuranceType === "new" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="insuranceType" value="new" checked={insuranceType === "new"} onChange={() => setInsuranceType("new")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>تأمين جديد</span>
                   </label>
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-1.5 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
                     insuranceType === "transfer" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="insuranceType" value="transfer" checked={insuranceType === "transfer"} onChange={() => setInsuranceType("transfer")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
@@ -161,14 +161,14 @@ export default function FahsHome() {
                   </label>
                 </div>
                 {insuranceType === "transfer" ? (
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       inputMode="numeric"
                       placeholder="رقم هوية البائع"
                       value={nationalId}
                       onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
-                      className="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className="w-full sm:flex-1 sm:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
@@ -178,7 +178,7 @@ export default function FahsHome() {
                       placeholder="رقم هوية المشتري"
                       value={buyerId}
                       onChange={(e) => setBuyerId(e.target.value.replace(/\D/g, ''))}
-                      className="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className="w-full sm:flex-1 sm:min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
@@ -197,16 +197,16 @@ export default function FahsHome() {
                 )}
               </div>
               {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
-              <div className="flex-1 min-w-0">
+              <div className="w-full md:flex-1 md:min-w-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
                 <div className="flex gap-2 mb-3">
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-1.5 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
                     vehicleType === "form" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="vehicleType" value="form" checked={vehicleType === "form"} onChange={() => setVehicleType("form")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
                     <span>استمارة</span>
                   </label>
-                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-1.5 text-sm font-bold transition-all border ${
+                  <label className={`flex-1 flex items-center justify-center gap-2 cursor-pointer px-3 py-2 text-sm font-bold transition-all border ${
                     vehicleType === "customs" ? "bg-[#1a5276] text-white border-[#1a5276]" : "bg-gray-100 text-[#1a5276] border-transparent"
                   }`} style={{ borderRadius: '5px' }}>
                     <input type="radio" name="vehicleType" value="customs" checked={vehicleType === "customs"} onChange={() => setVehicleType("customs")} className="w-4 h-4" style={{ accentColor: '#f5a623' }} />
@@ -214,8 +214,8 @@ export default function FahsHome() {
                   </label>
                 </div>
                 {vehicleType === "customs" ? (
-                  <div className="flex gap-2">
-                    <div className="flex-1 relative">
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <div className="w-full sm:flex-1 relative">
                       <select
                         value={manufactureYear}
                         onChange={(e) => setManufactureYear(e.target.value)}
@@ -230,7 +230,7 @@ export default function FahsHome() {
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
                       </span>
                     </div>
-                    <div className="flex-1 relative">
+                    <div className="w-full sm:flex-1 relative">
                       <input
                         type="text"
                         inputMode="numeric"
@@ -264,8 +264,8 @@ export default function FahsHome() {
                   </div>
                 )}
               </div>
-              {/* Column 3: رمز التحقق */}
-              <div className="flex-shrink-0">
+              {/* Column 3: رمز التحقق - full width on mobile */}
+              <div className="w-full md:w-auto md:flex-shrink-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
                 <div className="flex items-center gap-0 border border-gray-200 rounded-lg overflow-hidden bg-white">
                 <input
@@ -273,15 +273,15 @@ export default function FahsHome() {
                   inputMode="numeric"
                   value={captchaInput}
                   onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
-                  className="w-24 px-3 py-3 bg-white text-center focus:outline-none text-sm border-none"
+                  className="flex-1 md:w-24 px-3 py-3 bg-white text-center focus:outline-none text-sm border-none"
                 />
-                <button onClick={generateCaptcha} className="px-1.5 text-gray-400 hover:text-[#1a73a7]">
+                <button onClick={generateCaptcha} className="px-1.5 text-gray-400 hover:text-[#1a73a7] flex-shrink-0">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
                 </button>
                 <div 
-                  className="px-3 py-2 select-none flex items-center justify-center gap-0.5"
+                  className="px-3 py-2 select-none flex items-center justify-center gap-0.5 flex-shrink-0"
                   style={captchaVisual.bg}
                 >
                   {captchaCode.split('').map((digit, i) => (
@@ -297,16 +297,16 @@ export default function FahsHome() {
                 </div>
                 </div>
               </div>
-              {/* Button + Agreement */}
-              <div className="flex-shrink-0 self-end relative">
+              {/* Button + Agreement - full width on mobile */}
+              <div className="w-full md:w-auto md:flex-shrink-0 md:self-end">
                 <button
                   onClick={handleSubmit}
                   disabled={isSearching}
-                  className="px-12 rounded-lg text-white font-bold text-base transition-all hover:opacity-90"
+                  className="w-full md:w-auto px-12 rounded-lg text-white font-bold text-base transition-all hover:opacity-90"
                   style={{ backgroundColor: '#f5a623', height: '48px' }}
                 >
                   {isSearching ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                       <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -315,11 +315,11 @@ export default function FahsHome() {
                     </div>
                   ) : "إظهار العروض"}
                 </button>
-                <div className="absolute right-0 flex items-center gap-2 mt-2 whitespace-nowrap group" dir="rtl">
-                  <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4" />
-                  <label htmlFor="agree" className="text-sm cursor-pointer relative" style={{ color: '#1a5276', fontWeight: 400 }}>
+                <div className="flex items-center gap-2 mt-2" dir="rtl">
+                  <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4 flex-shrink-0" />
+                  <label htmlFor="agree" className="text-xs sm:text-sm cursor-pointer relative group" style={{ color: '#1a5276', fontWeight: 400 }}>
                     أوافق على منح حق الاستعلام
-                    <div className="hidden group-hover:block absolute top-full right-0 mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', width: '380px' }}>
+                    <div className="hidden group-hover:block absolute top-full right-0 mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', width: '300px', maxWidth: '80vw' }}>
                       أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
                     </div>
                   </label>
@@ -330,26 +330,27 @@ export default function FahsHome() {
         </div>
       </div>
 
-      {/* Decorative SVGs on white background below the card */}
-      <div className="relative" style={{ height: '0px', overflow: 'visible' }}>
+      {/* Decorative SVGs on white background below the card - hidden on mobile */}
+      <div className="relative hidden md:block" style={{ height: '0px', overflow: 'visible' }}>
         <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="pointer-events-none" style={{ height: '700px', opacity: 0.12, position: 'absolute', left: '1%', top: '-500px', zIndex: 1 }} />
       </div>
 
       {/* Partners Bar */}
-      <section className="mt-32 py-6 pb-10 relative z-10">
-        <div className="px-4 md:px-16 lg:px-28">
+      <section className="mt-16 md:mt-32 py-4 md:py-6 pb-6 md:pb-10 relative z-10">
+        <div className="px-3 md:px-16 lg:px-28">
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 relative z-10">
-            <div className="flex items-center px-5 py-6">
-              {/* Right side: Authorization info */}
-              <div className="flex-shrink-0 flex items-center gap-4 pl-6">
+            {/* Mobile: stack vertically, Desktop: horizontal */}
+            <div className="flex flex-col md:flex-row items-center px-3 md:px-5 py-4 md:py-6 gap-4 md:gap-0">
+              {/* Authorization info */}
+              <div className="flex-shrink-0 flex items-center gap-3 md:gap-4 md:pl-6">
                 <div className="relative" style={{ paddingTop: '16px' }}>
-                  <span className="absolute text-xs font-bold" style={{ color: '#146494', top: '0', right: '0' }}>مصرح من:</span>
-                  <img src="/images/bcare/SaudiCentralImage.svg" alt="هيئة التأمين" className="h-12 md:h-14" />
+                  <span className="absolute text-[10px] md:text-xs font-bold" style={{ color: '#146494', top: '0', right: '0' }}>مصرح من:</span>
+                  <img src="/images/bcare/SaudiCentralImage.svg" alt="هيئة التأمين" className="h-10 md:h-14" />
                 </div>
-                <div className="h-16 w-px bg-gray-300"></div>
-                <img src="/images/bcare/23arbic.svg" alt="23 شركة تأمين" className="h-20 md:h-24" />
+                <div className="h-12 md:h-16 w-px bg-gray-300"></div>
+                <img src="/images/bcare/23arbic.svg" alt="23 شركة تأمين" className="h-16 md:h-24" />
               </div>
-              {/* Left side: Auto-scrolling company logos carousel */}
+              {/* Auto-scrolling company logos carousel */}
               <InsuranceLogosCarousel />
             </div>
           </div>
@@ -358,120 +359,120 @@ export default function FahsHome() {
       </div>{/* end bg-gray-50 wrapper */}
 
       {/* Features Section - طريقك آمن مع بي كير */}
-      <section className="py-10 md:py-16 bg-gray-50">
+      <section className="py-8 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-14" style={{ color: primaryBlue }}>
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 md:mb-14" style={{ color: primaryBlue }}>
             طريقك آمن مع بي كير
           </h2>
           
           {/* Top Row - 4 cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 max-w-6xl mx-auto">
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/InsureOneMin.svg" alt="تأمينك في دقيقة" className="w-10 h-10" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-3 md:mb-4 max-w-6xl mx-auto">
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/InsureOneMin.svg" alt="تأمينك في دقيقة" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>تأمينك في دقيقة</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>نقارن لك كل عروض الأسعار بشكل فوري من كل شركات التأمين</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>تأمينك في دقيقة</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>نقارن لك كل عروض الأسعار بشكل فوري من كل شركات التأمين</p>
             </div>
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/SprateInsure.svg" alt="فصّل تأمينك" className="w-10 h-10" />
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/SprateInsure.svg" alt="فصّل تأمينك" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>فصّل تأمينك</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>أنواع تأمين متعددة: تأمين ضد الغير، تأمين مميز، تأمين شامل وقيمة تحمل متنوعة</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>فصّل تأمينك</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>أنواع تأمين متعددة: تأمين ضد الغير، تأمين مميز، تأمين شامل وقيمة تحمل متنوعة</p>
             </div>
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/PriceLess.svg" alt="أسعار أقل" className="w-10 h-10" />
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/PriceLess.svg" alt="أسعار أقل" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>أسعار أقل</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>عندنا فريق يراقب كل صغيرة و كبيرة في السوق و يضمن أن سعرك الأقل و المناسب لك وفق احتياجك</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>أسعار أقل</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>عندنا فريق يراقب كل صغيرة و كبيرة في السوق و يضمن أن سعرك الأقل و المناسب لك وفق احتياجك</p>
             </div>
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/SechleInsure.svg" alt="جدول تأمينك" className="w-10 h-10" />
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/SechleInsure.svg" alt="جدول تأمينك" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>جدول تأمينك</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>نرسل لك إشعارات تذكيرية لتجديد تأمينك وتقدر تجدول تاريخ بدايته</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>جدول تأمينك</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>نرسل لك إشعارات تذكيرية لتجديد تأمينك وتقدر تجدول تاريخ بدايته</p>
             </div>
           </div>
 
           {/* Bottom Row - 4 cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/Wind.svg" alt="هب ريح" className="w-10 h-10" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-6xl mx-auto">
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/Wind.svg" alt="هب ريح" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>هب ريح</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>نربط وثيقتك في أسرع وقت مع نظام المرور ونجم</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>هب ريح</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>نربط وثيقتك في أسرع وقت مع نظام المرور ونجم</p>
             </div>
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/DiscountsHome.svg" alt="خصومات تضبطك" className="w-10 h-10" />
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/DiscountsHome.svg" alt="خصومات تضبطك" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>خصومات تضبطك</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>خصومات لبعض القطاعات الحكومية وشبه الحكومية والخاصة</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>خصومات تضبطك</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>خصومات لبعض القطاعات الحكومية وشبه الحكومية والخاصة</p>
             </div>
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/Benfit.svg" alt="منافع تحميك" className="w-10 h-10" />
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/Benfit.svg" alt="منافع تحميك" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>منافع تحميك</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>خطط تأمين متنوعة مع المرونة في تحديد المنافع الإضافية اللي تناسبك</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>منافع تحميك</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>خطط تأمين متنوعة مع المرونة في تحديد المنافع الإضافية اللي تناسبك</p>
             </div>
-            <div className="bg-white px-3 py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/OneWay.svg" alt="مكان واحد" className="w-10 h-10" />
+            <div className="bg-white px-2 md:px-3 py-6 md:py-12 text-center shadow-sm hover:shadow-md transition-shadow" style={{ borderRadius: '15px' }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/OneWay.svg" alt="مكان واحد" className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="font-bold mb-3 text-xl" style={{ color: '#146494' }}>مكان واحد</h3>
-              <p className="text-lg leading-relaxed" style={{ color: '#146494' }}>تدير كل وثائقك إدارة إلكترونية كاملة من مكان واحد وتجددها في أي وقت</p>
+              <h3 className="font-bold mb-2 md:mb-3 text-sm md:text-xl" style={{ color: '#146494' }}>مكان واحد</h3>
+              <p className="text-xs md:text-lg leading-relaxed" style={{ color: '#146494' }}>تدير كل وثائقك إدارة إلكترونية كاملة من مكان واحد وتجددها في أي وقت</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Why BCare Section */}
-      <section className="py-10 md:py-16 bg-white">
+      <section className="py-8 md:py-16 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-14" style={{ color: primaryBlue }}>
+          <h2 className="text-xl md:text-3xl font-bold text-center mb-8 md:mb-14" style={{ color: primaryBlue }}>
             ليش بي كير خيارك الأول في التأمين؟
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-28 gap-y-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 md:gap-x-28 gap-y-8 md:gap-y-16 max-w-5xl mx-auto">
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/saudi.svg" alt="منك وفيك" className="w-12 h-12" />
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/saudi.svg" alt="منك وفيك" className="w-10 h-10 md:w-12 md:h-12" />
               </div>
-              <h3 className="font-bold text-lg" style={{ color: '#146494' }}>منك وفيك</h3>
+              <h3 className="font-bold text-sm md:text-lg" style={{ color: '#146494' }}>منك وفيك</h3>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/catalog.svg" alt="عروض تفهمك" className="w-12 h-12" />
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/catalog.svg" alt="عروض تفهمك" className="w-10 h-10 md:w-12 md:h-12" />
               </div>
-              <h3 className="font-bold text-lg" style={{ color: '#146494' }}>عروض تفهمك</h3>
+              <h3 className="font-bold text-sm md:text-lg" style={{ color: '#146494' }}>عروض تفهمك</h3>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/payments_FILL0_wght400_GRAD0_opsz48.svg" alt="سعر يرضيك" className="w-12 h-12" />
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/payments_FILL0_wght400_GRAD0_opsz48.svg" alt="سعر يرضيك" className="w-10 h-10 md:w-12 md:h-12" />
               </div>
-              <h3 className="font-bold text-lg" style={{ color: '#146494' }}>سعر يرضيك</h3>
+              <h3 className="font-bold text-sm md:text-lg" style={{ color: '#146494' }}>سعر يرضيك</h3>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/Group6518.svg" alt="إصدار سريع" className="w-12 h-12" />
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/Group6518.svg" alt="إصدار سريع" className="w-10 h-10 md:w-12 md:h-12" />
               </div>
-              <h3 className="font-bold text-lg" style={{ color: '#146494' }}>إصدار سريع</h3>
+              <h3 className="font-bold text-sm md:text-lg" style={{ color: '#146494' }}>إصدار سريع</h3>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/tachometer-alt-fastest.svg" alt="نقّسط تأمينك" className="w-12 h-12" />
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/tachometer-alt-fastest.svg" alt="نقّسط تأمينك" className="w-10 h-10 md:w-12 md:h-12" />
               </div>
-              <h3 className="font-bold text-lg" style={{ color: '#146494' }}>نقّسط تأمينك</h3>
+              <h3 className="font-bold text-sm md:text-lg" style={{ color: '#146494' }}>نقّسط تأمينك</h3>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img src="/images/bcare/flame.svg" alt="نفزع لك" className="w-12 h-12" />
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 flex items-center justify-center">
+                <img src="/images/bcare/flame.svg" alt="نفزع لك" className="w-10 h-10 md:w-12 md:h-12" />
               </div>
-              <h3 className="font-bold text-lg" style={{ color: '#146494' }}>نفزع لك</h3>
+              <h3 className="font-bold text-sm md:text-lg" style={{ color: '#146494' }}>نفزع لك</h3>
             </div>
           </div>
         </div>
@@ -481,9 +482,9 @@ export default function FahsHome() {
       <footer className="text-white pt-8 md:pt-12 pb-6" style={{ backgroundColor: footerDark }}>
         <div className="container mx-auto px-4 lg:px-8">
           {/* Top Section */}
-          <div className="flex flex-col md:flex-row gap-6 mb-8">
-            {/* Right side: Logo + Phone + Stores + Payment */}
-            <div className="flex flex-col md:flex-row gap-6 md:items-start">
+          <div className="flex flex-col gap-6 mb-8">
+            {/* Logo + Phone + Stores + Payment - stacks on mobile */}
+            <div className="flex flex-col sm:flex-row gap-6 sm:items-start">
               {/* BCare Logo + Phone */}
               <div className="text-right flex-shrink-0">
                 <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-10 mb-3 brightness-0 invert" />
@@ -491,20 +492,20 @@ export default function FahsHome() {
                 {/* Payment Methods */}
                 <img src="/images/bcare/PaymentMethods1.svg" alt="طرق الدفع" className="h-8 mt-3" />
               </div>
-              {/* App Stores stacked */}
-              <div className="flex flex-col gap-2 flex-shrink-0">
-                <img src="/images/bcare/googlestore.svg" alt="Google Play" className="h-10 w-fit" />
-                <img src="/images/bcare/applestore.svg" alt="App Store" className="h-10 w-fit" />
-                <img src="/images/bcare/huaweistore.svg" alt="AppGallery" className="h-10 w-fit" />
+              {/* App Stores */}
+              <div className="flex flex-row sm:flex-col gap-2 flex-shrink-0">
+                <img src="/images/bcare/googlestore.svg" alt="Google Play" className="h-9 md:h-10 w-fit" />
+                <img src="/images/bcare/applestore.svg" alt="App Store" className="h-9 md:h-10 w-fit" />
+                <img src="/images/bcare/huaweistore.svg" alt="AppGallery" className="h-9 md:h-10 w-fit" />
               </div>
             </div>
 
-            {/* 4 Text Columns */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 flex-1">
+            {/* 4 Text Columns - 2 cols on mobile, 4 on desktop */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {/* عن بي كير */}
               <div className="text-right">
-                <h3 className="font-bold mb-4 text-base">عن بي كير</h3>
-                <ul className="space-y-2 text-sm text-white/80">
+                <h3 className="font-bold mb-3 md:mb-4 text-sm md:text-base">عن بي كير</h3>
+                <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-white/80">
                   <li><a href="#" className="hover:text-white hover:underline">خصومات وريف</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">سياسة الخصوصية</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">الشروط والأحكام</a></li>
@@ -514,8 +515,8 @@ export default function FahsHome() {
 
               {/* منتجاتنا */}
               <div className="text-right">
-                <h3 className="font-bold mb-4 text-base">منتجاتنا</h3>
-                <ul className="space-y-2 text-sm text-white/80">
+                <h3 className="font-bold mb-3 md:mb-4 text-sm md:text-base">منتجاتنا</h3>
+                <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-white/80">
                   <li><a href="#" className="hover:text-white hover:underline">تأمين المركبات</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">التأمين الطبي</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">تأمين السفر</a></li>
@@ -526,8 +527,8 @@ export default function FahsHome() {
 
               {/* الدعم الفني */}
               <div className="text-right">
-                <h3 className="font-bold mb-4 text-base">الدعم الفني</h3>
-                <ul className="space-y-2 text-sm text-white/80">
+                <h3 className="font-bold mb-3 md:mb-4 text-sm md:text-base">الدعم الفني</h3>
+                <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-white/80">
                   <li><a href="#" className="hover:text-white hover:underline">المدونة</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">إلغاء وثيقتك</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">رفع تذكرة</a></li>
@@ -537,8 +538,8 @@ export default function FahsHome() {
 
               {/* روابط مهمة */}
               <div className="text-right">
-                <h3 className="font-bold mb-4 text-base">روابط مهمة</h3>
-                <ul className="space-y-2 text-sm text-white/80">
+                <h3 className="font-bold mb-3 md:mb-4 text-sm md:text-base">روابط مهمة</h3>
+                <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-white/80">
                   <li><a href="#" className="hover:text-white hover:underline">هيئة التأمين</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">طريقة رفع شكوى لهيئة التأمين</a></li>
                   <li><a href="#" className="hover:text-white hover:underline">قواعد ولوائح هيئة التأمين</a></li>
@@ -549,30 +550,30 @@ export default function FahsHome() {
           </div>
 
           {/* Bottom: white line, social icons left, copyright right */}
-          <div className="border-t border-white pt-4 flex flex-col-reverse md:flex-row items-center justify-between">
+          <div className="border-t border-white/30 pt-4 flex flex-col-reverse md:flex-row items-center justify-between gap-3">
             {/* Copyright - Left */}
-            <p className="text-xs md:text-sm text-white/80 mb-3 md:mb-0">
+            <p className="text-[10px] md:text-sm text-white/80 text-center md:text-right">
               2026 © جميع الحقوق محفوظة، شركة عناية الوسيط لوساطة التأمين
             </p>
             {/* Social Icons - Right */}
-            <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <div className="flex gap-2 md:gap-3">
+              <a href="#" className="w-8 h-8 md:w-9 md:h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
               </a>
-              <a href="#" className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <a href="#" className="w-8 h-8 md:w-9 md:h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               </a>
-              <a href="#" className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <a href="#" className="w-8 h-8 md:w-9 md:h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
-              <a href="#" className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <a href="#" className="w-8 h-8 md:w-9 md:h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               </a>
-              <a href="#" className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <a href="#" className="w-8 h-8 md:w-9 md:h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               </a>
-              <a href="#" className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <a href="#" className="w-8 h-8 md:w-9 md:h-9 bg-white/15 rounded-full flex items-center justify-center hover:bg-white/25">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
               </a>
             </div>
           </div>
@@ -581,14 +582,23 @@ export default function FahsHome() {
 
       {/* Floating Contact Button - single capsule that opens chat */}
       <div className="fixed bottom-20 left-4 z-50" dir="ltr">
-        <button onClick={() => openAmerChat()} className="group flex items-center h-14 rounded-full shadow-lg overflow-hidden transition-all duration-500 ease-in-out" style={{ backgroundColor: '#f5a623', width: '3.5rem' }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.width = '10rem'; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.width = '3.5rem'; }}
+        <button onClick={() => openAmerChat()} className="group flex items-center h-12 md:h-14 rounded-full shadow-lg overflow-hidden transition-all duration-500 ease-in-out" style={{ backgroundColor: '#f5a623', width: '3rem' }}
+          onMouseEnter={(e) => { if (window.innerWidth >= 768) { (e.currentTarget as HTMLElement).style.width = '10rem'; } }}
+          onMouseLeave={(e) => { if (window.innerWidth >= 768) { (e.currentTarget as HTMLElement).style.width = '3rem'; } }}
+          onTouchStart={(e) => { 
+            const el = e.currentTarget as HTMLElement;
+            if (el.style.width === '10rem') {
+              openAmerChat();
+            } else {
+              el.style.width = '10rem';
+              setTimeout(() => { el.style.width = '3rem'; }, 3000);
+            }
+          }}
         >
-          <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center">
-            <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 3.58-9 8v3.5c0 1.38 1.12 2.5 2.5 2.5H7V9c0-2.76 2.24-5 5-5s5 2.24 5 5v6h1.5c1.38 0 2.5-1.12 2.5-2.5V9c0-4.42-4.03-8-9-8zm-2 15h-2v-4h2v4zm8 0h-2v-4h2v4z"/><path d="M7.5 18.5v1c0 1.38 1.12 2.5 2.5 2.5h4c1.38 0 2.5-1.12 2.5-2.5v-1"/></svg>
+          <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center">
+            <svg className="w-6 h-6 md:w-7 md:h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 3.58-9 8v3.5c0 1.38 1.12 2.5 2.5 2.5H7V9c0-2.76 2.24-5 5-5s5 2.24 5 5v6h1.5c1.38 0 2.5-1.12 2.5-2.5V9c0-4.42-4.03-8-9-8zm-2 15h-2v-4h2v4zm8 0h-2v-4h2v4z"/><path d="M7.5 18.5v1c0 1.38 1.12 2.5 2.5 2.5h4c1.38 0 2.5-1.12 2.5-2.5v-1"/></svg>
           </div>
-          <span className="text-white font-bold text-base whitespace-nowrap pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">راسلنا</span>
+          <span className="text-white font-bold text-sm md:text-base whitespace-nowrap pr-3 md:pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">راسلنا</span>
         </button>
       </div>
 
@@ -596,10 +606,10 @@ export default function FahsHome() {
       <div className="fixed bottom-4 left-4 z-50">
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="w-10 h-10 rounded-full shadow-lg flex items-center justify-center text-white" 
+          className="w-9 h-9 md:w-10 md:h-10 rounded-full shadow-lg flex items-center justify-center text-white" 
           style={{ backgroundColor: primaryBlue }}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
         </button>
@@ -633,6 +643,14 @@ function InsuranceLogosCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Create extended array for seamless looping
   const extendedLogos = [...logos, ...logos, ...logos];
@@ -669,17 +687,17 @@ function InsuranceLogosCarousel() {
     startAutoPlay();
   };
 
-  const itemWidth = 180;
-  const gap = 32;
+  const itemWidth = isMobile ? 100 : 180;
+  const gap = isMobile ? 16 : 32;
   const offset = currentIndex * (itemWidth + gap);
 
   return (
-    <div className="flex items-center flex-1 min-w-0" dir="ltr">
+    <div className="flex items-center flex-1 min-w-0 mt-3 md:mt-0" dir="ltr">
       <button
         onClick={handlePrev}
-        className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-50 shadow flex items-center justify-center text-[#146494] hover:bg-gray-100 ml-3"
+        className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-50 shadow flex items-center justify-center text-[#146494] hover:bg-gray-100 ml-2 md:ml-3"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
@@ -693,8 +711,8 @@ function InsuranceLogosCarousel() {
           }}
         >
           {extendedLogos.map((logo, i) => (
-            <div key={i} className="flex-shrink-0 flex items-center justify-center" style={{ width: `${itemWidth}px`, height: '48px' }}>
-              <img src={logo.src} alt={logo.alt} className="max-h-10 md:max-h-12 max-w-full object-contain" />
+            <div key={i} className="flex-shrink-0 flex items-center justify-center" style={{ width: `${itemWidth}px`, height: isMobile ? '36px' : '48px' }}>
+              <img src={logo.src} alt={logo.alt} className="max-h-8 md:max-h-12 max-w-full object-contain" />
             </div>
           ))}
         </div>
