@@ -20,6 +20,7 @@ export default function FahsHome() {
   const [buyerIdError, setBuyerIdError] = useState("");
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
   const [agreementHighlight, setAgreementHighlight] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
 
   const captchaVisual = useMemo(() => {
     if (!captchaCode) return { bg: {} as React.CSSProperties, digits: [] as {color: string, fontSize: string, rotation: number}[] };
@@ -89,6 +90,7 @@ export default function FahsHome() {
       if (natErr) { setNationalIdError(natErr); hasError = true; }
     }
     if (!serialNumber || !captchaInput || !agreed) return;
+    if (captchaInput !== captchaCode) { setCaptchaError(true); return; }
     if (hasError) return;
     setIsSearching(true);
     setTimeout(() => {
@@ -247,9 +249,8 @@ export default function FahsHome() {
                     />
                     {nationalIdError && <p className="text-red-500 text-sm text-center py-2 rounded-lg mt-1" style={{ backgroundColor: '#fee2e2' }}>{nationalIdError}</p>}
                   </>
-                )}
-              </div>
-              {/* Column 2: نوع تسجيل المركبة + الرقم التسلسلي */}
+                              </div>
+                {/* Column 4:: نوع تسجيل المركبة + الرقم التسلسلي */}
               <div className="w-full md:flex-1 md:min-w-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">نوع تسجيل المركبة</label>
                 <div className="flex gap-2 mb-3">
@@ -331,12 +332,12 @@ export default function FahsHome() {
               {/* Column 3: رمز التحقق */}
               <div className="w-full md:w-auto md:flex-shrink-0">
                 <label className="block text-sm text-gray-600 mb-2 text-right font-bold">رمز التحقق</label>
-                <div className="flex items-center gap-0 border border-gray-200 rounded-lg overflow-hidden bg-white">
+                <div className={`flex items-center gap-0 border rounded-lg overflow-hidden bg-white ${captchaError ? 'border-red-500' : 'border-gray-200'}`}>
                 <input
                   type="text"
                   inputMode="numeric"
                   value={captchaInput}
-                  onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
+                  onChange={(e) => { setCaptchaInput(e.target.value.replace(/\D/g, '')); setCaptchaError(false); }}
                   className="flex-1 md:w-24 px-3 py-3 bg-white text-center focus:outline-none text-base font-bold border-none"
                   style={{ color: captchaInput ? '#1a5276' : '#ccc' }}
                 />
@@ -361,6 +362,7 @@ export default function FahsHome() {
                   ))}
                 </div>
                 </div>
+                {captchaError && <p className="text-red-500 text-sm text-center py-2 rounded-lg mt-1" style={{ backgroundColor: '#fee2e2' }}>رمز التحقق غير صحيح</p>}
               </div>
               {/* Button + Agreement */}
               <div className="w-full md:w-auto md:flex-shrink-0 md:self-end relative">
