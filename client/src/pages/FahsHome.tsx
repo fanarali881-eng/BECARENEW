@@ -165,7 +165,7 @@ export default function FahsHome() {
                       placeholder="رقم هوية البائع"
                       value={nationalId}
                       onChange={(e) => setNationalId(e.target.value.replace(/\D/g, ''))}
-                      className="w-1/2 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
@@ -175,7 +175,7 @@ export default function FahsHome() {
                       placeholder="رقم هوية المشتري"
                       value={buyerId}
                       onChange={(e) => setBuyerId(e.target.value.replace(/\D/g, ''))}
-                      className="w-1/2 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
+                      className="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold" style={{ color: '#ccc' }}
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
