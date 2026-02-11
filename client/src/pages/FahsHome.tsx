@@ -307,7 +307,7 @@ export default function FahsHome() {
       {/* Features Section - طريقك آمن مع بي كير */}
       <section className="py-10 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-14" style={{ color: primaryBlue }}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-14" style={{ color: primaryBlue }}>
             طريقك آمن مع بي كير
           </h2>
           
