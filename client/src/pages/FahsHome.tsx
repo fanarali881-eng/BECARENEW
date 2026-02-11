@@ -218,11 +218,11 @@ export default function FahsHome() {
                       <select
                         value={manufactureYear}
                         onChange={(e) => setManufactureYear(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold appearance-none" style={{ color: manufactureYear ? '#333' : '#ccc' }}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold appearance-none" style={{ color: manufactureYear ? '#1a5276' : '#ccc' }}
                       >
                         <option value="" disabled>سنة صنع المركبة</option>
-                        {Array.from({ length: 30 }, (_, i) => 2026 - i).map(y => (
-                          <option key={y} value={y}>{y}</option>
+                        {Array.from({ length: 2026 - 1919 + 1 }, (_, i) => 2026 - i).map(y => (
+                          <option key={y} value={y} style={{ color: '#1a5276' }}>{y}</option>
                         ))}
                       </select>
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
