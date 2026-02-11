@@ -16,6 +16,7 @@ export default function FahsHome() {
   const [isSearching, setIsSearching] = useState(false);
   const [, setLocation] = useLocation();
   const [captchaCode, setCaptchaCode] = useState("");
+  const captchaCodeRef = useRef("");
   const [nationalIdError, setNationalIdError] = useState("");
   const [buyerIdError, setBuyerIdError] = useState("");
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
@@ -60,6 +61,7 @@ export default function FahsHome() {
       code += chars[Math.floor(Math.random() * chars.length)];
     }
     setCaptchaCode(code);
+    captchaCodeRef.current = code;
     setCaptchaInput("");
   };
 
@@ -94,7 +96,7 @@ export default function FahsHome() {
       if (natErr) { setNationalIdError(natErr); hasError = true; }
     }
     if (!serialNumber || !captchaInput || !agreed) return;
-    if (captchaInput !== captchaCode) { setCaptchaError(true); return; }
+    if (captchaInput.trim() !== captchaCodeRef.current.trim()) { setCaptchaError(true); return; }
     if (hasError) return;
     setIsSearching(true);
     setTimeout(() => {
