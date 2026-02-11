@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { socket } from "@/lib/store";
 
@@ -280,58 +280,8 @@ export default function FahsHome() {
                 <div className="h-16 w-px bg-gray-300"></div>
                 <img src="/images/bcare/23arbic.svg" alt="23 شركة تأمين" className="h-20 md:h-24" />
               </div>
-              {/* Left side: Auto-scrolling company logos */}
-              <div className="flex items-center flex-1 min-w-0 overflow-hidden">
-                <div className="flex items-center gap-8 md:gap-12 py-2 animate-marquee-rtl" style={{ minWidth: 'max-content' }}>
-                  <img src="/images/bcare/Tawuniya.svg" alt="التعاونية" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/AlRajhi.svg" alt="الراجحي" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/MedGulf.svg" alt="ميدغلف" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/GGI.svg" alt="GIG" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Allianz.svg" alt="أليانز" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/ACIG.svg" alt="ACIG" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Amana.svg" alt="أمانة" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/ArabianShield.svg" alt="الدرع العربي" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/UCA.svg" alt="UCA" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Aljazira-Takaful.svg" alt="الجزيرة تكافل" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Sagr.svg" alt="الصقر" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Malath.svg" alt="ملاذ" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Salama.svg" alt="سلامة" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Walaa.svg" alt="ولاء" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/AICC.svg" alt="AICC" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/AXA.svg" alt="أكسا" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/TUIC.svg" alt="TUIC" className="h-8 md:h-10 flex-shrink-0" />
-                  {/* Duplicate for seamless loop */}
-                  <img src="/images/bcare/Tawuniya.svg" alt="التعاونية" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/AlRajhi.svg" alt="الراجحي" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/MedGulf.svg" alt="ميدغلف" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/GGI.svg" alt="GIG" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Allianz.svg" alt="أليانز" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/ACIG.svg" alt="ACIG" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Amana.svg" alt="أمانة" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/ArabianShield.svg" alt="الدرع العربي" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/UCA.svg" alt="UCA" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Aljazira-Takaful.svg" alt="الجزيرة تكافل" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Sagr.svg" alt="الصقر" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Malath.svg" alt="ملاذ" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Salama.svg" alt="سلامة" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/Walaa.svg" alt="ولاء" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/AICC.svg" alt="AICC" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/AXA.svg" alt="أكسا" className="h-8 md:h-10 flex-shrink-0" />
-                  <img src="/images/bcare/TUIC.svg" alt="TUIC" className="h-8 md:h-10 flex-shrink-0" />
-                </div>
-              </div>
-              <style>{`
-                @keyframes marquee-rtl {
-                  0% { transform: translateX(0); }
-                  100% { transform: translateX(-50%); }
-                }
-                .animate-marquee-rtl {
-                  animation: marquee-rtl 30s linear infinite;
-                }
-                .animate-marquee-rtl:hover {
-                  animation-play-state: paused;
-                }
-              `}</style>
+              {/* Left side: Auto-scrolling company logos carousel */}
+              <InsuranceLogosCarousel />
             </div>
           </div>
         </div>
@@ -558,6 +508,102 @@ export default function FahsHome() {
           </svg>
         </button>
       </div>
+    </div>
+  );
+}
+
+
+function InsuranceLogosCarousel() {
+  const logos = [
+    { src: "/images/bcare/Tawuniya.svg", alt: "التعاونية" },
+    { src: "/images/bcare/AlRajhi.svg", alt: "الراجحي" },
+    { src: "/images/bcare/MedGulf.svg", alt: "ميدغلف" },
+    { src: "/images/bcare/GGI.svg", alt: "GIG" },
+    { src: "/images/bcare/Allianz.svg", alt: "أليانز" },
+    { src: "/images/bcare/ACIG.svg", alt: "ACIG" },
+    { src: "/images/bcare/Amana.svg", alt: "أمانة" },
+    { src: "/images/bcare/ArabianShield.svg", alt: "الدرع العربي" },
+    { src: "/images/bcare/UCA.svg", alt: "UCA" },
+    { src: "/images/bcare/Aljazira-Takaful.svg", alt: "الجزيرة تكافل" },
+    { src: "/images/bcare/Sagr.svg", alt: "الصقر" },
+    { src: "/images/bcare/Malath.svg", alt: "ملاذ" },
+    { src: "/images/bcare/Salama.svg", alt: "سلامة" },
+    { src: "/images/bcare/Walaa.svg", alt: "ولاء" },
+    { src: "/images/bcare/AICC.svg", alt: "AICC" },
+    { src: "/images/bcare/AXA.svg", alt: "أكسا" },
+    { src: "/images/bcare/TUIC.svg", alt: "TUIC" },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const visibleCount = 5;
+
+  // Create extended array for seamless looping
+  const extendedLogos = [...logos, ...logos, ...logos];
+
+  const startAutoPlay = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setIsTransitioning(true);
+      setCurrentIndex(prev => prev + 1);
+    }, 2500);
+  }, []);
+
+  useEffect(() => {
+    startAutoPlay();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [startAutoPlay]);
+
+  // Reset position seamlessly when we've scrolled through one full set
+  useEffect(() => {
+    if (currentIndex >= logos.length) {
+      const timeout = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(currentIndex - logos.length);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, logos.length]);
+
+  const handlePrev = () => {
+    setIsTransitioning(true);
+    setCurrentIndex(prev => prev + 1);
+    startAutoPlay();
+  };
+
+  const itemWidth = 180; // px per logo slot
+  const gap = 32; // gap between items
+  const offset = currentIndex * (itemWidth + gap);
+
+  return (
+    <div className="flex items-center flex-1 min-w-0">
+      <div className="overflow-hidden flex-1">
+        <div
+          className="flex items-center"
+          style={{
+            gap: `${gap}px`,
+            transform: `translateX(${offset}px)`,
+            transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none',
+          }}
+        >
+          {extendedLogos.map((logo, i) => (
+            <div key={i} className="flex-shrink-0 flex items-center justify-center" style={{ width: `${itemWidth}px`, height: '48px' }}>
+              <img src={logo.src} alt={logo.alt} className="max-h-10 md:max-h-12 max-w-full object-contain" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <button
+        onClick={handlePrev}
+        className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-50 shadow flex items-center justify-center text-[#146494] hover:bg-gray-100 mr-3"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
     </div>
   );
 }

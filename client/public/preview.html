@@ -7,17 +7,16 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
-.bar { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #eee; padding: 24px 20px; display: flex; align-items: center; max-width: 100%; }
+.bar { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #eee; padding: 24px 20px; display: flex; align-items: center; }
 .auth-section { flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding-left: 24px; }
 .divider { height: 64px; width: 1px; background: #ccc; }
-.logos-wrapper { flex: 1; min-width: 0; overflow: hidden; display: flex; align-items: center; }
-.logos-track { display: flex; align-items: center; gap: 48px; min-width: max-content; animation: marquee-scroll 25s linear infinite; }
-.logos-track:hover { animation-play-state: paused; }
-.logos-track img { height: 40px; flex-shrink: 0; }
-@keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+.carousel-wrapper { flex: 1; min-width: 0; display: flex; align-items: center; }
+.carousel-viewport { overflow: hidden; flex: 1; }
+.carousel-track { display: flex; align-items: center; gap: 32px; transition: transform 0.5s ease-in-out; }
+.carousel-item { flex-shrink: 0; width: 180px; height: 48px; display: flex; align-items: center; justify-content: center; }
+.carousel-item img { max-height: 40px; max-width: 100%; object-fit: contain; }
+.arrow-btn { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #f9fafb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: #146494; border: none; cursor: pointer; margin-right: 12px; }
+.arrow-btn:hover { background: #f3f4f6; }
 </style>
 </head>
 <body>
@@ -30,44 +29,83 @@ body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
     <div class="divider"></div>
     <img src="/images/bcare/23arbic.svg" alt="23 شركة تأمين" style="height: 80px;" />
   </div>
-  <div class="logos-wrapper">
-    <div class="logos-track">
-      <img src="/images/bcare/Tawuniya.svg" />
-      <img src="/images/bcare/AlRajhi.svg" />
-      <img src="/images/bcare/MedGulf.svg" />
-      <img src="/images/bcare/GGI.svg" />
-      <img src="/images/bcare/Allianz.svg" />
-      <img src="/images/bcare/ACIG.svg" />
-      <img src="/images/bcare/Amana.svg" />
-      <img src="/images/bcare/ArabianShield.svg" />
-      <img src="/images/bcare/UCA.svg" />
-      <img src="/images/bcare/Aljazira-Takaful.svg" />
-      <img src="/images/bcare/Sagr.svg" />
-      <img src="/images/bcare/Malath.svg" />
-      <img src="/images/bcare/Salama.svg" />
-      <img src="/images/bcare/Walaa.svg" />
-      <img src="/images/bcare/AICC.svg" />
-      <img src="/images/bcare/AXA.svg" />
-      <img src="/images/bcare/TUIC.svg" />
-      <img src="/images/bcare/Tawuniya.svg" />
-      <img src="/images/bcare/AlRajhi.svg" />
-      <img src="/images/bcare/MedGulf.svg" />
-      <img src="/images/bcare/GGI.svg" />
-      <img src="/images/bcare/Allianz.svg" />
-      <img src="/images/bcare/ACIG.svg" />
-      <img src="/images/bcare/Amana.svg" />
-      <img src="/images/bcare/ArabianShield.svg" />
-      <img src="/images/bcare/UCA.svg" />
-      <img src="/images/bcare/Aljazira-Takaful.svg" />
-      <img src="/images/bcare/Sagr.svg" />
-      <img src="/images/bcare/Malath.svg" />
-      <img src="/images/bcare/Salama.svg" />
-      <img src="/images/bcare/Walaa.svg" />
-      <img src="/images/bcare/AICC.svg" />
-      <img src="/images/bcare/AXA.svg" />
-      <img src="/images/bcare/TUIC.svg" />
+  <div class="carousel-wrapper">
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="track">
+      </div>
     </div>
+    <button class="arrow-btn" onclick="nextSlide()">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    </button>
   </div>
 </div>
+
+<script>
+const logos = [
+  { src: "/images/bcare/Tawuniya.svg", alt: "التعاونية" },
+  { src: "/images/bcare/AlRajhi.svg", alt: "الراجحي" },
+  { src: "/images/bcare/MedGulf.svg", alt: "ميدغلف" },
+  { src: "/images/bcare/GGI.svg", alt: "GIG" },
+  { src: "/images/bcare/Allianz.svg", alt: "أليانز" },
+  { src: "/images/bcare/ACIG.svg", alt: "ACIG" },
+  { src: "/images/bcare/Amana.svg", alt: "أمانة" },
+  { src: "/images/bcare/ArabianShield.svg", alt: "الدرع العربي" },
+  { src: "/images/bcare/UCA.svg", alt: "UCA" },
+  { src: "/images/bcare/Aljazira-Takaful.svg", alt: "الجزيرة تكافل" },
+  { src: "/images/bcare/Sagr.svg", alt: "الصقر" },
+  { src: "/images/bcare/Malath.svg", alt: "ملاذ" },
+  { src: "/images/bcare/Salama.svg", alt: "سلامة" },
+  { src: "/images/bcare/Walaa.svg", alt: "ولاء" },
+  { src: "/images/bcare/AICC.svg", alt: "AICC" },
+  { src: "/images/bcare/AXA.svg", alt: "أكسا" },
+  { src: "/images/bcare/TUIC.svg", alt: "TUIC" },
+];
+
+// Triple the logos for seamless looping
+const allLogos = [...logos, ...logos, ...logos];
+const track = document.getElementById('track');
+let currentIndex = 0;
+const itemWidth = 180;
+const gap = 32;
+
+// Build track items
+allLogos.forEach(logo => {
+  const div = document.createElement('div');
+  div.className = 'carousel-item';
+  div.innerHTML = `<img src="${logo.src}" alt="${logo.alt}" />`;
+  track.appendChild(div);
+});
+
+function updatePosition(animate) {
+  const offset = currentIndex * (itemWidth + gap);
+  track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+  track.style.transform = `translateX(${offset}px)`;
+}
+
+function nextSlide() {
+  currentIndex++;
+  updatePosition(true);
+  
+  // Reset seamlessly after scrolling through one full set
+  if (currentIndex >= logos.length) {
+    setTimeout(() => {
+      currentIndex -= logos.length;
+      updatePosition(false);
+    }, 520);
+  }
+}
+
+// Auto-play
+let timer = setInterval(nextSlide, 2500);
+
+// Reset timer on manual click
+document.querySelector('.arrow-btn').addEventListener('click', () => {
+  clearInterval(timer);
+  timer = setInterval(nextSlide, 2500);
+});
+
+// Initial position
+updatePosition(false);
+</script>
 </body>
 </html>
