@@ -4,12 +4,12 @@ import { Link } from "wouter";
 
 // Set page title
 if (typeof document !== 'undefined') {
-  document.title = 'تفاصيل التأمين';
+  document.title = 'تفاصيل وثيقة التأمين';
 }
 
 export default function NewAppointment() {
   useEffect(() => {
-    updatePage("تفاصيل التأمين");
+    updatePage("تفاصيل وثيقة التأمين");
   }, []);
 
   // Form state
@@ -149,7 +149,7 @@ export default function NewAppointment() {
           
           {/* Card Header */}
           <div className="px-6 md:px-10 pt-6 md:pt-8 pb-4">
-            <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>تفاصيل التأمين</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-right" style={{ color: primaryBlue }}>تفاصيل وثيقة التأمين</h2>
           </div>
 
           {/* Separator */}
