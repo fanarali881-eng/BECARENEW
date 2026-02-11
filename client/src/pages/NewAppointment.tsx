@@ -178,13 +178,20 @@ export default function NewAppointment() {
               {/* تاريخ بدء التأمين */}
               <div>
                 <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ بدء التأمين</label>
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => { setStartDate(e.target.value); handleFieldChange('startDate'); }}
-                  className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base ${formErrors.startDate ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: '#1a5276' }}
-                />
+                <div className="relative">
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => { setStartDate(e.target.value); handleFieldChange('startDate'); }}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                  />
+                  <div className={`w-full px-4 py-3 border rounded-lg bg-white flex items-center justify-between ${formErrors.startDate ? 'border-red-500' : 'border-gray-200'}`}>
+                    <span style={{ color: '#d4a017', fontSize: '20px' }}>📅</span>
+                    <span className="text-base" style={{ color: '#1a5276' }} dir="ltr">
+                      {startDate ? `${startDate.split('-')[2]}/${startDate.split('-')[1]}/${startDate.split('-')[0]}` : 'DD/MM/YYYY'}
+                    </span>
+                  </div>
+                </div>
                 {formErrors.startDate && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.startDate}</p>}
               </div>
 
