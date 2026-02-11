@@ -117,12 +117,12 @@ export default function AmerChat() {
             <div className="bg-gradient-to-r from-[#0d9488] to-[#0891b2] text-white p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
-                  src="/images/chat-logo.png"
-                  alt="مركز سلامة المركبات"
+                  src="/images/bcare/Bcarelogo.svg"
+                  alt="B Care"
                   className="w-10 h-10 object-contain bg-white rounded-full p-1"
                 />
                 <div>
-                  <h3 className="font-bold text-sm">مركز سلامة المركبات</h3>
+                  <h3 className="font-bold text-sm">B Care</h3>
                   <p className="text-xs opacity-80">الدعم الفني</p>
                 </div>
               </div>
@@ -141,8 +141,8 @@ export default function AmerChat() {
               {messages.length === 0 ? (
                 <div className="text-center text-gray-500 mt-8">
                   <img
-                    src="/images/chat-logo.png"
-                    alt="مركز سلامة المركبات"
+                    src="/images/bcare/Bcarelogo.svg"
+                    alt="B Care"
                     className="w-16 h-16 mx-auto mb-4 opacity-50 rounded-full"
                   />
                   <p>مرحباً بك في خدمة الدعم</p>
