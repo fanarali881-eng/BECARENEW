@@ -223,8 +223,8 @@ export default function FahsHome() {
                     </div>
                     {(nationalIdError || buyerIdError) && (
                       <div className="flex flex-col sm:flex-row md:flex-row gap-1 mt-1">
-                        {nationalIdError && <p className="text-red-500 text-xs flex-1">{nationalIdError}</p>}
-                        {buyerIdError && <p className="text-red-500 text-xs flex-1">{buyerIdError}</p>}
+                        {nationalIdError && <p className="text-red-500 text-sm flex-1 text-center py-2 rounded-lg" style={{ backgroundColor: '#fee2e2' }}>{nationalIdError}</p>}
+                        {buyerIdError && <p className="text-red-500 text-sm flex-1 text-center py-2 rounded-lg" style={{ backgroundColor: '#fee2e2' }}>{buyerIdError}</p>}
                       </div>
                     )}
                   </>
@@ -243,7 +243,7 @@ export default function FahsHome() {
                       onFocus={(e) => e.target.style.color = '#333'}
                       onBlur={(e) => { if (!e.target.value) e.target.style.color = '#ccc' }}
                     />
-                    {nationalIdError && <p className="text-red-500 text-xs mt-1">{nationalIdError}</p>}
+                    {nationalIdError && <p className="text-red-500 text-sm text-center py-2 rounded-lg mt-1" style={{ backgroundColor: '#fee2e2' }}>{nationalIdError}</p>}
                   </>
                 )}
               </div>
