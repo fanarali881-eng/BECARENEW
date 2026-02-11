@@ -152,7 +152,7 @@ export default function NewAppointment() {
                   value={insuranceType}
                   onChange={(e) => { setInsuranceType(e.target.value); handleFieldChange('insuranceType'); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base appearance-none ${formErrors.insuranceType ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: insuranceType ? '#1a5276' : '#999' }}
+                  style={{ color: '#1a5276' }}
                 >
                   <option value="" disabled>إختر</option>
                   <option value="شامل">شامل</option>
@@ -169,7 +169,7 @@ export default function NewAppointment() {
                   value={startDate}
                   onChange={(e) => { setStartDate(e.target.value); handleFieldChange('startDate'); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base ${formErrors.startDate ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: startDate ? '#1a5276' : '#999' }}
+                  style={{ color: '#1a5276' }}
                 />
                 {formErrors.startDate && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.startDate}</p>}
               </div>
@@ -181,7 +181,7 @@ export default function NewAppointment() {
                   value={usagePurpose}
                   onChange={(e) => { setUsagePurpose(e.target.value); handleFieldChange('usagePurpose'); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base appearance-none ${formErrors.usagePurpose ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: usagePurpose ? '#1a5276' : '#999' }}
+                  style={{ color: '#1a5276' }}
                 >
                   <option value="" disabled>إختر</option>
                   <option value="شخصي">شخصي</option>
@@ -202,7 +202,7 @@ export default function NewAppointment() {
                   onChange={(e) => handleValueChange(e.target.value)}
                   onKeyDown={(e) => { if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base ${formErrors.estimatedValue || valueError ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: estimatedValue ? '#1a5276' : '#999' }}
+                  style={{ color: '#1a5276' }}
                 />
                 {(valueError || formErrors.estimatedValue) && (
                   <p className="text-red-500 text-xs mt-1 text-right">{valueError || formErrors.estimatedValue}</p>
@@ -217,7 +217,7 @@ export default function NewAppointment() {
                   value={manufactureYear}
                   onChange={(e) => { setManufactureYear(e.target.value); handleFieldChange('manufactureYear'); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base appearance-none ${formErrors.manufactureYear ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: manufactureYear ? '#1a5276' : '#999' }}
+                  style={{ color: '#1a5276' }}
                 >
                   <option value="" disabled>إختر</option>
                   {yearOptions.map(year => (
@@ -236,7 +236,7 @@ export default function NewAppointment() {
                   value={carModel}
                   onChange={(e) => { setCarModel(e.target.value); handleFieldChange('carModel'); }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base ${formErrors.carModel ? 'border-red-500' : 'border-gray-200'}`}
-                  style={{ color: carModel ? '#1a5276' : '#999' }}
+                  style={{ color: '#1a5276' }}
                 />
                 {formErrors.carModel && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.carModel}</p>}
               </div>
