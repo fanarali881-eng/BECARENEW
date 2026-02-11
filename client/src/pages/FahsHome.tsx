@@ -585,7 +585,7 @@ function InsuranceLogosCarousel() {
           className="flex items-center"
           style={{
             gap: `${gap}px`,
-            transform: `translateX(${offset}px)`,
+            transform: `translateX(-${offset}px)`,
             transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none',
           }}
         >
