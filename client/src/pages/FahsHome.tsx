@@ -543,10 +543,14 @@ export default function FahsHome() {
 
       {/* Floating Contact Button - Circle headset, hover expands right with راسلنا */}
       <div className="fixed bottom-20 left-4 z-50 group">
-        <button className="flex flex-row-reverse items-center rounded-full shadow-lg text-white transition-all duration-300 w-14 h-14 justify-center group-hover:w-auto group-hover:pl-5 group-hover:pr-3" style={{ backgroundColor: '#f5a623' }}>
-          <svg className="w-7 h-7 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 3.58-9 8v3.5c0 1.38 1.12 2.5 2.5 2.5H7V9c0-2.76 2.24-5 5-5s5 2.24 5 5v6h1.5c1.38 0 2.5-1.12 2.5-2.5V9c0-4.42-4.03-8-9-8zm-2 15h-2v-4h2v4zm8 0h-2v-4h2v4z"/><path d="M7.5 18.5v1c0 1.38 1.12 2.5 2.5 2.5h4c1.38 0 2.5-1.12 2.5-2.5v-1"/></svg>
-          <span className="text-white font-bold text-sm whitespace-nowrap overflow-hidden transition-all duration-300 max-w-0 group-hover:max-w-[80px] group-hover:mr-2 opacity-0 group-hover:opacity-100">راسلنا</span>
-        </button>
+        <div className="relative flex items-center">
+          <button className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-white relative z-10" style={{ backgroundColor: '#f5a623' }}>
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 3.58-9 8v3.5c0 1.38 1.12 2.5 2.5 2.5H7V9c0-2.76 2.24-5 5-5s5 2.24 5 5v6h1.5c1.38 0 2.5-1.12 2.5-2.5V9c0-4.42-4.03-8-9-8zm-2 15h-2v-4h2v4zm8 0h-2v-4h2v4z"/><path d="M7.5 18.5v1c0 1.38 1.12 2.5 2.5 2.5h4c1.38 0 2.5-1.12 2.5-2.5v-1"/></svg>
+          </button>
+          <div className="absolute left-12 h-14 rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out opacity-0 max-w-0 group-hover:opacity-100 group-hover:max-w-[120px] group-hover:px-4 group-hover:pl-5" style={{ backgroundColor: '#f5a623' }}>
+            <span className="text-white font-bold text-sm whitespace-nowrap">راسلنا</span>
+          </div>
+        </div>
       </div>
 
       {/* Scroll to Top */}
