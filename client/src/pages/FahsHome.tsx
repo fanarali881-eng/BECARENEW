@@ -90,9 +90,9 @@ export default function FahsHome() {
 
       {/* Hero Section - Blue background */}
       <section className="relative" style={{ backgroundColor: primaryBlue, minHeight: '320px', overflow: 'visible' }}>
-        {/* Background decorative SVGs - hidden on mobile for cleaner look */}
-        <img src="/images/bcare/LeftBackground.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1] hidden md:block" style={{ height: '140%', opacity: 0.12 }} />
-        <img src="/images/bcare/RightBackground.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1] hidden md:block" style={{ height: '140%', opacity: 0.12 }} />
+        {/* Background decorative SVGs - smaller on mobile */}
+        <img src="/images/bcare/LeftBackground.svg" alt="" className="absolute left-0 top-0 pointer-events-none z-[1]" style={{ height: window.innerWidth < 768 ? '60%' : '140%', opacity: window.innerWidth < 768 ? 0.08 : 0.12 }} />
+        <img src="/images/bcare/RightBackground.svg" alt="" className="absolute right-0 top-0 pointer-events-none z-[1]" style={{ height: window.innerWidth < 768 ? '60%' : '140%', opacity: window.innerWidth < 768 ? 0.08 : 0.12 }} />
         
         <div className="container mx-auto px-4 lg:px-8 pt-8 md:pt-12 pb-32 relative z-10 text-center">
           <h1 className="text-xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-3 md:mb-4 px-2" style={{ lineHeight: '1.5' }}>
@@ -332,9 +332,9 @@ export default function FahsHome() {
         </div>
       </div>
 
-      {/* Decorative SVGs on white background below the card - hidden on mobile */}
-      <div className="relative hidden md:block" style={{ height: '0px', overflow: 'visible' }}>
-        <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="pointer-events-none" style={{ height: '700px', opacity: 0.12, position: 'absolute', left: '1%', top: '-500px', zIndex: 1 }} />
+      {/* Decorative SVGs on white background below the card - smaller on mobile */}
+      <div className="relative" style={{ height: '0px', overflow: 'visible' }}>
+        <img src="/images/bcare/LeftBackground-blue.svg" alt="" className="pointer-events-none" style={{ height: window.innerWidth < 768 ? '300px' : '700px', opacity: window.innerWidth < 768 ? 0.06 : 0.12, position: 'absolute', left: '1%', top: window.innerWidth < 768 ? '-200px' : '-500px', zIndex: 1 }} />
       </div>
 
       {/* Partners Bar */}
