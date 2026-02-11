@@ -147,7 +147,7 @@ export default function NewAppointment() {
 
               {/* نوع التأمين */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">نوع التأمين</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>نوع التأمين</label>
                 <select
                   value={insuranceType}
                   onChange={(e) => { setInsuranceType(e.target.value); handleFieldChange('insuranceType'); }}
@@ -163,7 +163,7 @@ export default function NewAppointment() {
 
               {/* تاريخ بدء التأمين */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">تاريخ بدء التأمين</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ بدء التأمين</label>
                 <input
                   type="date"
                   value={startDate}
@@ -176,7 +176,7 @@ export default function NewAppointment() {
 
               {/* الغرض من استخدام المركبة */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">الغرض من استخدام المركبة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>الغرض من استخدام المركبة</label>
                 <select
                   value={usagePurpose}
                   onChange={(e) => { setUsagePurpose(e.target.value); handleFieldChange('usagePurpose'); }}
@@ -193,7 +193,7 @@ export default function NewAppointment() {
 
               {/* القيمة التقديرية للمركبة */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">القيمة التقديرية للمركبة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>القيمة التقديرية للمركبة</label>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -212,7 +212,7 @@ export default function NewAppointment() {
 
               {/* سنة صنع المركبة */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">سنة صنع المركبة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>سنة صنع المركبة</label>
                 <select
                   value={manufactureYear}
                   onChange={(e) => { setManufactureYear(e.target.value); handleFieldChange('manufactureYear'); }}
@@ -229,7 +229,7 @@ export default function NewAppointment() {
 
               {/* ماركة وموديل السيارة */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">ماركة وموديل السيارة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>ماركة وموديل السيارة</label>
                 <input
                   type="text"
                   placeholder="مثال: تويوتا كامري 2023"
@@ -243,7 +243,7 @@ export default function NewAppointment() {
 
               {/* مكان اصلاح المركبة */}
               <div>
-                <label className="block text-sm text-gray-700 mb-2 text-right font-bold">مكان اصلاح المركبة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>مكان اصلاح المركبة</label>
                 <div className="space-y-2">
                   <label
                     className={`flex items-center justify-end gap-3 px-4 py-3 border rounded-lg cursor-pointer transition-all ${
