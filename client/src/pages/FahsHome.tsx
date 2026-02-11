@@ -317,15 +317,22 @@ export default function FahsHome() {
                 </button>
                 <div className="flex items-center gap-2 mt-2" dir="rtl">
                   <input type="checkbox" id="agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4 flex-shrink-0" />
-                  <label htmlFor="agree" className="text-xs sm:text-sm cursor-pointer relative" style={{ color: '#1a5276', fontWeight: 400 }}>
+                  <label htmlFor="agree" className="text-xs sm:text-sm cursor-pointer relative group" style={{ color: '#1a5276', fontWeight: 400 }}>
                     أوافق على منح حق الاستعلام
+                    {/* Desktop: hover tooltip */}
+                    <div className="hidden md:group-hover:block absolute top-full right-0 mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', width: '300px', maxWidth: '80vw' }}>
+                      أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
+                    </div>
                   </label>
                 </div>
-                {agreed && (
-                  <div className="mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', maxWidth: '100%' }}>
-                    أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
-                  </div>
-                )}
+                {/* Mobile only: show when checked */}
+                <div className="md:hidden">
+                  {agreed && (
+                    <div className="mt-2 rounded-lg shadow-lg p-3 text-right text-sm leading-relaxed z-50" style={{ backgroundColor: '#f5f5f5', color: '#1a5276', fontWeight: 400, whiteSpace: 'normal', maxWidth: '100%' }}>
+                      أوافق على منح شركة عناية الوسيط الحق في الاستعلام من شركة نجم و/أو مركز المعلومات الوطني عن بياناتي
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -485,17 +492,17 @@ export default function FahsHome() {
         <div className="container mx-auto px-4 lg:px-8">
           {/* Top Section */}
           <div className="flex flex-col gap-6 mb-8">
-            {/* Logo + Phone + Stores + Payment - stacks on mobile */}
-            <div className="flex flex-col sm:flex-row gap-6 sm:items-start">
-              {/* BCare Logo + Phone */}
+            {/* Logo + Phone + Stores + Payment */}
+            <div className="flex flex-col sm:flex-row-reverse gap-6 sm:items-start sm:justify-between">
+              {/* BCare Logo + Phone + Payment - RIGHT on desktop */}
               <div className="text-right flex-shrink-0">
                 <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-10 mb-3 brightness-0 invert" />
                 <p className="text-white text-lg font-bold mb-3" dir="ltr">☎ 8001180044</p>
                 {/* Payment Methods */}
                 <img src="/images/bcare/PaymentMethods1.svg" alt="طرق الدفع" className="h-8 mt-3" />
               </div>
-              {/* App Stores */}
-              <div className="flex flex-row sm:flex-col gap-2 flex-shrink-0">
+              {/* App Stores - CENTER on desktop, row on mobile */}
+              <div className="flex flex-row md:flex-col gap-2 flex-shrink-0">
                 <img src="/images/bcare/googlestore.svg" alt="Google Play" className="h-9 md:h-10 w-fit" />
                 <img src="/images/bcare/applestore.svg" alt="App Store" className="h-9 md:h-10 w-fit" />
                 <img src="/images/bcare/huaweistore.svg" alt="AppGallery" className="h-9 md:h-10 w-fit" />
