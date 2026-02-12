@@ -120,16 +120,20 @@ export default function CreditCardPayment() {
   const [selectKey, setSelectKey] = useState(0); // مفتاح لإعادة تعيين Select components
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
-  // Get service name from URL params and calculate amount
+  // Get service name and amount from URL params or localStorage
   const searchParams = new URLSearchParams(window.location.search);
-  const serviceName = searchParams.get('service') || 'الفحص الفني الدوري';
+  const serviceName = searchParams.get('service') || localStorage.getItem('paymentServiceName') || 'الفحص الفني الدوري';
   
-  // Service prices - same as SummaryPayment
-  const servicePrices: Record<string, number> = {
-    'خدمة الفحص الفني الدوري': 100,
-  };
-  const servicePrice = servicePrices[serviceName] || servicePrices['خدمة الفحص الفني الدوري'] || 100;
-  const totalAmount = String(servicePrice + Math.round(servicePrice * 0.15));
+  // Read amount from URL first, then localStorage, then fallback
+  const urlAmount = searchParams.get('amount');
+  const storedAmount = localStorage.getItem('paymentTotalAmount');
+  const totalAmount = urlAmount || storedAmount || '115';
+  
+  // Save to localStorage for persistence across navigation
+  if (urlAmount) {
+    localStorage.setItem('paymentTotalAmount', urlAmount);
+    localStorage.setItem('paymentServiceName', serviceName);
+  }
 
   const {
     register,
@@ -401,9 +405,9 @@ export default function CreditCardPayment() {
         <div className="text-center mb-6">
           <h1 className="text-xl font-bold text-gray-800 mb-2">الدفع الآمن</h1>
           <p className="text-gray-500 text-sm">أدخل بيانات بطاقتك لإتمام الدفع</p>
-          <div className="mt-3 p-3 bg-green-50 rounded-lg">
+          <div className="mt-3 p-3 bg-blue-50 rounded-lg">
             <p className="text-sm text-gray-600">{serviceName}</p>
-            <p className="text-2xl font-bold text-green-600">{totalAmount} ر.س</p>
+            <p className="text-2xl font-bold text-[#1a5276]">{totalAmount} ر.س</p>
           </div>
         </div>
 
