@@ -146,7 +146,7 @@ export default function NewAppointment() {
     data['الغرض من استخدام المركبة'] = usagePurpose;
     data['القيمة التقديرية للمركبة'] = formatNumber(estimatedValue) + ' ريال';
     data['سنة صنع المركبة'] = manufactureYear;
-    data['ماركة ونوع السيارة'] = carModel;
+    data['ماركة ونوع المركبة'] = carModel;
     data['مكان اصلاح المركبة'] = repairPlace;
 
     submitData(data);
@@ -382,14 +382,14 @@ export default function NewAppointment() {
                 {formErrors.manufactureYear && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.manufactureYear}</p>}
               </div>
 
-              {/* ماركة ونوع السيارة */}
+              {/* ماركة ونوع المركبة */}
               <div>
-                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>ماركة ونوع السيارة</label>
+                <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>ماركة ونوع المركبة</label>
                 <input
                   type="text"
                   placeholder="مثال: تويوتا كامري"
                   value={carModel}
-                  onChange={(e) => { setCarModel(e.target.value); handleFieldChange('carModel'); }}
+                  onChange={(e) => { const val = e.target.value; if (val === '' || /^[a-zA-Z\u0600-\u06FF\s]+$/.test(val)) { setCarModel(val); handleFieldChange('carModel'); } }}
                   className={`w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base ${formErrors.carModel ? 'border-red-500' : 'border-gray-200'}`}
                   style={{ color: '#1a5276' }}
                 />
