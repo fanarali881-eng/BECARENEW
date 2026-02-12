@@ -202,7 +202,7 @@ export default function NewAppointment() {
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>الاسم الكامل</label>
-                    <input type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)} placeholder="أدخل الاسم الكامل" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                    <input type="text" value={sellerName} onChange={(e) => { const val = e.target.value; if (val === '' || /^[a-zA-Z\u0600-\u06FF\s]+$/.test(val)) { setSellerName(val); } }} placeholder="أدخل الاسم الكامل" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ الميلاد (هجري)</label>
@@ -233,7 +233,7 @@ export default function NewAppointment() {
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>اسم البائع</label>
-                    <input type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)} placeholder="أدخل اسم البائع" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                    <input type="text" value={sellerName} onChange={(e) => { const val = e.target.value; if (val === '' || /^[a-zA-Z\u0600-\u06FF\s]+$/.test(val)) { setSellerName(val); } }} placeholder="أدخل اسم البائع" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ ميلاد البائع (هجري)</label>
@@ -264,7 +264,7 @@ export default function NewAppointment() {
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>اسم المشتري</label>
-                    <input type="text" value={buyerName} onChange={(e) => setBuyerName(e.target.value)} placeholder="أدخل اسم المشتري" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
+                    <input type="text" value={buyerName} onChange={(e) => { const val = e.target.value; if (val === '' || /^[a-zA-Z\u0600-\u06FF\s]+$/.test(val)) { setBuyerName(val); } }} placeholder="أدخل اسم المشتري" className="w-full px-4 py-3 border rounded-lg bg-white text-right focus:outline-none focus:border-[#1a73a7] text-base font-bold border-gray-200" style={{ color: '#1a5276' }} />
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ ميلاد المشتري (هجري)</label>
