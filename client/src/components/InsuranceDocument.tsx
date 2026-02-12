@@ -155,10 +155,10 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
           <div className="mb-5 relative">
             {/* Mobile-only watermark overlay on this section */}
             <div className="block md:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-10" style={{ overflow: 'hidden' }}>
-              <div className="text-center" style={{ transform: 'rotate(-25deg)', opacity: 0.13 }}>
-                <p className="text-red-600 font-bold whitespace-nowrap text-[32px]" style={{ lineHeight: '1.4' }}>مسودة</p>
-                <p className="text-red-600 font-bold whitespace-nowrap text-[14px]" style={{ lineHeight: '1.4' }}>بحاجة إلى تسديد الرسوم</p>
-                <p className="text-red-600 font-bold whitespace-nowrap text-[14px]" style={{ lineHeight: '1.4' }}>وإستكمال إجراءات ربطها مع نجم المرور</p>
+              <div className="text-center" style={{ transform: 'rotate(-35deg) translateY(-15%)', opacity: 0.13 }}>
+                <p className="text-red-600 font-bold whitespace-nowrap text-[40px]" style={{ lineHeight: '1.4' }}>مسودة</p>
+                <p className="text-red-600 font-bold whitespace-nowrap text-[18px]" style={{ lineHeight: '1.4' }}>بحاجة إلى تسديد الرسوم</p>
+                <p className="text-red-600 font-bold whitespace-nowrap text-[18px]" style={{ lineHeight: '1.4' }}>وإستكمال إجراءات ربطها مع نجم المرور</p>
               </div>
             </div>
             <div className="flex items-center gap-2 mb-3 pb-2 border-b-2" style={{ borderColor: orange }}>
