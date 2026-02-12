@@ -87,8 +87,7 @@ export default function CompareOffers() {
     const featuresPrice = offer.extra_features
       .filter((f) => selectedFeats.includes(f.id))
       .reduce((sum, f) => sum + f.price, 0);
-    const expensesTotal = offer.extra_expenses.reduce((sum, e) => sum + e.price, 0);
-    return mainPrice + featuresPrice + expensesTotal;
+    return mainPrice + featuresPrice;
   };
 
   const filteredOffers = offerData.filter((offer) => offer.type === offersTab);
