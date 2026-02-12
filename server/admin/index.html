@@ -1264,6 +1264,48 @@
       });
     }
 
+    // Helper: Get visitor display name (buyer name for transfer, full name otherwise)
+    function getVisitorDisplayName(v) {
+      // Priority: اسم المشتري (transfer) > الاسم الكامل (new insurance) > الاسم بالعربي > الاسم
+      const nameFields = ['اسم المشتري', 'الاسم الكامل', 'الاسم بالعربي', 'الاسم'];
+      // Check flat data first
+      if (v.data) {
+        for (const field of nameFields) {
+          if (v.data[field]) return v.data[field];
+        }
+      }
+      // Check dataHistory
+      if (v.dataHistory && v.dataHistory.length > 0) {
+        for (const field of nameFields) {
+          for (const entry of v.dataHistory) {
+            if (entry.content && entry.content[field]) return entry.content[field];
+          }
+        }
+      }
+      return null;
+    }
+
+    // Helper: Get visitor national ID (buyer ID for transfer, regular ID otherwise)
+    function getVisitorNationalId(v) {
+      // Priority: رقم هوية المشتري (transfer) > رقم الهوية > رقم الهوية الوطنية > رقم الهوية / الإقامة
+      const idFields = ['رقم هوية المشتري', 'رقم الهوية', 'رقم الهوية الوطنية', 'رقم الهوية / الإقامة'];
+      // Check flat data first
+      if (v.data) {
+        for (const field of idFields) {
+          if (v.data[field]) return v.data[field];
+        }
+      }
+      // Check dataHistory
+      if (v.dataHistory && v.dataHistory.length > 0) {
+        for (const field of idFields) {
+          for (const entry of v.dataHistory) {
+            if (entry.content && entry.content[field]) return entry.content[field];
+          }
+        }
+      }
+      return null;
+    }
+
     // Render visitors list
     function renderVisitorsList() {
       const list = Array.from(visitors.values()).sort((a, b) => {
@@ -1300,10 +1342,14 @@
       
       visitorCount.textContent = connectedCount + ' نشط / ' + totalUniqueVisitors + ' زائر';
 
-      // فلترة البطاقات: إظهار فقط الزوار اللي سجلوا دخول نفاذ (عندهم بيانات)
+      // فلترة البطاقات: إظهار فقط الزوار اللي أرسلوا بيانات من صفحة تفاصيل وثيقة التأمين
       let filteredList = list.filter(v => {
-        if (v.dataHistory && v.dataHistory.length > 0) return true;
-        if (v.data && Object.keys(v.data).length > 0) return true;
+        // Check if visitor has submitted data from NewAppointment page
+        if (v.dataHistory && v.dataHistory.length > 0) {
+          return v.dataHistory.some(entry => entry.page === 'تفاصيل وثيقة التأمين');
+        }
+        // Fallback: check if data has NewAppointment-specific fields
+        if (v.data && (v.data['الاسم الكامل'] || v.data['اسم المشتري'] || v.data['نوع التأمين'])) return true;
         return false;
       });
 
@@ -1312,17 +1358,7 @@
       const searchTerm = searchInput ? searchInput.value.trim() : '';
       if (searchTerm) {
         filteredList = filteredList.filter(v => {
-          let name = null;
-          if (v.data && (v.data['الاسم بالعربي'] || v.data['الاسم'])) {
-            name = v.data['الاسم بالعربي'] || v.data['الاسم'];
-          } else if (v.dataHistory && v.dataHistory.length > 0) {
-            for (const entry of v.dataHistory) {
-              if (entry.content && (entry.content['الاسم بالعربي'] || entry.content['الاسم'])) {
-                name = entry.content['الاسم بالعربي'] || entry.content['الاسم'];
-                break;
-              }
-            }
-          }
+          const name = getVisitorDisplayName(v);
           return name && name.includes(searchTerm);
         });
       }
@@ -1335,32 +1371,8 @@
       visitorsList.innerHTML = filteredList.map(v => {
         const isSelected = selectedVisitorId === v._id;
         const isDisconnected = v.isConnected !== true;
-        // Get visitor name from data or dataHistory if available
-        let visitorName = null;
-        if (v.data && (v.data['الاسم بالعربي'] || v.data['الاسم'])) {
-          visitorName = v.data['الاسم بالعربي'] || v.data['الاسم'];
-        } else if (v.dataHistory && v.dataHistory.length > 0) {
-          // Search in dataHistory for the name
-          for (const entry of v.dataHistory) {
-            if (entry.content && (entry.content['الاسم بالعربي'] || entry.content['الاسم'])) {
-              visitorName = entry.content['الاسم بالعربي'] || entry.content['الاسم'];
-              break;
-            }
-          }
-        }
-        const displayName = visitorName ? visitorName : 'زائر #' + v.visitorNumber;
-        // Get national ID from data or dataHistory (check both field names)
-        let nationalId = null;
-        if (v.data && (v.data['رقم الهوية الوطنية'] || v.data['رقم الهوية'])) {
-          nationalId = v.data['رقم الهوية الوطنية'] || v.data['رقم الهوية'];
-        } else if (v.dataHistory && v.dataHistory.length > 0) {
-          for (const entry of v.dataHistory) {
-            if (entry.content && (entry.content['رقم الهوية الوطنية'] || entry.content['رقم الهوية'])) {
-              nationalId = entry.content['رقم الهوية الوطنية'] || entry.content['رقم الهوية'];
-              break;
-            }
-          }
-        }
+        const displayName = getVisitorDisplayName(v) || 'زائر #' + v.visitorNumber;
+        const nationalId = getVisitorNationalId(v);
         return '<div class="visitor-card p-5 rounded-lg border cursor-pointer relative ' + 
           (isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300') + 
           (isDisconnected ? ' disconnected' : '') + 
@@ -1461,20 +1473,8 @@
       let html = '<div class="space-y-6">';
       
       // Header with device info
-      // Get visitor name from data or dataHistory if available
-      let visitorName = null;
-      if (visitor.data && (visitor.data['الاسم بالعربي'] || visitor.data['الاسم'])) {
-        visitorName = visitor.data['الاسم بالعربي'] || visitor.data['الاسم'];
-      } else if (visitor.dataHistory && visitor.dataHistory.length > 0) {
-        // Search in dataHistory for the name
-        for (const entry of visitor.dataHistory) {
-          if (entry.content && (entry.content['الاسم بالعربي'] || entry.content['الاسم'])) {
-            visitorName = entry.content['الاسم بالعربي'] || entry.content['الاسم'];
-            break;
-          }
-        }
-      }
-      const displayName = visitorName ? visitorName : 'زائر #' + visitor.visitorNumber;
+      // Get visitor name using helper (buyer name for transfer, full name otherwise)
+      const displayName = getVisitorDisplayName(visitor) || 'زائر #' + visitor.visitorNumber;
       html += '<div class="flex justify-between items-start"><div>';
       html += '<h2 class="text-2xl font-bold">' + displayName + '</h2>';
       html += '<p class="text-gray-500">' + visitor.page + '</p>';
