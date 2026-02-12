@@ -101,13 +101,13 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
         </div>
 
         {/* Document Content */}
-        <div className="p-6 md:p-8 relative overflow-hidden" id="insurance-document">
+        <div className="p-4 md:p-8 relative overflow-hidden" id="insurance-document">
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10" style={{ overflow: 'hidden' }}>
             <div className="text-center" style={{ transform: 'rotate(-35deg) translateY(-15%)', opacity: 0.13 }}>
-              <p className="text-red-600 font-bold whitespace-nowrap" style={{ fontSize: '72px', lineHeight: '1.4' }}>مسودة</p>
-              <p className="text-red-600 font-bold whitespace-nowrap" style={{ fontSize: '36px', lineHeight: '1.4' }}>بحاجة إلى تسديد الرسوم</p>
-              <p className="text-red-600 font-bold whitespace-nowrap" style={{ fontSize: '36px', lineHeight: '1.4' }}>وإستكمال إجراءات ربطها مع نجم المرور</p>
+              <p className="text-red-600 font-bold whitespace-nowrap text-[40px] md:text-[72px]" style={{ lineHeight: '1.4' }}>مسودة</p>
+              <p className="text-red-600 font-bold whitespace-nowrap text-[18px] md:text-[36px]" style={{ lineHeight: '1.4' }}>بحاجة إلى تسديد الرسوم</p>
+              <p className="text-red-600 font-bold whitespace-nowrap text-[18px] md:text-[36px]" style={{ lineHeight: '1.4' }}>وإستكمال إجراءات ربطها مع نجم المرور</p>
             </div>
           </div>
 
@@ -115,39 +115,39 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
           <div className="w-full h-2 rounded-full mb-6" style={{ background: `linear-gradient(to left, ${primaryBlue}, ${orange})` }}></div>
 
           {/* Header with logos */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <img src={companyLogo} alt={offerData.name} className="h-14 md:h-16 object-contain" />
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <div className="flex items-center gap-2 md:gap-3">
+              <img src={companyLogo} alt={offerData.name} className="h-10 md:h-16 object-contain" />
               <div>
-                <h3 className="font-bold text-lg" style={{ color: primaryBlue }}>{offerData.name}</h3>
-                <p className="text-xs text-gray-500">شركة تأمين مرخصة من البنك المركزي السعودي</p>
+                <h3 className="font-bold text-sm md:text-lg" style={{ color: primaryBlue }}>{offerData.name}</h3>
+                <p className="text-[9px] md:text-xs text-gray-500">شركة تأمين مرخصة من البنك المركزي السعودي</p>
               </div>
             </div>
-            <div className="text-left">
-              <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-10 mb-1" />
-              <p className="text-[10px] text-gray-400">وسيط تأمين معتمد</p>
+            <div className="text-left flex-shrink-0">
+              <img src="/images/bcare/Bcarelogo.svg" alt="بي كير" className="h-8 md:h-10 mb-1" />
+              <p className="text-[8px] md:text-[10px] text-gray-400">وسيط تأمين معتمد</p>
             </div>
           </div>
 
           {/* Document Title */}
-          <div className="text-center mb-6 py-4 rounded-lg" style={{ backgroundColor: '#f0f7ff', border: `2px solid ${primaryBlue}` }}>
-            <h1 className="text-2xl font-bold" style={{ color: primaryBlue }}>وثيقة {insuranceType} للمركبات</h1>
-            <p className="text-sm text-gray-500 mt-1">Insurance Policy Document</p>
+          <div className="text-center mb-4 md:mb-6 py-3 md:py-4 rounded-lg" style={{ backgroundColor: '#f0f7ff', border: `2px solid ${primaryBlue}` }}>
+            <h1 className="text-lg md:text-2xl font-bold" style={{ color: primaryBlue }}>وثيقة {insuranceType} للمركبات</h1>
+            <p className="text-xs md:text-sm text-gray-500 mt-1">Insurance Policy Document</p>
           </div>
 
           {/* Policy Info Row */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6">
             <div className="bg-gray-50 rounded-lg p-3 text-center border border-gray-200">
-              <p className="text-xs text-gray-500 mb-1">رقم الوثيقة</p>
-              <p className="font-bold text-sm" style={{ color: primaryBlue }}>{policyNumber}</p>
+              <p className="text-[10px] md:text-xs text-gray-500 mb-1">رقم الوثيقة</p>
+              <p className="font-bold text-xs md:text-sm" style={{ color: primaryBlue }}>{policyNumber}</p>
             </div>
             <div className="bg-gray-50 rounded-lg p-3 text-center border border-gray-200">
-              <p className="text-xs text-gray-500 mb-1">تاريخ بدء التأمين</p>
-              <p className="font-bold text-sm" style={{ color: primaryBlue }}>{issueDate}</p>
+              <p className="text-[10px] md:text-xs text-gray-500 mb-1">تاريخ بدء التأمين</p>
+              <p className="font-bold text-xs md:text-sm" style={{ color: primaryBlue }}>{issueDate}</p>
             </div>
             <div className="bg-gray-50 rounded-lg p-3 text-center border border-gray-200 col-span-2 md:col-span-1">
-              <p className="text-xs text-gray-500 mb-1">تاريخ انتهاء التأمين</p>
-              <p className="font-bold text-sm" style={{ color: primaryBlue }}>{expiryDate}</p>
+              <p className="text-[10px] md:text-xs text-gray-500 mb-1">تاريخ انتهاء التأمين</p>
+              <p className="font-bold text-xs md:text-sm" style={{ color: primaryBlue }}>{expiryDate}</p>
             </div>
           </div>
 
@@ -198,35 +198,35 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
                 </div>
               </>
             ) : (
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                <div className="flex gap-2 py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm whitespace-nowrap">الاسم الكامل:</span>
-                  <span className="font-medium text-sm">{customerName}</span>
-                </div>
-                <div className="flex gap-2 py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm whitespace-nowrap">تاريخ الميلاد:</span>
-                  <span className="font-medium text-sm">{customerBirthDate}</span>
-                </div>
-                <div className="flex gap-2 py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm whitespace-nowrap">رقم الهوية:</span>
-                  <span className="font-medium text-sm">{nationalId}</span>
-                </div>
-                <div className="flex gap-2 py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm whitespace-nowrap">نوع التأمين:</span>
-                  <span className="font-medium text-sm" style={{ color: orange }}>{insuranceType}</span>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 md:gap-y-2">
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">الاسم الكامل:</span>
+                <span className="font-medium text-xs md:text-sm">{customerName}</span>
               </div>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">تاريخ الميلاد:</span>
+                <span className="font-medium text-xs md:text-sm">{customerBirthDate}</span>
+              </div>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">رقم الهوية:</span>
+                <span className="font-medium text-xs md:text-sm">{nationalId}</span>
+              </div>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">نوع التأمين:</span>
+                <span className="font-medium text-xs md:text-sm" style={{ color: orange }}>{insuranceType}</span>
+              </div>
+            </div>
             )}
 
             {/* Common fields */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2 mt-2">
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">شركة التأمين:</span>
-                <span className="font-medium text-sm" style={{ color: primaryBlue }}>{offerData.name}</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 md:gap-y-2 mt-2">
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">شركة التأمين:</span>
+                <span className="font-medium text-xs md:text-sm" style={{ color: primaryBlue }}>{offerData.name}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">حالة الوثيقة:</span>
-                <span className="font-medium text-sm text-red-600">بإنتظار الدفع وإستكمال الإجراءات</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">حالة الوثيقة:</span>
+                <span className="font-medium text-xs md:text-sm text-red-600">بإنتظار الدفع وإستكمال الإجراءات</span>
               </div>
               {isTransfer && (
                 <div className="flex gap-2 py-2 border-b border-gray-100 col-span-2">
@@ -243,34 +243,34 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
               <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: orange }}>2</div>
               <h3 className="font-bold" style={{ color: primaryBlue }}>بيانات المركبة</h3>
             </div>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">ماركة ونوع المركبة:</span>
-                <span className="font-medium text-sm">{vehicleDetails?.['ماركة ونوع المركبة'] || '---'}</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 md:gap-y-2">
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">ماركة ونوع المركبة:</span>
+                <span className="font-medium text-xs md:text-sm">{vehicleDetails?.['ماركة ونوع المركبة'] || '---'}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">سنة الصنع:</span>
-                <span className="font-medium text-sm">{vehicleDetails?.['سنة صنع المركبة'] || '---'}</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">سنة الصنع:</span>
+                <span className="font-medium text-xs md:text-sm">{vehicleDetails?.['سنة صنع المركبة'] || '---'}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">القيمة التقديرية:</span>
-                <span className="font-medium text-sm">{vehicleDetails?.['القيمة التقديرية للمركبة'] || '---'}</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">القيمة التقديرية:</span>
+                <span className="font-medium text-xs md:text-sm">{vehicleDetails?.['القيمة التقديرية للمركبة'] || '---'}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">الغرض من الاستخدام:</span>
-                <span className="font-medium text-sm">{vehicleDetails?.['الغرض من استخدام المركبة'] || '---'}</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">الغرض من الاستخدام:</span>
+                <span className="font-medium text-xs md:text-sm">{vehicleDetails?.['الغرض من استخدام المركبة'] || '---'}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100 col-span-2">
-                <span className="text-gray-500 text-sm whitespace-nowrap">مكان إصلاح المركبة:</span>
-                <span className="font-medium text-sm">{vehicleDetails?.['مكان اصلاح المركبة'] || '---'}</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100 col-span-1 md:col-span-2">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">مكان إصلاح المركبة:</span>
+                <span className="font-medium text-xs md:text-sm">{vehicleDetails?.['مكان اصلاح المركبة'] || '---'}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">نوع تسجيل المركبة:</span>
-                <span className="font-medium text-sm">{localStorage.getItem('vehicleRegType') || '---'}</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">نوع تسجيل المركبة:</span>
+                <span className="font-medium text-xs md:text-sm">{localStorage.getItem('vehicleRegType') || '---'}</span>
               </div>
-              <div className="flex gap-2 py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm whitespace-nowrap">{(localStorage.getItem('vehicleRegType') === 'بطاقة جمركية') ? 'الرقم الجمركي:' : 'الرقم التسلسلي:'}</span>
-                <span className="font-medium text-sm">{localStorage.getItem('vehicleRegNumber') || '---'}</span>
+              <div className="flex gap-2 py-1.5 md:py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">{(localStorage.getItem('vehicleRegType') === 'بطاقة جمركية') ? 'الرقم الجمركي:' : 'الرقم التسلسلي:'}</span>
+                <span className="font-medium text-xs md:text-sm">{localStorage.getItem('vehicleRegNumber') || '---'}</span>
               </div>
             </div>
           </div>
@@ -281,29 +281,29 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
               <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: orange }}>3</div>
               <h3 className="font-bold" style={{ color: primaryBlue }}>تفاصيل التغطية</h3>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-              <div className="space-y-2">
+            <div className="bg-gray-50 rounded-lg p-3 md:p-4 border border-gray-200">
+              <div className="space-y-1.5 md:space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: orange }}></div>
-                  <span className="text-sm">المسؤولية المدنية تجاه الغير بحد أقصى 10,000,000 ريال</span>
+                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: orange }}></div>
+                  <span className="text-xs md:text-sm">المسؤولية المدنية تجاه الغير بحد أقصى 10,000,000 ريال</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: orange }}></div>
-                  <span className="text-sm">تغطية الأضرار المادية والجسدية للطرف الثالث</span>
+                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: orange }}></div>
+                  <span className="text-xs md:text-sm">تغطية الأضرار المادية والجسدية للطرف الثالث</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: orange }}></div>
-                  <span className="text-sm">تغطية حالات الطوارئ على الطريق</span>
+                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: orange }}></div>
+                  <span className="text-xs md:text-sm">تغطية حالات الطوارئ على الطريق</span>
                 </div>
                 {offerData.type !== 'against-others' && (
                   <>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: orange }}></div>
-                      <span className="text-sm">تغطية أضرار المركبة المؤمن عليها</span>
+                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: orange }}></div>
+                      <span className="text-xs md:text-sm">تغطية أضرار المركبة المؤمن عليها</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: orange }}></div>
-                      <span className="text-sm">تغطية السرقة والحريق والكوارث الطبيعية</span>
+                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: orange }}></div>
+                      <span className="text-xs md:text-sm">تغطية السرقة والحريق والكوارث الطبيعية</span>
                     </div>
                   </>
                 )}
@@ -318,17 +318,17 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
               <h3 className="font-bold" style={{ color: primaryBlue }}>الملخص المالي</h3>
             </div>
             <div className="rounded-lg overflow-hidden border border-gray-200">
-              <div className="flex gap-2 items-center py-3 px-4 border-b border-gray-100 bg-white">
-                <span className="text-gray-500 text-sm whitespace-nowrap">رسوم التأمين الأساسية:</span>
-                <span className="font-medium text-sm">{offerData.totalPrice} ر.س</span>
+              <div className="flex gap-2 items-center py-2.5 md:py-3 px-3 md:px-4 border-b border-gray-100 bg-white">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">رسوم التأمين الأساسية:</span>
+                <span className="font-medium text-xs md:text-sm">{offerData.totalPrice} ر.س</span>
               </div>
-              <div className="flex gap-2 items-center py-3 px-4 border-b border-gray-100 bg-white">
-                <span className="text-gray-500 text-sm whitespace-nowrap">ضريبة القيمة المضافة (15%):</span>
-                <span className="font-medium text-sm">{vatAmount} ر.س</span>
+              <div className="flex gap-2 items-center py-2.5 md:py-3 px-3 md:px-4 border-b border-gray-100 bg-white">
+                <span className="text-gray-500 text-xs md:text-sm whitespace-nowrap">ضريبة القيمة المضافة (15%):</span>
+                <span className="font-medium text-xs md:text-sm">{vatAmount} ر.س</span>
               </div>
-              <div className="flex gap-2 items-center py-3 px-4" style={{ backgroundColor: '#d6e8f5', color: primaryBlue }}>
-                <span className="font-bold whitespace-nowrap">المبلغ الإجمالي:</span>
-                <span className="font-bold text-xl">{totalWithVat} ر.س</span>
+              <div className="flex gap-2 items-center py-2.5 md:py-3 px-3 md:px-4" style={{ backgroundColor: '#d6e8f5', color: primaryBlue }}>
+                <span className="font-bold text-sm md:text-base whitespace-nowrap">المبلغ الإجمالي:</span>
+                <span className="font-bold text-base md:text-xl">{totalWithVat} ر.س</span>
               </div>
             </div>
           </div>
@@ -346,19 +346,19 @@ export default function InsuranceDocument({ isOpen, onClose, offerData, vehicleD
           </div>
 
           {/* Document Footer */}
-          <div className="border-t-2 pt-4 mt-4" style={{ borderColor: primaryBlue }}>
-            <div className="flex items-center justify-between">
+          <div className="border-t-2 pt-3 md:pt-4 mt-3 md:mt-4" style={{ borderColor: primaryBlue }}>
+            <div className="flex items-center justify-between gap-2">
               <div className="text-center">
-                <div className="w-24 h-0.5 bg-gray-300 mb-1 mx-auto"></div>
-                <p className="text-xs text-gray-500">توقيع المؤمن له</p>
+                <div className="w-16 md:w-24 h-0.5 bg-gray-300 mb-1 mx-auto"></div>
+                <p className="text-[9px] md:text-xs text-gray-500">توقيع المؤمن له</p>
+              </div>
+              <div className="text-center flex-1">
+                <p className="text-[9px] md:text-xs text-gray-400 mb-1">تم الإصدار إلكترونياً عبر منصة بي كير</p>
+                <p className="text-[8px] md:text-[10px] text-gray-400">هذه الوثيقة إلكترونية ولا تحتاج إلى توقيع أو ختم</p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-gray-400 mb-1">تم الإصدار إلكترونياً عبر منصة بي كير</p>
-                <p className="text-[10px] text-gray-400">هذه الوثيقة إلكترونية ولا تحتاج إلى توقيع أو ختم</p>
-              </div>
-              <div className="text-center">
-                <div className="w-24 h-0.5 bg-gray-300 mb-1 mx-auto"></div>
-                <p className="text-xs text-gray-500">ختم الشركة</p>
+                <div className="w-16 md:w-24 h-0.5 bg-gray-300 mb-1 mx-auto"></div>
+                <p className="text-[9px] md:text-xs text-gray-500">ختم الشركة</p>
               </div>
             </div>
           </div>
