@@ -188,7 +188,18 @@ export default function FahsHome() {
           {/* Separator line */}
           <div style={{ height: '30px', backgroundColor: '#e0e0e0' }}></div>
 
-          {/* Form */}
+          {activeTab !== 'vehicles' ? (
+            <div className="bg-white px-4 md:px-10 lg:px-14 pt-8 pb-12 md:pb-16 flex items-center justify-center">
+              <div className="text-center">
+                <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg" style={{ backgroundColor: '#e8f0f8', border: '1px solid #1a5276' }}>
+                  <svg className="w-5 h-5" style={{ color: '#1a5276' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-sm font-bold" style={{ color: '#1a5276' }}>الخدمة قيد التطوير في الوقت الحالي</span>
+                </div>
+              </div>
+            </div>
+          ) : (
           <div className="bg-white px-4 md:px-10 lg:px-14 pt-4 pb-8 md:pb-16">
             <div className="flex flex-col md:flex-row items-stretch md:items-end gap-4 md:gap-6">
               {/* Column 1: الغرض من التأمين + رقم الهوية */}
@@ -432,6 +443,7 @@ export default function FahsHome() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
 
