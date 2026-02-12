@@ -98,11 +98,20 @@ export default function CompareOffers() {
     const finalPrice = Number.parseFloat(totalPrice.toFixed(2));
 
     // Save selected offer data
+    const selectedFeats = offer.extra_features.filter((f) => selectedOfferFeatures.includes(f.id));
+    const paidFeats = selectedFeats.filter((f) => f.price > 0);
     const data: Record<string, string> = {
       'العرض المختار': offer.company.name,
       'نوع التأمين المختار': offer.type === "against-others" ? "ضد الغير" : "شامل",
-      'السعر الإجمالي': finalPrice + ' ريال',
+      'السعر الأساسي': offer.main_price + ' ريال',
     };
+    if (paidFeats.length > 0) {
+      data['المزايا الإضافية المختارة'] = paidFeats.map((f) => f.name + ' (' + f.price + ' ريال)').join(' | ');
+    }
+    data['السعر الإجمالي (بدون ضريبة)'] = finalPrice + ' ريال';
+    const vat = Number.parseFloat((finalPrice * 0.15).toFixed(2));
+    data['ضريبة القيمة المضافة (15%)'] = vat + ' ريال';
+    data['الإجمالي مع الضريبة'] = Number.parseFloat((finalPrice + vat).toFixed(2)) + ' ريال';
 
     // Save to localStorage for next page
     localStorage.setItem('selectedOffer', JSON.stringify({

