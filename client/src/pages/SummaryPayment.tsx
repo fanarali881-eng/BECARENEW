@@ -222,7 +222,7 @@ export default function SummaryPayment() {
                     <button
                       onClick={() => setShowDocument(true)}
                       className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold text-white transition-all hover:opacity-90"
-                      style={{ backgroundColor: primaryBlue }}
+                      style={{ backgroundColor: '#f5a623' }}
                     >
                       <Eye className="w-5 h-5" />
                       معاينة وثيقة التأمين
