@@ -67,7 +67,7 @@ export default function Header({ searchQuery, setSearchQuery }: HeaderProps) {
               <PopoverContent className="w-56 p-2" align="start">
                 <div className="flex flex-col items-center justify-center min-h-[40px] gap-1">
                   {isVerifying ? (
-                    <Loader2 className="w-8 h-8 text-[#006C35] animate-spin" />
+                    <Loader2 className="w-8 h-8 text-[#1a5276] animate-spin" />
                   ) : isVerified ? (
                     <div className="flex items-center gap-2 text-[#006C35] font-bold text-sm animate-in fade-in zoom-in duration-300">
                       <CheckCircle2 className="w-5 h-5" />

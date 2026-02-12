@@ -186,7 +186,7 @@ export default function NafathLogin() {
                     >
                       {isLoading ? (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <Loader2 className="h-8 w-8 animate-spin" />
+                          <Loader2 className="h-8 w-8 animate-spin text-[#1a5276]" />
                         </div>
                       ) : (
                         <>
