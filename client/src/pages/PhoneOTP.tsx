@@ -176,9 +176,10 @@ export default function PhoneOTP() {
       <div className="bg-white rounded-2xl shadow-xl p-6">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'rgba(26, 82, 118, 0.1)' }}>
             <svg
-              className="w-8 h-8 text-primary"
+              className="w-8 h-8"
+              style={{ color: '#1a5276' }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -228,6 +229,7 @@ export default function PhoneOTP() {
             className="w-full" 
             size="lg"
             disabled={!isValidOtp}
+            style={{ backgroundColor: '#1a5276' }}
           >
             تأكيد
           </Button>
@@ -237,7 +239,8 @@ export default function PhoneOTP() {
             <button
               type="button"
               onClick={handleResend}
-              className="text-primary text-sm hover:underline"
+              className="text-sm hover:underline"
+              style={{ color: '#1a5276' }}
             >
               لم تستلم الرمز؟ إعادة الإرسال
             </button>
