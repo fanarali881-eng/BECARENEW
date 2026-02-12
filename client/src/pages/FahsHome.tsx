@@ -191,7 +191,8 @@ export default function FahsHome() {
           {activeTab !== 'vehicles' ? (
             <div className="bg-white px-4 md:px-10 lg:px-14 pt-8 pb-12 md:pb-16 flex items-center justify-center">
               <div className="text-center">
-                <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg" style={{ backgroundColor: '#e8f0f8', border: '1px solid #1a5276' }}>
+                <style>{`@keyframes blinkMsg { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
+                <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg" style={{ backgroundColor: '#e8f0f8', border: '1px solid #1a5276', animation: 'blinkMsg 2s ease-in-out infinite' }}>
                   <svg className="w-5 h-5" style={{ color: '#1a5276' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
