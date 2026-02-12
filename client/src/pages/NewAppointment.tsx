@@ -263,33 +263,33 @@ export default function NewAppointment() {
       </header>
 
       {/* Stepper - RTL: 1 on right, 4 on left */}
-      <div className="px-3 md:px-16 lg:px-28 pt-6 md:pt-8" dir="rtl">
+      <div className="px-2 md:px-16 lg:px-28 pt-4 md:pt-8" dir="rtl">
         <div className="flex items-center justify-center mb-2">
           {/* Step 1 - completed (orange circle) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: '#f5a623' }}>1</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#f5a623' }}>البيانات الرئيسية</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg" style={{ backgroundColor: '#f5a623' }}>1</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: '#f5a623' }}>البيانات الرئيسية</span>
           </div>
           {/* Line 1-2 (orange - completed) */}
-          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: '#f5a623', marginBottom: '20px' }}></div>
-          {/* Step 2 - current (blue circle, orange text) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: '#1a5276' }}>2</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#1a5276' }}>تفاصيل وثيقة التأمين</span>
+          <div className="flex-1 h-0.5 md:h-1 mx-0.5 md:mx-1" style={{ backgroundColor: '#f5a623', marginBottom: '18px' }}></div>
+          {/* Step 2 - current (blue circle, blue text) */}
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg" style={{ backgroundColor: '#1a5276' }}>2</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: '#1a5276' }}>تفاصيل وثيقة التأمين</span>
           </div>
           {/* Line 2-3 (grey - future) */}
-          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: '#d1d5db', marginBottom: '20px' }}></div>
+          <div className="flex-1 h-0.5 md:h-1 mx-0.5 md:mx-1" style={{ backgroundColor: '#d1d5db', marginBottom: '18px' }}></div>
           {/* Step 3 - future (grey) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg" style={{ backgroundColor: '#e5e7eb', color: '#9ca3af' }}>3</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#9ca3af' }}>الشركات والعروض</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-sm md:text-lg" style={{ backgroundColor: '#e5e7eb', color: '#9ca3af' }}>3</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: '#9ca3af' }}>الشركات والعروض</span>
           </div>
           {/* Line 3-4 (grey - future) */}
-          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: '#d1d5db', marginBottom: '20px' }}></div>
+          <div className="flex-1 h-0.5 md:h-1 mx-0.5 md:mx-1" style={{ backgroundColor: '#d1d5db', marginBottom: '18px' }}></div>
           {/* Step 4 - future (grey) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg" style={{ backgroundColor: '#e5e7eb', color: '#9ca3af' }}>4</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#9ca3af' }}>الملخص والدفع</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-sm md:text-lg" style={{ backgroundColor: '#e5e7eb', color: '#9ca3af' }}>4</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: '#9ca3af' }}>الملخص والدفع</span>
           </div>
         </div>
       </div>

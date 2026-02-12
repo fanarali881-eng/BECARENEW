@@ -151,33 +151,33 @@ export default function SummaryPayment() {
       </header>
 
       {/* Stepper - RTL: 1 on right, 4 on left - Steps 1-3 orange (completed), Step 4 blue (current) */}
-      <div className="px-3 md:px-16 lg:px-28 pt-6 md:pt-8" dir="rtl">
+      <div className="px-2 md:px-16 lg:px-28 pt-4 md:pt-8" dir="rtl">
         <div className="flex items-center justify-center mb-2">
           {/* Step 1 - completed (orange) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: orange }}>1</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: orange }}>البيانات الرئيسية</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg" style={{ backgroundColor: orange }}>1</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: orange }}>البيانات الرئيسية</span>
           </div>
           {/* Line 1-2 (orange - completed) */}
-          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: orange, marginBottom: '20px' }}></div>
+          <div className="flex-1 h-0.5 md:h-1 mx-0.5 md:mx-1" style={{ backgroundColor: orange, marginBottom: '18px' }}></div>
           {/* Step 2 - completed (orange) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: orange }}>2</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: orange }}>تفاصيل وثيقة التأمين</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg" style={{ backgroundColor: orange }}>2</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: orange }}>تفاصيل وثيقة التأمين</span>
           </div>
           {/* Line 2-3 (orange - completed) */}
-          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: orange, marginBottom: '20px' }}></div>
+          <div className="flex-1 h-0.5 md:h-1 mx-0.5 md:mx-1" style={{ backgroundColor: orange, marginBottom: '18px' }}></div>
           {/* Step 3 - completed (orange) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: orange }}>3</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: orange }}>الشركات والعروض</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg" style={{ backgroundColor: orange }}>3</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: orange }}>الشركات والعروض</span>
           </div>
           {/* Line 3-4 (blue - current transition) */}
-          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: primaryBlue, marginBottom: '20px' }}></div>
+          <div className="flex-1 h-0.5 md:h-1 mx-0.5 md:mx-1" style={{ backgroundColor: primaryBlue, marginBottom: '18px' }}></div>
           {/* Step 4 - current (blue) */}
-          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: primaryBlue }}>4</div>
-            <span className="text-xs mt-2 text-center font-bold" style={{ color: primaryBlue }}>الملخص والدفع</span>
+          <div className="flex flex-col items-center min-w-[50px] md:min-w-[80px]">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg" style={{ backgroundColor: primaryBlue }}>4</div>
+            <span className="text-[10px] md:text-xs mt-1 md:mt-2 text-center font-bold leading-tight" style={{ color: primaryBlue }}>الملخص والدفع</span>
           </div>
         </div>
       </div>
