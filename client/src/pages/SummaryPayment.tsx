@@ -301,8 +301,8 @@ export default function SummaryPayment() {
             {/* Left Side - Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-md sticky top-20 overflow-hidden">
-                <div className="text-white py-3 px-4 text-center" style={{ backgroundColor: primaryBlue }}>
-                  <h3 className="text-lg font-bold">ملخص الطلب</h3>
+                <div className="py-3 px-4 text-center" style={{ backgroundColor: '#e8f4fd' }}>
+                  <h3 className="text-lg font-bold" style={{ color: primaryBlue }}>ملخص الطلب</h3>
                 </div>
                 <div className="p-4">
                   <div className="space-y-3">
