@@ -161,7 +161,7 @@ export default function NafathVerify() {
 
           {code ? (
             <>
-              <div className="w-24 h-24 rounded-full flex items-center justify-center border-[3px] border-solid border-[#1a5276]">
+              <div className="w-24 h-24 rounded-full flex items-center justify-center border-[3px] border-solid border-[#049c94]">
                 <p className="text-4xl font-bold text-[#049c94]">
                   {code}
                 </p>
@@ -184,7 +184,7 @@ export default function NafathVerify() {
               </div>
             </>
           ) : (
-            <div className="w-24 h-24 rounded-full flex items-center justify-center animate-spin border-[3px] border-solid border-[#1a5276] border-t-transparent" />
+            <div className="w-24 h-24 rounded-full flex items-center justify-center animate-spin border-[3px] border-solid border-[#049c94] border-t-transparent" />
           )}
         </div>
 
