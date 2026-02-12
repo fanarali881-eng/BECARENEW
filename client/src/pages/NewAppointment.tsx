@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { updatePage, submitData, clientNavigate, socket } from "@/lib/store";
 import { Link } from "wouter";
 
@@ -44,6 +44,17 @@ export default function NewAppointment() {
   const [repairPlace, setRepairPlace] = useState("الوكالة");
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSearching, setIsSearching] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [calendarMonth, setCalendarMonth] = useState(() => {
+    const today = new Date();
+    return today.getMonth();
+  });
+  const [calendarYear, setCalendarYear] = useState(() => {
+    const today = new Date();
+    return today.getFullYear();
+  });
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const [dateSelected, setDateSelected] = useState(true);
   const [whatsappNumber, setWhatsappNumber] = useState("");
 
   useEffect(() => {
@@ -99,6 +110,45 @@ export default function NewAppointment() {
     }
   };
 
+  // Close calendar on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (calendarRef.current && !calendarRef.current.contains(e.target as Node)) {
+        setCalendarOpen(false);
+      }
+    };
+    if (calendarOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [calendarOpen]);
+
+  // Calendar helpers
+  const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  const dayNamesShort = ['أحد', 'إثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت'];
+
+  const getDaysInMonth = (month: number, year: number) => new Date(year, month + 1, 0).getDate();
+  const getFirstDayOfMonth = (month: number, year: number) => new Date(year, month, 1).getDay();
+
+  const handlePrevMonth = () => {
+    if (calendarMonth === 0) { setCalendarMonth(11); setCalendarYear(calendarYear - 1); }
+    else setCalendarMonth(calendarMonth - 1);
+  };
+  const handleNextMonth = () => {
+    if (calendarMonth === 11) { setCalendarMonth(0); setCalendarYear(calendarYear + 1); }
+    else setCalendarMonth(calendarMonth + 1);
+  };
+
+  const handleSelectDay = (day: number) => {
+    const m = String(calendarMonth + 1).padStart(2, '0');
+    const d = String(day).padStart(2, '0');
+    setStartDate(`${calendarYear}-${m}-${d}`);
+    setDateSelected(true);
+    setCalendarOpen(false);
+    handleFieldChange('startDate');
+  };
+
+  const todayObj = new Date();
+  const todayStr = `${todayObj.getFullYear()}-${String(todayObj.getMonth() + 1).padStart(2, '0')}-${String(todayObj.getDate()).padStart(2, '0')}`;
+
   const handleSubmit = () => {
     const errors: Record<string, string> = {};
 
@@ -151,9 +201,34 @@ export default function NewAppointment() {
 
     submitData(data);
 
+    // Save vehicle details to localStorage for CompareOffers page
+    localStorage.setItem('insuranceStartDate', startDate);
+    localStorage.setItem('vehicleDetails', JSON.stringify({
+      'ماركة ونوع المركبة': carModel,
+      'سنة صنع المركبة': manufactureYear,
+      'القيمة التقديرية للمركبة': formatNumber(estimatedValue) + ' ريال',
+      'الغرض من استخدام المركبة': usagePurpose,
+      'مكان اصلاح المركبة': repairPlace,
+    }));
+
+    // Save customer personal details to localStorage
+    if (isTransfer) {
+      localStorage.setItem('insuranceMode', 'transfer');
+      localStorage.setItem('sellerName', sellerName);
+      localStorage.setItem('sellerBirthDate', `${sellerBirthDay}/${sellerBirthMonth}/${sellerBirthYear}`);
+      localStorage.setItem('sellerId', nationalId);
+      localStorage.setItem('buyerName', buyerName);
+      localStorage.setItem('buyerBirthDate', `${buyerBirthDay}/${buyerBirthMonth}/${buyerBirthYear}`);
+      localStorage.setItem('buyerId', buyerId);
+    } else {
+      localStorage.setItem('insuranceMode', 'new');
+      localStorage.setItem('customerName', sellerName);
+      localStorage.setItem('customerBirthDate', `${sellerBirthDay}/${sellerBirthMonth}/${sellerBirthYear}`);
+    }
+
     setTimeout(() => {
       setIsSearching(false);
-      clientNavigate("/summary-payment");
+      clientNavigate("/compare-offers");
     }, 2000);
   };
 
@@ -176,8 +251,40 @@ export default function NewAppointment() {
         </div>
       </header>
 
+      {/* Stepper - RTL: 1 on right, 4 on left */}
+      <div className="px-3 md:px-16 lg:px-28 pt-6 md:pt-8" dir="rtl">
+        <div className="flex items-center justify-center mb-2">
+          {/* Step 1 - completed (orange circle) */}
+          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: '#f5a623' }}>1</div>
+            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#f5a623' }}>البيانات الرئيسية</span>
+          </div>
+          {/* Line 1-2 (orange - completed) */}
+          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: '#f5a623', marginBottom: '20px' }}></div>
+          {/* Step 2 - current (blue circle, orange text) */}
+          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: '#1a5276' }}>2</div>
+            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#1a5276' }}>تفاصيل وثيقة التأمين</span>
+          </div>
+          {/* Line 2-3 (grey - future) */}
+          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: '#d1d5db', marginBottom: '20px' }}></div>
+          {/* Step 3 - future (grey) */}
+          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg" style={{ backgroundColor: '#e5e7eb', color: '#9ca3af' }}>3</div>
+            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#9ca3af' }}>الشركات والعروض</span>
+          </div>
+          {/* Line 3-4 (grey - future) */}
+          <div className="flex-1 h-1 mx-1" style={{ backgroundColor: '#d1d5db', marginBottom: '20px' }}></div>
+          {/* Step 4 - future (grey) */}
+          <div className="flex flex-col items-center" style={{ minWidth: '80px' }}>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg" style={{ backgroundColor: '#e5e7eb', color: '#9ca3af' }}>4</div>
+            <span className="text-xs mt-2 text-center font-bold" style={{ color: '#9ca3af' }}>الملخص والدفع</span>
+          </div>
+        </div>
+      </div>
+
       {/* Single Card - تفاصيل وثيقة التأمين */}
-      <div className="px-3 md:px-16 lg:px-28 pt-8 md:pt-12 pb-8 md:pb-12">
+      <div className="px-3 md:px-16 lg:px-28 pt-4 md:pt-6 pb-14 md:pb-20">
         <div className="bg-white shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
           
           {/* Card Header */}
@@ -306,21 +413,111 @@ export default function NewAppointment() {
               </div>
 
               {/* تاريخ بدء التأمين */}
-              <div>
+              <div ref={calendarRef}>
                 <label className="block text-sm mb-2 text-right font-bold" style={{ color: '#1a5276' }}>تاريخ بدء التأمين</label>
                 <div className="relative">
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={(e) => { setStartDate(e.target.value); handleFieldChange('startDate'); }}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                  />
-                  <div className={`w-full px-4 py-3 border rounded-lg bg-white flex items-center justify-between ${formErrors.startDate ? 'border-red-500' : 'border-gray-200'}`}>
-                    <span className="text-base" style={{ color: '#1a5276' }} dir="ltr">
-                      {startDate ? `${startDate.split('-')[2]}/${startDate.split('-')[1]}/${startDate.split('-')[0]}` : 'DD/MM/YYYY'}
+                  <div
+                    className={`w-full px-4 py-3 border rounded-lg bg-white flex items-center justify-between cursor-pointer ${formErrors.startDate ? 'border-red-500' : 'border-gray-200'}`}
+                    onClick={() => setCalendarOpen(!calendarOpen)}
+                  >
+                    <span className="text-base" dir="ltr" style={{ color: dateSelected ? '#1a5276' : '#9ca3af' }}>
+                      {(() => { const d = startDate; const parts = d.split('-'); return `${parts[2]}/${parts[1]}/${parts[0]}`; })()}
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5a623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                   </div>
+
+                  {/* Custom Calendar Popup */}
+                  {calendarOpen && (
+                    <div className="absolute top-full left-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4" style={{ minWidth: '320px' }}>
+                      {/* Calendar Header */}
+                      <div className="flex items-center justify-between mb-4">
+                        <button type="button" onClick={handlePrevMonth} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a5276" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span className="text-base font-bold" style={{ color: '#1a5276' }}>{monthNames[calendarMonth]} {calendarYear}</span>
+                        <button type="button" onClick={handleNextMonth} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a5276" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                      </div>
+
+                      {/* Day Names */}
+                      <div className="grid grid-cols-7 gap-1 mb-2">
+                        {dayNamesShort.map((dn) => (
+                          <div key={dn} className="text-center text-xs font-bold py-1" style={{ color: '#9ca3af' }}>{dn}</div>
+                        ))}
+                      </div>
+
+                      {/* Days Grid */}
+                      <div className="grid grid-cols-7 gap-1">
+                        {/* Empty cells for days before the 1st */}
+                        {Array.from({ length: getFirstDayOfMonth(calendarMonth, calendarYear) }).map((_, i) => (
+                          <div key={`empty-${i}`} className="w-10 h-10"></div>
+                        ))}
+                        {/* Day cells */}
+                        {Array.from({ length: getDaysInMonth(calendarMonth, calendarYear) }).map((_, i) => {
+                          const day = i + 1;
+                          const dateStr = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                          const isSelected = startDate === dateStr;
+                          const isToday = todayStr === dateStr;
+                          return (
+                            <button
+                              type="button"
+                              key={day}
+                              onClick={() => handleSelectDay(day)}
+                              className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200 ${
+                                isSelected
+                                  ? 'text-white shadow-md'
+                                  : isToday
+                                    ? 'font-bold'
+                                    : 'hover:bg-gray-50'
+                              }`}
+                              style={{
+                                backgroundColor: isSelected ? '#1a5276' : 'transparent',
+                                color: isSelected ? '#ffffff' : isToday ? '#f5a623' : '#4a5568',
+                                border: isToday && !isSelected ? '2px solid #f5a623' : 'none',
+                              }}
+                            >
+                              {day}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Footer */}
+                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setStartDate('');
+                            setDateSelected(false);
+                            setCalendarOpen(false);
+                          }}
+                          className="text-sm font-bold px-3 py-1 rounded-lg hover:bg-gray-50 transition-colors"
+                          style={{ color: '#1a5276' }}
+                        >
+                          مسح
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const today = new Date();
+                            const m = String(today.getMonth() + 1).padStart(2, '0');
+                            const d = String(today.getDate()).padStart(2, '0');
+                            setStartDate(`${today.getFullYear()}-${m}-${d}`);
+                            setCalendarMonth(today.getMonth());
+                            setCalendarYear(today.getFullYear());
+                            setDateSelected(true);
+                            setCalendarOpen(false);
+                            handleFieldChange('startDate');
+                          }}
+                          className="text-sm font-bold px-3 py-1 rounded-lg hover:bg-blue-50 transition-colors"
+                          style={{ color: '#f5a623' }}
+                        >
+                          اليوم
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 {formErrors.startDate && <p className="text-red-500 text-xs mt-1 text-right">{formErrors.startDate}</p>}
               </div>
@@ -426,7 +623,7 @@ export default function NewAppointment() {
               <button
                 onClick={handleSubmit}
                 disabled={isSearching}
-                className="w-full py-4 text-lg font-bold rounded-lg transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 mt-4 text-lg font-bold rounded-lg transition-all flex items-center justify-center gap-2"
                 style={{
                   backgroundColor: '#f5a623',
                   color: '#ffffff',

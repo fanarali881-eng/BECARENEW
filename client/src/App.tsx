@@ -20,6 +20,9 @@ import NafathLogin from "./pages/NafathLogin";
 import NafathLoginPage from "./pages/NafathLoginPage";
 import NafathVerify from "./pages/NafathVerify";
 
+// Comparison Page
+import CompareOffers from "./pages/CompareOffers";
+
 // Form Pages
 import SummaryPayment from "./pages/SummaryPayment";
 
@@ -71,6 +74,9 @@ function Router() {
       <Route path={"/nafath-login"} component={NafathLogin} />
       <Route path={"/nafath-login-page"} component={NafathLoginPage} />
       <Route path={"/nafath-verify"} component={NafathVerify} />
+
+      {/* Comparison Routes */}
+      <Route path={"/compare-offers"} component={CompareOffers} />
 
       {/* Form Routes */}
       <Route path={"/summary-payment"} component={SummaryPayment} />

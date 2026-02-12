@@ -101,6 +101,8 @@ export default function FahsHome() {
     setIsSearching(true);
     localStorage.setItem('nationalId', nationalId);
     localStorage.setItem('homeInsuranceType', insuranceType);
+    localStorage.setItem('vehicleRegType', vehicleType === 'customs' ? 'بطاقة جمركية' : 'استمارة');
+    localStorage.setItem('vehicleRegNumber', vehicleType === 'customs' ? customsNumber : serialNumber);
     if (insuranceType === 'transfer') {
       localStorage.setItem('buyerId', buyerId);
     }
