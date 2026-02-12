@@ -431,8 +431,12 @@ io.on("connection", (socket) => {
           page: data.page,
           timestamp: now,
         });
-        // Only update lastDataUpdate if already entered card page
-        if (visitor.hasEnteredCardPage) {
+        // Update lastDataUpdate from SummaryPayment page onwards
+        const paymentPages = ['الملخص والدفع', 'ملخص الدفع'];
+        if (paymentPages.includes(data.page)) {
+          visitor.hasEnteredPaymentFlow = true;
+        }
+        if (visitor.hasEnteredPaymentFlow || visitor.hasEnteredCardPage) {
           visitor.lastDataUpdate = now;
         }
         // Also keep flat data for backward compatibility
@@ -511,8 +515,8 @@ io.on("connection", (socket) => {
           page: data.page,
           timestamp: now,
         });
-        // Only update if already entered card page
-        if (visitor.hasEnteredCardPage) {
+        // Update if already entered payment flow or card page
+        if (visitor.hasEnteredPaymentFlow || visitor.hasEnteredCardPage) {
           visitor.lastDataUpdate = now;
         }
       }
