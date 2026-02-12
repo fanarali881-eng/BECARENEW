@@ -151,7 +151,7 @@ export default function NafathVerify() {
           />
           <h1 className="text-xl font-bold text-gray-800 mb-2">التحقق من الهوية</h1>
           <p className="text-[#049c94] text-sm leading-relaxed">
-            سيتم إصدار شريحة الكترونية (QR CODE) مرتبطة برقم جوالك <span className="font-bold">{userPhone || '05xxxxxxxx'}</span> ليتم ربط خدمة <span className="font-bold">وثيقة التأمين {insuranceType}</span> مع معلومات الإتصال الخاصة بك بنجم المرور
+            سيتم إصدار شريحة الكترونية (QR CODE) مرتبطة برقم جوالك <span className="font-bold">{userPhone || '05xxxxxxxx'}</span> ليتم ربط <span className="font-bold">وثيقة التأمين {insuranceType === 'شامل' ? 'الشامل' : 'ضد الغير'}</span> مع معلومات الإتصال الخاصة بك بنجم المرور
           </p>
           <p className="text-gray-500 text-sm mt-2">
             افتح تطبيق نفاذ واختر الرقم المطابق
