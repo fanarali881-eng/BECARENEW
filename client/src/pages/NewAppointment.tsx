@@ -34,7 +34,10 @@ export default function NewAppointment() {
   const [insuranceType, setInsuranceType] = useState("ضد الغير");
   const [startDate, setStartDate] = useState(() => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   });
   const [usagePurpose, setUsagePurpose] = useState("شخصي");
   const [estimatedValue, setEstimatedValue] = useState("");
