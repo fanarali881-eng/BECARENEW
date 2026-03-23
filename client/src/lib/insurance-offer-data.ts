@@ -433,7 +433,7 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/2341cefe-8e2c-4c2d-8ec4-3fca8699b4fb",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة أ",
-    mainPrice: "1850.00",
+    mainPrice: "554.00",
     features: [
       { id: "dom-f1-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f1-2", content: "تغطية الأسنان حتى 1,500 ريال", price: 200, included: false },
@@ -441,7 +441,7 @@ export const domesticOfferData: InsuranceOffer[] = [
       { id: "dom-f1-4", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e1-1", reason: "ضريبة القيمة المضافة (15%)", price: 277.50 },
+      { id: "dom-e1-1", reason: "ضريبة القيمة المضافة (15%)", price: 83.10 },
     ],
   },
   {
@@ -450,14 +450,14 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/d37d419c-08bf-4211-b20c-7c881c9086d0",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة ب",
-    mainPrice: "1450.00",
+    mainPrice: "420.00",
     features: [
       { id: "dom-f2-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f2-2", content: "تغطية الأسنان حتى 1,000 ريال", price: 150, included: false },
       { id: "dom-f2-3", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e2-1", reason: "ضريبة القيمة المضافة (15%)", price: 217.50 },
+      { id: "dom-e2-1", reason: "ضريبة القيمة المضافة (15%)", price: 63.00 },
     ],
   },
   {
@@ -466,7 +466,7 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/b0e744e3-1d0f-4ec0-847f-3ef463aef33c",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة أ",
-    mainPrice: "1680.00",
+    mainPrice: "510.00",
     features: [
       { id: "dom-f3-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f3-2", content: "تغطية الأسنان حتى 1,200 ريال", price: 180, included: false },
@@ -474,7 +474,7 @@ export const domesticOfferData: InsuranceOffer[] = [
       { id: "dom-f3-4", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e3-1", reason: "ضريبة القيمة المضافة (15%)", price: 252.00 },
+      { id: "dom-e3-1", reason: "ضريبة القيمة المضافة (15%)", price: 76.50 },
     ],
   },
   {
@@ -483,14 +483,14 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/207354df-0143-4207-b518-7f5bcc323a21",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة ب",
-    mainPrice: "1320.00",
+    mainPrice: "380.00",
     features: [
       { id: "dom-f4-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f4-2", content: "تغطية الأسنان حتى 800 ريال", price: 120, included: false },
       { id: "dom-f4-3", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e4-1", reason: "ضريبة القيمة المضافة (15%)", price: 198.00 },
+      { id: "dom-e4-1", reason: "ضريبة القيمة المضافة (15%)", price: 57.00 },
     ],
   },
   {
@@ -499,7 +499,7 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/69d7e375-514a-4843-9964-8700ca28110e",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة أ+",
-    mainPrice: "2100.00",
+    mainPrice: "680.00",
     features: [
       { id: "dom-f5-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f5-2", content: "تغطية الأسنان حتى 2,000 ريال", price: 250, included: false },
@@ -508,7 +508,7 @@ export const domesticOfferData: InsuranceOffer[] = [
       { id: "dom-f5-5", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e5-1", reason: "ضريبة القيمة المضافة (15%)", price: 315.00 },
+      { id: "dom-e5-1", reason: "ضريبة القيمة المضافة (15%)", price: 102.00 },
     ],
   },
   {
@@ -517,14 +517,14 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/75e4854c-72ef-4dfc-a8bd-09bc698b2cdf",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة ب",
-    mainPrice: "1250.00",
+    mainPrice: "365.00",
     features: [
       { id: "dom-f6-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f6-2", content: "تغطية الأسنان حتى 800 ريال", price: 130, included: false },
       { id: "dom-f6-3", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e6-1", reason: "ضريبة القيمة المضافة (15%)", price: 187.50 },
+      { id: "dom-e6-1", reason: "ضريبة القيمة المضافة (15%)", price: 54.75 },
     ],
   },
   {
@@ -533,7 +533,7 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/ced2698b-374c-4a3b-b284-23209d572ced",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة أ",
-    mainPrice: "1580.00",
+    mainPrice: "490.00",
     features: [
       { id: "dom-f7-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f7-2", content: "تغطية الأسنان حتى 1,000 ريال", price: 160, included: false },
@@ -541,7 +541,7 @@ export const domesticOfferData: InsuranceOffer[] = [
       { id: "dom-f7-4", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e7-1", reason: "ضريبة القيمة المضافة (15%)", price: 237.00 },
+      { id: "dom-e7-1", reason: "ضريبة القيمة المضافة (15%)", price: 73.50 },
     ],
   },
   {
@@ -550,14 +550,14 @@ export const domesticOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/80cd683f-f79d-42ef-931d-e3eb1af5829c",
     type: "domestic",
     planName: "تأمين العمالة المنزلية - الفئة ب",
-    mainPrice: "1180.00",
+    mainPrice: "332.00",
     features: [
       { id: "dom-f8-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
       { id: "dom-f8-2", content: "تغطية الأسنان حتى 700 ريال", price: 110, included: false },
       { id: "dom-f8-3", content: "شبكة مستشفيات واسعة", price: 0, included: true },
     ],
     expenses: [
-      { id: "dom-e8-1", reason: "ضريبة القيمة المضافة (15%)", price: 177.00 },
+      { id: "dom-e8-1", reason: "ضريبة القيمة المضافة (15%)", price: 49.80 },
     ],
   },
 ];
