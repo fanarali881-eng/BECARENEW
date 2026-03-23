@@ -7,6 +7,7 @@ export default function MalpracticeForm() {
 
   const [nationalId] = useState(() => localStorage.getItem('nationalId') || '');
   const [fullName, setFullName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
   const [insuranceStartDate, setInsuranceStartDate] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -45,6 +46,7 @@ export default function MalpracticeForm() {
   const handleSubmit = () => {
     const errors: Record<string, string> = {};
     if (!fullName.trim()) errors.fullName = "هذا الحقل مطلوب";
+    if (!birthDate) errors.birthDate = "هذا الحقل مطلوب";
     if (!insuranceStartDate) errors.insuranceStartDate = "هذا الحقل مطلوب";
     if (!phoneNumber) errors.phoneNumber = "رقم الجوال مطلوب";
     else if (phoneNumber.length !== 10) errors.phoneNumber = "رقم الجوال يجب أن يكون 10 أرقام";
@@ -57,6 +59,7 @@ export default function MalpracticeForm() {
       'نوع التأمين': 'أخطاء طبية',
       'رقم الهوية / الإقامة': nationalId,
       'الاسم الكامل': fullName,
+      'تاريخ الميلاد': birthDate,
       'تاريخ بداية التأمين': insuranceStartDate,
       'رقم الجوال': phoneNumber,
     });
@@ -120,6 +123,11 @@ export default function MalpracticeForm() {
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>الاسم الكامل <span className="text-red-500">*</span></label>
               <input type="text" value={fullName} onChange={e => { setFullName(e.target.value); if (formErrors.fullName) { const ne = { ...formErrors }; delete ne.fullName; setFormErrors(ne); } }} placeholder="أدخل الاسم الكامل" className={`w-full p-3 border-2 rounded-lg ${formErrors.fullName ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
               {formErrors.fullName && <p className="text-red-500 text-xs mt-1">{formErrors.fullName}</p>}
+            </div>
+            <div>
+              <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ الميلاد <span className="text-red-500">*</span></label>
+              <input type="date" value={birthDate} onChange={e => { setBirthDate(e.target.value); if (formErrors.birthDate) { const ne = { ...formErrors }; delete ne.birthDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.birthDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+              {formErrors.birthDate && <p className="text-red-500 text-xs mt-1">{formErrors.birthDate}</p>}
             </div>
             <div>
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ بداية التأمين <span className="text-red-500">*</span></label>
