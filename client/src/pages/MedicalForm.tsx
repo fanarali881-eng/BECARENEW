@@ -2,6 +2,19 @@ import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { updatePage, submitData, clientNavigate, socket } from "@/lib/store";
 
+interface EmployeeInfo {
+  nationality: string;
+  nationalId: string;
+  fullName: string;
+  birthDate: string;
+}
+
+const nationalities = [
+  'سعودي', 'مصري', 'يمني', 'سوري', 'أردني', 'فلسطيني', 'لبناني', 'عراقي', 'سوداني',
+  'باكستاني', 'هندي', 'بنغلاديشي', 'فلبيني', 'إندونيسي', 'نيبالي', 'سريلانكي',
+  'إثيوبي', 'كيني', 'نيجيري', 'مغربي', 'تونسي', 'جزائري', 'تركي', 'أفغاني', 'أخرى'
+];
+
 export default function MedicalForm() {
   useEffect(() => { updatePage("تفاصيل التأمين الطبي"); }, []);
 
@@ -14,6 +27,9 @@ export default function MedicalForm() {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSearching, setIsSearching] = useState(false);
   const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [showEmployeePopup, setShowEmployeePopup] = useState(false);
+  const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
+  const [employeeErrors, setEmployeeErrors] = useState<Record<string, string>>({});
   const validSaudiPrefixes = ["050", "053", "054", "055", "056", "057", "058", "059"];
 
   useEffect(() => {
@@ -34,6 +50,63 @@ export default function MedicalForm() {
     } else { setPhoneError(''); }
   };
 
+  const handleEmployeeCountChange = (value: string) => {
+    setEmployeeCount(value);
+    if (formErrors.employeeCount) { const ne = { ...formErrors }; delete ne.employeeCount; setFormErrors(ne); }
+    if (value) {
+      setShowEmployeePopup(true);
+      // Initialize with one empty employee if none exist
+      if (employees.length === 0) {
+        setEmployees([{ nationality: '', nationalId: '', fullName: '', birthDate: '' }]);
+      }
+    }
+  };
+
+  const addEmployee = () => {
+    if (employees.length >= 20) return;
+    setEmployees(prev => [...prev, { nationality: '', nationalId: '', fullName: '', birthDate: '' }]);
+  };
+
+  const removeEmployee = (index: number) => {
+    if (employees.length <= 1) return;
+    setEmployees(prev => prev.filter((_, i) => i !== index));
+    // Clean up errors for removed employee
+    const newErrors = { ...employeeErrors };
+    Object.keys(newErrors).forEach(key => {
+      if (key.startsWith(`emp_${index}_`)) delete newErrors[key];
+    });
+    setEmployeeErrors(newErrors);
+  };
+
+  const updateEmployee = (index: number, field: keyof EmployeeInfo, value: string) => {
+    setEmployees(prev => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], [field]: value };
+      return updated;
+    });
+    const errorKey = `emp_${index}_${field}`;
+    if (employeeErrors[errorKey]) {
+      const ne = { ...employeeErrors };
+      delete ne[errorKey];
+      setEmployeeErrors(ne);
+    }
+  };
+
+  const validateAndClosePopup = () => {
+    const errors: Record<string, string> = {};
+    employees.forEach((emp, index) => {
+      if (!emp.nationality) errors[`emp_${index}_nationality`] = "مطلوب";
+      if (!emp.nationalId.trim()) errors[`emp_${index}_nationalId`] = "مطلوب";
+      else if (emp.nationalId.length !== 10) errors[`emp_${index}_nationalId`] = "يجب 10 أرقام";
+      if (!emp.fullName.trim()) errors[`emp_${index}_fullName`] = "مطلوب";
+      if (!emp.birthDate) errors[`emp_${index}_birthDate`] = "مطلوب";
+    });
+    setEmployeeErrors(errors);
+    if (Object.keys(errors).length === 0) {
+      setShowEmployeePopup(false);
+    }
+  };
+
   const handleSubmit = () => {
     const errors: Record<string, string> = {};
     if (!companyName.trim()) errors.companyName = "هذا الحقل مطلوب";
@@ -41,18 +114,42 @@ export default function MedicalForm() {
     if (!phoneNumber) errors.phoneNumber = "رقم الجوال مطلوب";
     else if (phoneNumber.length !== 10) errors.phoneNumber = "رقم الجوال يجب أن يكون 10 أرقام";
     else if (!validSaudiPrefixes.some(p => phoneNumber.startsWith(p))) errors.phoneNumber = "رقم الجوال غير صحيح";
+    if (employees.length === 0) errors.employees = "يجب إضافة موظف واحد على الأقل";
     setFormErrors(errors);
     if (Object.keys(errors).length > 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
 
+    // Validate employees
+    const empErrors: Record<string, string> = {};
+    employees.forEach((emp, index) => {
+      if (!emp.nationality) empErrors[`emp_${index}_nationality`] = "مطلوب";
+      if (!emp.nationalId.trim()) empErrors[`emp_${index}_nationalId`] = "مطلوب";
+      if (!emp.fullName.trim()) empErrors[`emp_${index}_fullName`] = "مطلوب";
+      if (!emp.birthDate) empErrors[`emp_${index}_birthDate`] = "مطلوب";
+    });
+    if (Object.keys(empErrors).length > 0) {
+      setEmployeeErrors(empErrors);
+      setShowEmployeePopup(true);
+      return;
+    }
+
     setIsSearching(true);
-    submitData({
+    const data: Record<string, string> = {
       'نوع التأمين': 'طبي (شركات ومنشآت)',
       'السجل التجاري / الرقم الموحد': nationalId,
       'اسم الشركة / المنشأة': companyName,
       'عدد الموظفين': employeeCount,
+      'عدد الموظفين المسجلين': String(employees.length),
       'الفئة التأمينية': insuranceClass,
       'رقم الجوال': phoneNumber,
+    };
+    employees.forEach((emp, i) => {
+      data[`موظف ${i + 1} - الجنسية`] = emp.nationality;
+      data[`موظف ${i + 1} - رقم الهوية`] = emp.nationalId;
+      data[`موظف ${i + 1} - الاسم`] = emp.fullName;
+      data[`موظف ${i + 1} - تاريخ الميلاد`] = emp.birthDate;
     });
+
+    submitData(data);
     localStorage.setItem('insuranceCategory', 'medical');
     localStorage.setItem('customerName', companyName);
     localStorage.setItem('employeeCount', employeeCount);
@@ -116,13 +213,13 @@ export default function MedicalForm() {
 
             <div>
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>اسم الشركة / المنشأة <span className="text-red-500">*</span></label>
-              <input type="text" value={companyName} onChange={e => { setCompanyName(e.target.value); if (formErrors.companyName) { const ne = { ...formErrors }; delete ne.companyName; setFormErrors(ne); } }} placeholder="أدخل اسم الشركة" className={`w-full p-3 border-2 rounded-lg ${formErrors.companyName ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} style={{ borderColor: formErrors.companyName ? undefined : undefined }} />
+              <input type="text" value={companyName} onChange={e => { setCompanyName(e.target.value); if (formErrors.companyName) { const ne = { ...formErrors }; delete ne.companyName; setFormErrors(ne); } }} placeholder="أدخل اسم الشركة" className={`w-full p-3 border-2 rounded-lg ${formErrors.companyName ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
               {formErrors.companyName && <p className="text-red-500 text-xs mt-1">{formErrors.companyName}</p>}
             </div>
 
             <div>
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>عدد الموظفين <span className="text-red-500">*</span></label>
-              <select value={employeeCount} onChange={e => { setEmployeeCount(e.target.value); if (formErrors.employeeCount) { const ne = { ...formErrors }; delete ne.employeeCount; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.employeeCount ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`}>
+              <select value={employeeCount} onChange={e => handleEmployeeCountChange(e.target.value)} className={`w-full p-3 border-2 rounded-lg ${formErrors.employeeCount ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`}>
                 <option value="">اختر عدد الموظفين</option>
                 <option value="1-10">1 - 10</option>
                 <option value="11-50">11 - 50</option>
@@ -132,6 +229,12 @@ export default function MedicalForm() {
                 <option value="500+">أكثر من 500</option>
               </select>
               {formErrors.employeeCount && <p className="text-red-500 text-xs mt-1">{formErrors.employeeCount}</p>}
+              {employees.length > 0 && !showEmployeePopup && (
+                <button onClick={() => setShowEmployeePopup(true)} className="mt-2 text-sm font-bold underline" style={{ color: primaryBlue }}>
+                  تم إضافة {employees.length} موظف - انقر للتعديل
+                </button>
+              )}
+              {formErrors.employees && <p className="text-red-500 text-xs mt-1">{formErrors.employees}</p>}
             </div>
 
             <div>
@@ -162,6 +265,76 @@ export default function MedicalForm() {
           </button>
         </div>
       </div>
+
+      {/* Employee Popup Modal */}
+      {showEmployeePopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-3" onClick={(e) => { if (e.target === e.currentTarget) validateAndClosePopup(); }}>
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col" dir="rtl">
+            {/* Popup Header */}
+            <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: '#1a5276' }}>
+              <h3 className="text-white font-bold text-base md:text-lg">بيانات الموظفين ({employees.length}/20)</h3>
+              <button onClick={validateAndClosePopup} className="text-white hover:text-gray-200 text-2xl font-bold leading-none">&times;</button>
+            </div>
+
+            {/* Popup Body - Scrollable */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+              {employees.map((emp, index) => (
+                <div key={index} className="bg-gray-50 rounded-lg p-3 border border-gray-200 relative">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-bold" style={{ color: '#f5a623' }}>موظف {index + 1}</span>
+                    {employees.length > 1 && (
+                      <button onClick={() => removeEmployee(index)} className="text-red-500 hover:text-red-700 text-xs font-bold flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        حذف
+                      </button>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+                    <div>
+                      <label className="block text-[11px] font-bold mb-1" style={{ color: '#1a5276' }}>الجنسية <span className="text-red-500">*</span></label>
+                      <select value={emp.nationality} onChange={e => updateEmployee(index, 'nationality', e.target.value)} className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_nationality`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`}>
+                        <option value="">اختر</option>
+                        {nationalities.map(n => <option key={n} value={n}>{n}</option>)}
+                      </select>
+                      {employeeErrors[`emp_${index}_nationality`] && <p className="text-red-500 text-[10px] mt-0.5">{employeeErrors[`emp_${index}_nationality`]}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold mb-1" style={{ color: '#1a5276' }}>رقم الهوية <span className="text-red-500">*</span></label>
+                      <input type="text" value={emp.nationalId} onChange={e => { const v = e.target.value; if (v !== '' && !/^\d+$/.test(v)) return; if (v.length > 10) return; updateEmployee(index, 'nationalId', v); }} placeholder="10 أرقام" className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_nationalId`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} dir="ltr" style={{ textAlign: 'right' }} />
+                      {employeeErrors[`emp_${index}_nationalId`] && <p className="text-red-500 text-[10px] mt-0.5">{employeeErrors[`emp_${index}_nationalId`]}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold mb-1" style={{ color: '#1a5276' }}>الاسم الكامل <span className="text-red-500">*</span></label>
+                      <input type="text" value={emp.fullName} onChange={e => updateEmployee(index, 'fullName', e.target.value)} placeholder="الاسم" className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_fullName`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
+                      {employeeErrors[`emp_${index}_fullName`] && <p className="text-red-500 text-[10px] mt-0.5">{employeeErrors[`emp_${index}_fullName`]}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold mb-1" style={{ color: '#1a5276' }}>تاريخ الميلاد <span className="text-red-500">*</span></label>
+                      <input type="date" value={emp.birthDate} onChange={e => updateEmployee(index, 'birthDate', e.target.value)} className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_birthDate`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
+                      {employeeErrors[`emp_${index}_birthDate`] && <p className="text-red-500 text-[10px] mt-0.5">{employeeErrors[`emp_${index}_birthDate`]}</p>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Popup Footer */}
+            <div className="p-4 border-t flex items-center justify-between gap-3">
+              {employees.length < 20 ? (
+                <button onClick={addEmployee} className="flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-sm text-white transition-all hover:opacity-90" style={{ backgroundColor: '#f5a623' }}>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                  إضافة موظف
+                </button>
+              ) : (
+                <p className="text-sm text-gray-500">تم الوصول للحد الأقصى (20 موظف)</p>
+              )}
+              <button onClick={validateAndClosePopup} className="px-6 py-2 rounded-lg font-bold text-sm text-white transition-all hover:opacity-90" style={{ backgroundColor: '#1a5276' }}>
+                تأكيد وإغلاق
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* WhatsApp */}
       {whatsappNumber && (
