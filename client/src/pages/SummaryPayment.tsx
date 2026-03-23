@@ -49,7 +49,7 @@ export default function SummaryPayment() {
   }, []);
 
   const serviceName = selectedOffer?.name || '---';
-  const insuranceType = selectedOffer?.type === 'against-others' ? 'تأمين ضد الغير' : 'تأمين شامل';
+  const insuranceType = selectedOffer?.planName || (selectedOffer?.type === 'against-others' ? 'تأمين ضد الغير' : selectedOffer?.type === 'comprehensive' ? 'تأمين شامل' : '---');
   const servicePrice = selectedOffer?.totalPrice || 0;
   const vatAmount = Math.round(servicePrice * 0.15 * 100) / 100;
   const totalAmount = Math.round((servicePrice + vatAmount) * 100) / 100;
