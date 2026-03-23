@@ -181,12 +181,17 @@ export default function InsuranceOffers({ category }: InsuranceOffersProps) {
     });
   };
 
+  // Get travelers count for travel insurance
+  const travelersCount = category === 'travel' ? parseInt(localStorage.getItem('travelers') || '1') || 1 : 1;
+
   const calculateOfferTotal = (offer: InsuranceOffer, selectedFeats: string[] = []) => {
     const mainPrice = Number.parseFloat(offer.mainPrice);
     const featuresPrice = offer.features
       .filter((f) => selectedFeats.includes(f.id) && f.price > 0)
       .reduce((sum, f) => sum + f.price, 0);
-    return mainPrice + featuresPrice;
+    const perPersonPrice = mainPrice + featuresPrice;
+    // Multiply by travelers count for travel insurance
+    return category === 'travel' ? perPersonPrice * travelersCount : perPersonPrice;
   };
 
   const handleSelectOffer = (offer: InsuranceOffer) => {
@@ -396,6 +401,11 @@ export default function InsuranceOffers({ category }: InsuranceOffersProps) {
                     <div className="text-left">
                       <div className="text-2xl md:text-3xl font-bold" style={{ color: '#1a5276' }}>{totalPrice.toFixed(2)}</div>
                       <div className="text-xs md:text-sm text-gray-600">{config.priceLabel}</div>
+                      {category === 'travel' && travelersCount > 1 && (
+                        <div className="text-[10px] md:text-xs text-gray-400 mt-0.5">
+                          ({(totalPrice / travelersCount).toFixed(2)} × {travelersCount} مسافرين)
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
