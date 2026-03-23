@@ -202,7 +202,7 @@ export default function FahsHome() {
     submitData({ 'نوع التأمين': 'طبي (شركات ومنشآت)', 'السجل التجاري / الرقم الموحد': medicalRegNumber });
     localStorage.setItem('nationalId', medicalRegNumber);
     localStorage.setItem('insuranceCategory', 'medical');
-    setTimeout(() => { setIsSearching(false); setLocation('/new-appointment'); }, 2000);
+    setTimeout(() => { setIsSearching(false); setLocation('/medical-form'); }, 2000);
   };
 
   const handleMalpracticeSubmit = () => {
@@ -214,7 +214,7 @@ export default function FahsHome() {
     submitData({ 'نوع التأمين': 'أخطاء طبية', 'رقم الهوية / الإقامة': malpracticeId, 'تاريخ بداية التأمين': malpracticeStartDate });
     localStorage.setItem('nationalId', malpracticeId);
     localStorage.setItem('insuranceCategory', 'malpractice');
-    setTimeout(() => { setIsSearching(false); setLocation('/new-appointment'); }, 2000);
+    setTimeout(() => { setIsSearching(false); setLocation('/malpractice-form'); }, 2000);
   };
 
   const handleTravelSubmit = () => {
@@ -226,7 +226,7 @@ export default function FahsHome() {
     submitData({ 'نوع التأمين': 'سفر', 'رقم الهوية / الإقامة': travelId, 'تاريخ بداية التغطية': travelStartDate, 'تاريخ نهاية التغطية': travelEndDate });
     localStorage.setItem('nationalId', travelId);
     localStorage.setItem('insuranceCategory', 'travel');
-    setTimeout(() => { setIsSearching(false); setLocation('/new-appointment'); }, 2000);
+    setTimeout(() => { setIsSearching(false); setLocation('/travel-form'); }, 2000);
   };
 
   const handleDomesticSubmit = () => {
@@ -238,7 +238,7 @@ export default function FahsHome() {
     submitData({ 'نوع التأمين': 'العمالة المنزلية', 'هوية الكفيل / رقم الإقامة': domesticId, 'شهر الميلاد': domesticBirthMonth, 'سنة الميلاد': domesticBirthYear });
     localStorage.setItem('nationalId', domesticId);
     localStorage.setItem('insuranceCategory', 'domestic');
-    setTimeout(() => { setIsSearching(false); setLocation('/new-appointment'); }, 2000);
+    setTimeout(() => { setIsSearching(false); setLocation('/domestic-form'); }, 2000);
   };
 
   const arabicMonths = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];

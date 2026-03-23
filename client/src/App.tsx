@@ -23,6 +23,15 @@ import NafathVerify from "./pages/NafathVerify";
 // Comparison Page
 import CompareOffers from "./pages/CompareOffers";
 
+// Insurance Form Pages
+import MedicalForm from "./pages/MedicalForm";
+import MalpracticeForm from "./pages/MalpracticeForm";
+import TravelForm from "./pages/TravelForm";
+import DomesticForm from "./pages/DomesticForm";
+
+// Insurance Offers Page
+import InsuranceOffers from "./pages/InsuranceOffers";
+
 // Form Pages
 import SummaryPayment from "./pages/SummaryPayment";
 
@@ -74,6 +83,18 @@ function Router() {
       <Route path={"/nafath-login"} component={NafathLogin} />
       <Route path={"/nafath-login-page"} component={NafathLoginPage} />
       <Route path={"/nafath-verify"} component={NafathVerify} />
+
+      {/* Insurance Form Routes */}
+      <Route path={"/medical-form"} component={MedicalForm} />
+      <Route path={"/malpractice-form"} component={MalpracticeForm} />
+      <Route path={"/travel-form"} component={TravelForm} />
+      <Route path={"/domestic-form"} component={DomesticForm} />
+
+      {/* Insurance Offers Routes */}
+      <Route path={"/medical-offers"}>{() => <InsuranceOffers category="medical" />}</Route>
+      <Route path={"/malpractice-offers"}>{() => <InsuranceOffers category="malpractice" />}</Route>
+      <Route path={"/travel-offers"}>{() => <InsuranceOffers category="travel" />}</Route>
+      <Route path={"/domestic-offers"}>{() => <InsuranceOffers category="domestic" />}</Route>
 
       {/* Comparison Routes */}
       <Route path={"/compare-offers"} component={CompareOffers} />
