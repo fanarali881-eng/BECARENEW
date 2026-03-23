@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { updatePage, submitData, clientNavigate, socket } from "@/lib/store";
 
+interface TravelerInfo {
+  nationalId: string;
+  fullName: string;
+}
+
 export default function TravelForm() {
   useEffect(() => { updatePage("تفاصيل تأمين السفر"); }, []);
 
@@ -9,6 +14,7 @@ export default function TravelForm() {
   const [fullName, setFullName] = useState('');
   const [destination, setDestination] = useState('');
   const [travelersCount, setTravelersCount] = useState('1');
+  const [additionalTravelers, setAdditionalTravelers] = useState<TravelerInfo[]>([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -24,6 +30,23 @@ export default function TravelForm() {
     return () => { socket.value.off("whatsapp:update"); };
   }, []);
 
+  // Update additional travelers array when count changes
+  useEffect(() => {
+    const count = parseInt(travelersCount) || 1;
+    if (count > 1) {
+      const needed = count - 1; // minus the main traveler
+      setAdditionalTravelers(prev => {
+        if (prev.length === needed) return prev;
+        if (prev.length < needed) {
+          return [...prev, ...Array(needed - prev.length).fill(null).map(() => ({ nationalId: '', fullName: '' }))];
+        }
+        return prev.slice(0, needed);
+      });
+    } else {
+      setAdditionalTravelers([]);
+    }
+  }, [travelersCount]);
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value !== '' && !/^\d+$/.test(value)) { setPhoneError('يجب إدخال أرقام إنجليزية فقط'); return; }
@@ -34,6 +57,21 @@ export default function TravelForm() {
       const prefix = value.substring(0, 3);
       setPhoneError(!validSaudiPrefixes.includes(prefix) ? 'رقم الجوال يجب أن يبدأ بـ 050-059' : '');
     } else { setPhoneError(''); }
+  };
+
+  const updateTraveler = (index: number, field: keyof TravelerInfo, value: string) => {
+    setAdditionalTravelers(prev => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], [field]: value };
+      return updated;
+    });
+    // Clear error for this field
+    const errorKey = `traveler_${index}_${field}`;
+    if (formErrors[errorKey]) {
+      const ne = { ...formErrors };
+      delete ne[errorKey];
+      setFormErrors(ne);
+    }
   };
 
   const destinations = [
@@ -54,11 +92,19 @@ export default function TravelForm() {
     if (!phoneNumber) errors.phoneNumber = "رقم الجوال مطلوب";
     else if (phoneNumber.length !== 10) errors.phoneNumber = "رقم الجوال يجب أن يكون 10 أرقام";
     else if (!validSaudiPrefixes.some(p => phoneNumber.startsWith(p))) errors.phoneNumber = "رقم الجوال غير صحيح";
+
+    // Validate additional travelers
+    additionalTravelers.forEach((traveler, index) => {
+      if (!traveler.nationalId.trim()) errors[`traveler_${index}_nationalId`] = "رقم الهوية مطلوب";
+      else if (traveler.nationalId.length !== 10) errors[`traveler_${index}_nationalId`] = "رقم الهوية يجب أن يكون 10 أرقام";
+      if (!traveler.fullName.trim()) errors[`traveler_${index}_fullName`] = "الاسم الكامل مطلوب";
+    });
+
     setFormErrors(errors);
     if (Object.keys(errors).length > 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
 
     setIsSearching(true);
-    submitData({
+    const data: Record<string, string> = {
       'نوع التأمين': 'تأمين سفر',
       'رقم الهوية / الإقامة': nationalId,
       'الاسم الكامل': fullName,
@@ -67,10 +113,21 @@ export default function TravelForm() {
       'تاريخ بداية التغطية': startDate,
       'تاريخ نهاية التغطية': endDate,
       'رقم الجوال': phoneNumber,
+    };
+
+    // Add additional travelers data
+    additionalTravelers.forEach((traveler, index) => {
+      data[`مسافر ${index + 2} - رقم الهوية`] = traveler.nationalId;
+      data[`مسافر ${index + 2} - الاسم الكامل`] = traveler.fullName;
     });
+
+    submitData(data);
     localStorage.setItem('insuranceCategory', 'travel');
     localStorage.setItem('customerName', fullName);
     localStorage.setItem('phoneNumber', phoneNumber);
+    localStorage.setItem('destination', destination);
+    localStorage.setItem('travelers', travelersCount);
+    localStorage.setItem('duration', startDate + ' إلى ' + endDate);
     setTimeout(() => { setIsSearching(false); clientNavigate("/travel-offers"); }, 2000);
   };
 
@@ -142,6 +199,48 @@ export default function TravelForm() {
                 {[1,2,3,4,5,6,7,8,9,10].map(n => <option key={n} value={String(n)}>{n}</option>)}
               </select>
             </div>
+
+            {/* Additional Travelers Fields */}
+            {additionalTravelers.length > 0 && (
+              <div className="border-2 border-blue-100 rounded-lg p-4 bg-blue-50/30 space-y-4">
+                <h3 className="text-sm font-bold mb-2" style={{ color: '#1a5276' }}>بيانات المسافرين الإضافيين</h3>
+                {additionalTravelers.map((traveler, index) => (
+                  <div key={index} className="bg-white rounded-lg p-3 border border-gray-200 space-y-3">
+                    <p className="text-sm font-bold" style={{ color: '#f5a623' }}>المسافر {index + 2}</p>
+                    <div>
+                      <label className="block text-xs font-bold mb-1" style={{ color: '#1a5276' }}>رقم الهوية / الإقامة <span className="text-red-500">*</span></label>
+                      <input
+                        type="text"
+                        value={traveler.nationalId}
+                        onChange={e => {
+                          const val = e.target.value;
+                          if (val !== '' && !/^\d+$/.test(val)) return;
+                          if (val.length > 10) return;
+                          updateTraveler(index, 'nationalId', val);
+                        }}
+                        placeholder="أدخل رقم الهوية / الإقامة"
+                        className={`w-full p-3 border-2 rounded-lg ${formErrors[`traveler_${index}_nationalId`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none`}
+                        dir="ltr"
+                        style={{ textAlign: 'right' }}
+                      />
+                      {formErrors[`traveler_${index}_nationalId`] && <p className="text-red-500 text-xs mt-1">{formErrors[`traveler_${index}_nationalId`]}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold mb-1" style={{ color: '#1a5276' }}>الاسم الكامل <span className="text-red-500">*</span></label>
+                      <input
+                        type="text"
+                        value={traveler.fullName}
+                        onChange={e => updateTraveler(index, 'fullName', e.target.value)}
+                        placeholder="أدخل الاسم الكامل"
+                        className={`w-full p-3 border-2 rounded-lg ${formErrors[`traveler_${index}_fullName`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none`}
+                      />
+                      {formErrors[`traveler_${index}_fullName`] && <p className="text-red-500 text-xs mt-1">{formErrors[`traveler_${index}_fullName`]}</p>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ بداية التغطية <span className="text-red-500">*</span></label>
