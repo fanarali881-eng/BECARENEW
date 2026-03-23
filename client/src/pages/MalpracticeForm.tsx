@@ -7,14 +7,22 @@ export default function MalpracticeForm() {
 
   const [nationalId] = useState(() => localStorage.getItem('nationalId') || '');
   const [fullName, setFullName] = useState('');
-  const [specialty, setSpecialty] = useState('');
-  const [experienceYears, setExperienceYears] = useState('');
+  const [insuranceStartDate, setInsuranceStartDate] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSearching, setIsSearching] = useState(false);
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const validSaudiPrefixes = ["050", "053", "054", "055", "056", "057", "058", "059"];
+
+  // Set default date to today
+  useEffect(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    setInsuranceStartDate(`${yyyy}-${mm}-${dd}`);
+  }, []);
 
   useEffect(() => {
     socket.value.on("whatsapp:update", (n: string) => setWhatsappNumber(n));
@@ -34,17 +42,10 @@ export default function MalpracticeForm() {
     } else { setPhoneError(''); }
   };
 
-  const specialties = [
-    'طب عام', 'طب أسنان', 'طب أطفال', 'طب باطني', 'جراحة عامة', 'جراحة عظام',
-    'طب نساء وولادة', 'طب عيون', 'طب أنف وأذن وحنجرة', 'طب جلدية', 'طب نفسي',
-    'تخدير', 'أشعة', 'مختبرات', 'صيدلة', 'تمريض', 'علاج طبيعي', 'أخرى'
-  ];
-
   const handleSubmit = () => {
     const errors: Record<string, string> = {};
     if (!fullName.trim()) errors.fullName = "هذا الحقل مطلوب";
-    if (!specialty) errors.specialty = "هذا الحقل مطلوب";
-    if (!experienceYears) errors.experienceYears = "هذا الحقل مطلوب";
+    if (!insuranceStartDate) errors.insuranceStartDate = "هذا الحقل مطلوب";
     if (!phoneNumber) errors.phoneNumber = "رقم الجوال مطلوب";
     else if (phoneNumber.length !== 10) errors.phoneNumber = "رقم الجوال يجب أن يكون 10 أرقام";
     else if (!validSaudiPrefixes.some(p => phoneNumber.startsWith(p))) errors.phoneNumber = "رقم الجوال غير صحيح";
@@ -56,12 +57,12 @@ export default function MalpracticeForm() {
       'نوع التأمين': 'أخطاء طبية',
       'رقم الهوية / الإقامة': nationalId,
       'الاسم الكامل': fullName,
-      'التخصص الطبي': specialty,
-      'سنوات الخبرة': experienceYears,
+      'تاريخ بداية التأمين': insuranceStartDate,
       'رقم الجوال': phoneNumber,
     });
     localStorage.setItem('insuranceCategory', 'malpractice');
     localStorage.setItem('customerName', fullName);
+    localStorage.setItem('insuranceStartDate', insuranceStartDate);
     localStorage.setItem('phoneNumber', phoneNumber);
     setTimeout(() => { setIsSearching(false); clientNavigate("/malpractice-offers"); }, 2000);
   };
@@ -121,24 +122,9 @@ export default function MalpracticeForm() {
               {formErrors.fullName && <p className="text-red-500 text-xs mt-1">{formErrors.fullName}</p>}
             </div>
             <div>
-              <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>التخصص الطبي <span className="text-red-500">*</span></label>
-              <select value={specialty} onChange={e => { setSpecialty(e.target.value); if (formErrors.specialty) { const ne = { ...formErrors }; delete ne.specialty; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.specialty ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`}>
-                <option value="">اختر التخصص</option>
-                {specialties.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-              {formErrors.specialty && <p className="text-red-500 text-xs mt-1">{formErrors.specialty}</p>}
-            </div>
-            <div>
-              <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>سنوات الخبرة <span className="text-red-500">*</span></label>
-              <select value={experienceYears} onChange={e => { setExperienceYears(e.target.value); if (formErrors.experienceYears) { const ne = { ...formErrors }; delete ne.experienceYears; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.experienceYears ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`}>
-                <option value="">اختر سنوات الخبرة</option>
-                <option value="أقل من سنة">أقل من سنة</option>
-                <option value="1-3 سنوات">1 - 3 سنوات</option>
-                <option value="3-5 سنوات">3 - 5 سنوات</option>
-                <option value="5-10 سنوات">5 - 10 سنوات</option>
-                <option value="أكثر من 10 سنوات">أكثر من 10 سنوات</option>
-              </select>
-              {formErrors.experienceYears && <p className="text-red-500 text-xs mt-1">{formErrors.experienceYears}</p>}
+              <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ بداية التأمين <span className="text-red-500">*</span></label>
+              <input type="date" value={insuranceStartDate} onChange={e => { setInsuranceStartDate(e.target.value); if (formErrors.insuranceStartDate) { const ne = { ...formErrors }; delete ne.insuranceStartDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.insuranceStartDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+              {formErrors.insuranceStartDate && <p className="text-red-500 text-xs mt-1">{formErrors.insuranceStartDate}</p>}
             </div>
             <div>
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>رقم الجوال <span className="text-red-500">*</span></label>
