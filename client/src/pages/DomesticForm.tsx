@@ -77,6 +77,8 @@ export default function DomesticForm() {
     });
     localStorage.setItem('insuranceCategory', 'domestic');
     localStorage.setItem('customerName', fullName);
+    localStorage.setItem('workerNationality', workerNationality);
+    localStorage.setItem('workerType', workerType);
     localStorage.setItem('phoneNumber', phoneNumber);
     setTimeout(() => { setIsSearching(false); clientNavigate("/domestic-offers"); }, 2000);
   };
