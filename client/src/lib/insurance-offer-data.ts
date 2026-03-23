@@ -6,6 +6,7 @@ export interface InsuranceOffer {
   companyLogo: string;
   type: string; // insurance category
   planName: string;
+  category?: string; // ذهبية | فضية | برونزية
   mainPrice: string;
   features: { id: string; content: string; price: number; included: boolean }[];
   expenses: { id: string; reason: string; price: number }[];
@@ -19,6 +20,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/2341cefe-8e2c-4c2d-8ec4-3fca8699b4fb",
     type: "medical",
     planName: "الفئة الذهبية",
+    category: "ذهبية",
     mainPrice: "4250.00",
     features: [
       { id: "med-f1-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -37,6 +39,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/d37d419c-08bf-4211-b20c-7c881c9086d0",
     type: "medical",
     planName: "الفئة الفضية",
+    category: "فضية",
     mainPrice: "3680.00",
     features: [
       { id: "med-f2-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -55,6 +58,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/b0e744e3-1d0f-4ec0-847f-3ef463aef33c",
     type: "medical",
     planName: "الفئة البرونزية",
+    category: "برونزية",
     mainPrice: "2950.00",
     features: [
       { id: "med-f3-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -72,6 +76,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/75e4854c-72ef-4dfc-a8bd-09bc698b2cdf",
     type: "medical",
     planName: "الفئة الذهبية",
+    category: "ذهبية",
     mainPrice: "4100.00",
     features: [
       { id: "med-f4-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -90,6 +95,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/207354df-0143-4207-b518-7f5bcc323a21",
     type: "medical",
     planName: "الفئة الفضية",
+    category: "فضية",
     mainPrice: "3450.00",
     features: [
       { id: "med-f5-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -107,6 +113,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/f49868a4-7ec1-4636-b757-a068b00c7179",
     type: "medical",
     planName: "الفئة البرونزية",
+    category: "برونزية",
     mainPrice: "2780.00",
     features: [
       { id: "med-f6-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -123,6 +130,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/69d7e375-514a-4843-9964-8700ca28110e",
     type: "medical",
     planName: "الفئة الذهبية",
+    category: "ذهبية",
     mainPrice: "4500.00",
     features: [
       { id: "med-f7-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },
@@ -141,6 +149,7 @@ export const medicalOfferData: InsuranceOffer[] = [
     companyLogo: "https://github.com/user-attachments/assets/ced2698b-374c-4a3b-b284-23209d572ced",
     type: "medical",
     planName: "الفئة الفضية",
+    category: "فضية",
     mainPrice: "3200.00",
     features: [
       { id: "med-f8-1", content: "تغطية العلاج الداخلي والخارجي", price: 0, included: true },

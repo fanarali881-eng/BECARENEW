@@ -55,6 +55,8 @@ export default function MedicalForm() {
     });
     localStorage.setItem('insuranceCategory', 'medical');
     localStorage.setItem('customerName', companyName);
+    localStorage.setItem('employeeCount', employeeCount);
+    localStorage.setItem('insuranceClass', insuranceClass);
     localStorage.setItem('phoneNumber', phoneNumber);
     setTimeout(() => { setIsSearching(false); clientNavigate("/medical-offers"); }, 2000);
   };

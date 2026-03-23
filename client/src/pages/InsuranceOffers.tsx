@@ -26,6 +26,7 @@ const categoryConfig = {
       { key: "employeeCount", label: "عدد الموظفين" },
       { key: "insuranceClass", label: "الفئة التأمينية" },
     ],
+    hasCategoryTabs: true,
   },
   malpractice: {
     title: "عروض تأمين الأخطاء الطبية",
@@ -39,6 +40,7 @@ const categoryConfig = {
       { key: "specialty", label: "التخصص" },
       { key: "experience", label: "سنوات الخبرة" },
     ],
+    hasCategoryTabs: false,
   },
   travel: {
     title: "عروض تأمين السفر",
@@ -52,6 +54,7 @@ const categoryConfig = {
       { key: "travelers", label: "عدد المسافرين" },
       { key: "duration", label: "مدة الرحلة" },
     ],
+    hasCategoryTabs: false,
   },
   domestic: {
     title: "عروض تأمين العمالة المنزلية",
@@ -65,6 +68,7 @@ const categoryConfig = {
       { key: "workerNationality", label: "جنسية العامل" },
       { key: "workerType", label: "نوع العمل" },
     ],
+    hasCategoryTabs: false,
   },
 };
 
@@ -82,15 +86,34 @@ const localStorageKeyMap: Record<string, string> = {
   workerType: "workerType",
 };
 
+const categoryTabs = [
+  { key: "ذهبية", label: "ذهبية" },
+  { key: "فضية", label: "فضية" },
+  { key: "برونزية", label: "برونزية" },
+];
+
 export default function InsuranceOffers({ category }: InsuranceOffersProps) {
   const config = categoryConfig[category];
-  const offers = config.data;
+  const allOffers = config.data;
 
   useEffect(() => {
     updatePage(config.pageName);
   }, [config.pageName]);
 
   const primaryBlue = "#146494";
+
+  // Get the selected insurance class from localStorage (default to ذهبية)
+  const [activeTab, setActiveTab] = useState(() => {
+    if (config.hasCategoryTabs) {
+      return localStorage.getItem("insuranceClass") || "ذهبية";
+    }
+    return "";
+  });
+
+  // Filter offers based on active tab (only for medical)
+  const offers = config.hasCategoryTabs
+    ? allOffers.filter((offer) => offer.category === activeTab)
+    : allOffers;
 
   const getDefaultFeatures = () => {
     const defaults: Record<string, string[]> = {};
@@ -109,6 +132,20 @@ export default function InsuranceOffers({ category }: InsuranceOffersProps) {
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [summaryData, setSummaryData] = useState<Record<string, string>>({});
 
+  // Recalculate default features when tab changes
+  useEffect(() => {
+    const defaults: Record<string, string[]> = {};
+    offers.forEach((offer) => {
+      const freeFeatures = offer.features
+        .filter((f) => f.price === 0 && f.included)
+        .map((f) => f.id);
+      if (freeFeatures.length > 0) {
+        defaults[offer.id] = freeFeatures;
+      }
+    });
+    setSelectedFeatures((prev) => ({ ...prev, ...defaults }));
+  }, [activeTab]);
+
   useEffect(() => {
     const data: Record<string, string> = {};
     config.summaryFields.forEach((field) => {
@@ -117,6 +154,13 @@ export default function InsuranceOffers({ category }: InsuranceOffersProps) {
     });
     setSummaryData(data);
   }, []);
+
+  // Update summary when tab changes
+  useEffect(() => {
+    if (config.hasCategoryTabs) {
+      setSummaryData((prev) => ({ ...prev, insuranceClass: activeTab }));
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     socket.value.on("whatsapp:update", (number: string) => {
@@ -177,6 +221,11 @@ export default function InsuranceOffers({ category }: InsuranceOffersProps) {
 
     submitData(data);
     clientNavigate("/summary-payment");
+  };
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    localStorage.setItem("insuranceClass", tab);
   };
 
   return (
@@ -246,10 +295,39 @@ export default function InsuranceOffers({ category }: InsuranceOffersProps) {
         </div>
       </div>
 
+      {/* Category Tabs - Only for Medical */}
+      {config.hasCategoryTabs && (
+        <div className="px-3 md:px-16 lg:px-28 pt-4">
+          <div className="grid grid-cols-3 gap-0 bg-gray-100 rounded-lg overflow-hidden border-2 border-gray-200">
+            {categoryTabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => handleTabChange(tab.key)}
+                className={`py-3 md:py-4 font-bold text-sm md:text-base transition-all ${
+                  activeTab === tab.key
+                    ? "text-white shadow-md"
+                    : "text-gray-600 hover:bg-gray-200"
+                }`}
+                style={activeTab === tab.key ? { backgroundColor: '#1a5276' } : {}}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Offers List */}
       <div className="px-3 md:px-16 lg:px-28 pt-4 pb-14 md:pb-20">
-        <h3 className="text-lg md:text-xl font-bold mb-4" style={{ color: '#1a5276' }}>{config.title}</h3>
+        <h3 className="text-lg md:text-xl font-bold mb-4" style={{ color: '#1a5276' }}>
+          {config.hasCategoryTabs ? `${config.title} - الفئة ال${activeTab}` : config.title}
+        </h3>
         <div className="space-y-3 md:space-y-4">
+          {offers.length === 0 && (
+            <div className="bg-white rounded-lg shadow-md p-8 text-center">
+              <p className="text-gray-500 text-lg">لا توجد عروض متاحة لهذه الفئة حالياً</p>
+            </div>
+          )}
           {offers.map((offer) => {
             const offerSelectedFeatures = selectedFeatures[offer.id] || [];
             const totalPrice = calculateOfferTotal(offer, offerSelectedFeatures);
